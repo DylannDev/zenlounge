@@ -29,9 +29,9 @@ const ProcessSection = () => {
 
   return (
     <section className="py-20">
-      <div className="flex flex-col md:px-8">
-        <h2 className="text-3xl sm:text-4xl font-medium text-center mb-16">
-          Comment ça fonctionne ?
+      <div className="flex flex-col gap-2 text-center">
+        <h2 className="text-3xl sm:text-4xl font-medium mb-16">
+          Laissez-vous guider, étape par étape.
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-16">
           {steps.map((step, index) => (
@@ -39,11 +39,13 @@ const ProcessSection = () => {
               key={index}
               className="flex flex-col items-center text-center space-y-4"
             >
-              <div className="p-6 bg-brown-light rounded-full text-[44px] text-rose-dark ring-brown-light ring-1 ring-offset-4 mb-4">
+              <div className="p-6 bg-brown-dark rounded-full text-[44px] text-rose-dark ring-brown-dark ring-1 ring-offset-4 mb-4">
                 {step.icon}
               </div>
               <h3 className="text-2xl font-medium">{step.title}</h3>
-              <p className="text-gray-700 text-base">{step.description}</p>
+              <p className="text-blue-light text-base font-medium">
+                {step.description}
+              </p>
             </div>
           ))}
         </div>

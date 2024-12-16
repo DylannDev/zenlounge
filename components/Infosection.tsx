@@ -22,19 +22,19 @@ const InfoSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-rose-light rounded-3xl">
-      <div className="container mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-16">
+    <section className="max-w-[1600px] px-4 lg:px-10 mx-auto -mb-[202px] relative w-full">
+      <div className="py-20 bg-rose-background border border-rose-dark rounded-3xl">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-16 px-4 md:px-8">
           {info.map((item, index) => (
             <div
               key={index}
               className="flex flex-col items-center text-center space-y-4"
             >
-              <div className="p-6 bg-brown-light rounded-full text-[44px] text-rose-dark ring-brown-light ring-1 ring-offset-4 mb-4">
+              <div className="p-6 bg-rose-dark rounded-full text-[44px] text-brown-dark ring-brown-dark ring-1 ring-offset-4 mb-4">
                 {item.icon}
               </div>
               <h3 className="text-2xl font-medium">{item.title}</h3>
-              <p className="text-gray-700 text-base whitespace-pre-line">
+              <p className="text-blue-light text-base whitespace-pre-line">
                 {item.description}
               </p>
             </div>

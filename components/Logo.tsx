@@ -2,17 +2,30 @@ import Image from "next/image";
 import Link from "next/link";
 
 type LogoProps = {
-  color?: "white" | "black";
+  color?: "white" | "black" | "rose"; // Couleurs supportées
+  size?: string;
 };
 
-const Logo = ({ color = "black" }: LogoProps) => {
+const Logo = ({ color = "black", size }: LogoProps) => {
+  let logoSrc = "/logo.svg";
+  switch (color) {
+    case "white":
+      logoSrc = "/logo_white.svg";
+      break;
+    case "rose":
+      logoSrc = "/logo_rose.svg";
+      break;
+    default:
+      logoSrc = "/logo.svg";
+  }
+
   return (
     <Link href={"/"}>
-      <div className="relative w-[200px]">
+      <div className={`relative ${size ? `w-[${size}px]` : "w-[200px]"}`}>
         <Image
-          src={color === "white" ? "/logo_white.svg" : "/logo.svg"}
-          alt="Logo Oshun"
-          width={200}
+          src={logoSrc}
+          alt={`Logo Zen Lounge - ${color}`}
+          width={300}
           height={40}
           className="object-cover"
         />

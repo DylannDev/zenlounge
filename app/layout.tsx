@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import InfoSection from "@/components/Infosection";
 
 export const metadata: Metadata = {
   title: "Zen Lounge | Massages, Soins & Séjours Détente",
@@ -19,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`antialiased`}>
         <div className="w-full flex flex-col min-h-screen">
-          <div className="flex flex-col mx-auto w-full grow max-w-[1600px] px-2 min-[900px]:px-8 lg:px-10">
+          <div className="flex flex-col mx-auto w-full grow max-w-[1600px] px-5 min-[900px]:px-8 lg:px-10">
             <Navbar />
             {children}
           </div>

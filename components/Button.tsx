@@ -3,7 +3,7 @@
 import Link from "next/link";
 import React, { ReactNode } from "react";
 
-type ColorOption = "white" | "black" | "rose" | "brown";
+type ColorOption = "white" | "rose" | "empty" | "brown";
 type WidthOption = "large" | "normal";
 
 type ButtonProps = {
@@ -21,20 +21,21 @@ const Button = ({
   children,
   icon,
   href,
-  color = "black",
+  color = "rose",
   width = "large",
   disabled = false,
   button = false,
   onClick,
 }: ButtonProps) => {
   const baseClasses =
-    "rounded-full px-8 py-4 font-bold text-center whitespace-nowrap text-base";
+    "rounded-full px-8 py-4 font-bold text-center whitespace-nowrap text-base transition-all duration-200 ease-in-out active:scale-95";
   const widthClass = width === "large" ? "w-full" : "w-fit";
   const colorClasses = {
-    white: "bg-white text-brown-dark hover:bg-gray-100 active:bg-gray-200",
-    black: "bg-black hover:bg-black/90 active:bg-black/70 text-white",
-    rose: "bg-rose-light text-brown hover:bg-rose active:bg-rose-dark",
-    brown: "bg-brown text-white hover:bg-brown-light active:bg-brown-dark",
+    white: "bg-white text-brown-dark hover:bg-rose-light",
+    rose: "bg-rose-dark text-brown-dark hover:bg-rose",
+    empty:
+      "bg-white border border-rose-dark text-brown-dark hover:bg-rose-light",
+    brown: "bg-brown text-white hover:bg-brown-light",
   };
 
   const classes = `${baseClasses} ${widthClass} ${colorClasses[color]} ${
