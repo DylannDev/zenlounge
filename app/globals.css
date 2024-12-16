@@ -51,7 +51,12 @@
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: "Satoshi", sans-serif;
+  @apply text-brown-background;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
 }
