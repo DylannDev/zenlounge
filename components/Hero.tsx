@@ -4,7 +4,7 @@ import Button from "./Button";
 const Hero = () => {
   return (
     <div className="">
-      <div className="relative w-full aspect-1/2 min-[500px]:aspect-2/3 sm:aspect-3/4 md:aspect-4/3 lg:aspect-video max-h-[calc(100dvh-140px)]">
+      <div className="relative w-full aspect-1/2 min-[500px]:aspect-2/3 sm:aspect-3/4 md:aspect-4/3 lg:aspect-video max-h-[calc(100dvh-120px)] sm:max-h-[calc(100dvh-140px)] overflow-hidden">
         <Image
           src={"/massage-1.jpg"}
           alt="massage photo"
@@ -15,7 +15,7 @@ const Hero = () => {
           priority
         />
 
-        <div className="relative w-full h-full grid place-content-center">
+        <div className="relative w-full h-full">
           <div className="absolute bottom-0 flex flex-col justify-start gap-4 p-6 md:p-12 w-full lg:w-2/3 xl:w-1/2 text-brown-dark">
             <h1 className="font-bold text-4xl md:text-5xl">
               Offrez-vous un moment de détente
