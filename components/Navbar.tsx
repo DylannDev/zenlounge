@@ -3,7 +3,7 @@ import Navlinks from "./Navlinks";
 
 const Navbar = () => {
   return (
-    <div className="h-[100px] flex items-center justify-between lg:px-10">
+    <div className="h-[60px] lg:h-[100px] flex items-center justify-between lg:px-10">
       <Logo />
       <Navlinks />
     </div>
