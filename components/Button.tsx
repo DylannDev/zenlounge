@@ -28,11 +28,11 @@ const Button = ({
   onClick,
 }: ButtonProps) => {
   const baseClasses =
-    "rounded-full px-8 py-4 font-bold text-center whitespace-nowrap text-base transition-all duration-200 ease-in-out active:scale-95";
+    "rounded-full px-8 py-4 font-bold text-center text-base transition-all duration-200 ease-in-out active:scale-95";
   const widthClass = width === "large" ? "w-full" : "w-fit";
   const colorClasses = {
     white: "bg-white text-brown-dark hover:bg-rose-light",
-    rose: "bg-rose-dark text-brown-dark hover:bg-rose",
+    rose: "bg-rose-background border border-rose-dark text-brown-dark hover:bg-rose-light",
     empty:
       "bg-white border border-rose-dark text-brown-dark hover:bg-rose-light",
     brown: "bg-brown text-white hover:bg-brown-light",

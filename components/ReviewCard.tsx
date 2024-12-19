@@ -33,7 +33,7 @@ export const ReviewCard = ({
       )}
     >
       <div className="flex flex-row items-center gap-4">
-        <div className="rounded-full bg-[#ff834e] ring-1 ring-[#ff834e] ring-offset-4 flex items-center justify-center w-14 h-14">
+        <div className="rounded-full bg-orange ring-1 ring-orange ring-offset-4 flex items-center justify-center w-14 h-14">
           <PiUser className="text-3xl text-rose-background" />
           {/* <img className="w-7" src="/quote.png" alt="quote illustration" /> */}
           {/* <span className="font-bold text-lg text-brown-dark">
@@ -50,9 +50,9 @@ export const ReviewCard = ({
       <div className="flex items-center text-lg gap-1">
         {[...Array(MAX_STARS)].map((_, index) =>
           index < stars ? (
-            <PiStarFill key={index} className="text-[#ff834e]" />
+            <PiStarFill key={index} className="text-orange" />
           ) : (
-            <PiStarDuotone key={index} className="text-[#ff834e]" />
+            <PiStarDuotone key={index} className="text-orange" />
           )
         )}
       </div>

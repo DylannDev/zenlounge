@@ -9,7 +9,7 @@ import SectionHeader from "./SectionHeader";
 
 const Faq = () => {
   return (
-    <div className="flex flex-col py-20 w-full">
+    <div className="flex flex-col py-10 md:py-20 w-full">
       <SectionHeader
         title="FAQ"
         subtitle={["Des réponses à vos questions", "les plus fréquentes"]}

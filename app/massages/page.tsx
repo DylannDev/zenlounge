@@ -1,10 +1,11 @@
 import SectionHeader from "@/components/SectionHeader";
-import ServiceCard from "@/components/ServiceCard";
+import ServicesList from "@/components/ServicesList";
+import BackgroundIllustration from "@/components/ui/BackgroundIllustration";
 import { massageServices } from "@/data";
 
 const Massages = () => {
   return (
-    <div className="max-w-[1200px] mx-auto flex flex-col pt-10 pb-40">
+    <section className="relative max-w-[1200px] mx-auto flex flex-col pt-10 pb-40">
       <SectionHeader
         title="Découvrez nos massages"
         subtitle={[
@@ -12,20 +13,14 @@ const Massages = () => {
         ]}
         bigTitle
       />
-      <ul className="grid grid-cols-1 xl:grid-cols-2 gap-6 w-full mt-20">
-        {massageServices.map((service, index) => (
-          <li key={index}>
-            <ServiceCard
-              imageUrl={service.imageUrl}
-              name={service.name}
-              description={service.description}
-              duration={service.duration}
-              price={service.price}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
+      <ServicesList services={massageServices} />
+      <BackgroundIllustration
+        src="/leaf-illustration-1.svg"
+        position="top-[50px] -right-12"
+        opacity="opacity-40"
+        maxWidth="max-w-[150px] md:max-w-[200px] lg:max-w-[250px]"
+      />
+    </section>
   );
 };
 

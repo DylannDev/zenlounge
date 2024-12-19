@@ -3,7 +3,7 @@ import Button from "./Button";
 
 const Hero = () => {
   return (
-    <div className="">
+    <div className="pb-10">
       <div className="relative w-full aspect-1/2 min-[500px]:aspect-2/3 sm:aspect-3/4 md:aspect-4/3 lg:aspect-video max-h-[calc(100dvh-70px)] sm:max-h-[calc(100dvh-120px)] overflow-hidden">
         <Image
           src={"/massage-1.jpg"}

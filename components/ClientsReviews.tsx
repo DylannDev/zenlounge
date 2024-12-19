@@ -73,8 +73,8 @@ const ClientsReviews = () => {
   ];
 
   return (
-    <div
-      className="rounded-3xl border border-rose-dark bg-rose-background py-10 sm:px-5 my-10"
+    <section
+      className="relative rounded-3xl border border-rose-dark bg-rose-background py-10 sm:px-5 my-10"
       id="testimonials"
     >
       <div className="px-5 sm:px-0">
@@ -120,7 +120,7 @@ const ClientsReviews = () => {
           Laisser un commentaire
         </Button>
       </div>
-    </div>
+    </section>
   );
 };
 

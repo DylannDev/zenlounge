@@ -15,13 +15,15 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
 }) => {
   return (
     <div
-      className={`mb-8 flex flex-col ${className} ${
+      className={`mb-1 flex flex-col ${className} ${
         bigTitle ? "gap-8" : "gap-2"
       }`}
     >
       <h2
         className={`font-bold ${
-          bigTitle ? "text-4xl md:text-6xl" : "text-lg text-brown-dark"
+          bigTitle
+            ? "text-4xl md:text-5xl"
+            : "text-base text-brown-dark tracking-wider uppercase"
         }`}
       >
         {title}

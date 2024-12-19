@@ -1,15 +1,27 @@
 import {
+  PiBathtub,
+  PiBathtubLight,
   PiBed,
+  PiBedLight,
   PiCalendarCheck,
   PiCheckSquare,
   PiCurrencyEur,
   PiDrop,
   PiFlowerLotus,
   PiGift,
+  PiHamburger,
+  PiHamburgerLight,
+  PiRulerLight,
   PiSealPercent,
+  PiShower,
   PiSparkle,
+  PiSwimmingPool,
+  PiSwimmingPoolLight,
   PiTimer,
+  PiUserCheckLight,
   PiUsers,
+  PiWifiHigh,
+  PiWifiHighLight,
 } from "react-icons/pi";
 import {
   RiFacebookCircleFill,
@@ -218,4 +230,200 @@ export const massageServices = [
     duration: "1h",
     price: "90€",
   },
+];
+
+export const soinsServices = {
+  women: [
+    {
+      imageUrl: "/massage-cou.jpg",
+      name: "Évasion Féminine",
+      description:
+        "Jacuzzi, massage relaxant et gommage pour un moment de douceur.",
+      duration: "60 min",
+      price: "120€",
+    },
+    {
+      imageUrl: "/massage-cou.jpg",
+      name: "Rituel Visage Féminin",
+      description:
+        "Jacuzzi, massage relaxant et soin du visage pour une beauté sublimée.",
+      duration: "90 min",
+      price: "170€",
+    },
+  ],
+  men: [
+    {
+      imageUrl: "/massage-cou.jpg",
+      name: "Détente Masculine",
+      description:
+        "Jacuzzi, massage énergisant et gommage pour une relaxation complète.",
+      duration: "90 min",
+      price: "150€",
+    },
+    {
+      imageUrl: "/massage-cou.jpg",
+      name: "Rituel Pieds Masculin",
+      description:
+        "Jacuzzi, massage relaxant et soin des pieds pour un bien-être absolu.",
+      duration: "90 min",
+      price: "170€",
+    },
+    {
+      imageUrl: "/massage-cou.jpg",
+      name: "Épilation Sourcils",
+      description: "Soin rapide et efficace pour l'épilation des sourcils.",
+      duration: "15 min",
+      price: "35€",
+    },
+    {
+      imageUrl: "/massage-cou.jpg",
+      name: "Khobido Homme",
+      description:
+        "Massage facial japonais pour revitaliser et lisser les traits.",
+      duration: "30 min",
+      price: "60€",
+    },
+  ],
+};
+
+export const forfaitSeances = {
+  fiveSessions: [
+    {
+      imageUrl: "/massage-cou.jpg",
+      name: "Massage Pierres Chaudes",
+      description:
+        "Un massage relaxant avec des lissages et pressions ciblées pour améliorer la circulation sanguine et apaiser les tensions.",
+      duration: "45 min",
+      price: "450€",
+    },
+    {
+      imageUrl: "/massage-cou.jpg",
+      name: "Circulation Énergétique",
+      description:
+        "Un massage revitalisant des bras et jambes pour stimuler la circulation énergétique. Idéal pour retrouver légèreté et énergie.",
+      duration: "30 min",
+      price: "190€",
+    },
+    {
+      imageUrl: "/massage-cou.jpg",
+      name: "Massage Intuitif Therapy",
+      description:
+        "Un massage ciblant les cervicales, guidé par notre spécialiste, pour une relaxation profonde et un soulagement des tensions.",
+      duration: "1h",
+      price: "450€",
+    },
+    {
+      imageUrl: "/massage-cou.jpg",
+      name: "Foot Massage",
+      description:
+        "Un massage des pieds apprécié pour relancer la circulation sanguine et éliminer les toxines du corps. Une véritable cure de bien-être.",
+      duration: "30 min",
+      price: "180€",
+    },
+    {
+      imageUrl: "/massage-cou.jpg",
+      name: "Massage Relaxant",
+      description:
+        "Profitez d’un massage aux huiles essentielles parfumées naturelles, reconnues pour leurs vertus apaisantes.",
+      duration: "60 min",
+      price: "375€",
+    },
+    {
+      imageUrl: "/massage-cou.jpg",
+      name: "Massage Dos Cervicales",
+      description:
+        "Le massage Tui Na, idéal pour soulager les douleurs de dos et détendre les tensions musculaires.",
+      duration: "30 min",
+      price: "220€",
+    },
+  ],
+  tenSessions: [
+    {
+      imageUrl: "/massage-cou.jpg",
+      name: "Massage Relaxant",
+      description:
+        "10 séances de massage relaxant avec baume et huiles essentielles pour un bien-être prolongé.",
+      duration: "60 min",
+      price: "700€",
+    },
+    {
+      imageUrl: "/massage-cou.jpg",
+      name: "Cure Dos Cervicales",
+      description:
+        "Un massage ciblé combinant pressions shiatsu et techniques Tui Na, parfait pour soulager les douleurs dorsales.",
+      duration: "30 min",
+      price: "420€",
+    },
+    {
+      imageUrl: "/massage-cou.jpg",
+      name: "Neck and Shoulders Soft Foot",
+      description:
+        "Un massage combiné des cervicales, dos, et jambes pour une relaxation complète et une meilleure circulation.",
+      duration: "30 min",
+      price: "450€",
+    },
+    {
+      imageUrl: "/massage-cou.jpg",
+      name: "Massage Jambes Lourdes",
+      description:
+        "Un massage drainant spécialement conçu pour soulager les jambes lourdes et améliorer la circulation.",
+      duration: "30 min",
+      price: "390€",
+    },
+  ],
+};
+
+export const carouselImages = [
+  { img: "/lounge-1.jpg", alt: "zen lounge appartement" },
+  { img: "/lounge-2.jpg", alt: "zen lounge appartement" },
+  { img: "/lounge-3.jpg", alt: "zen lounge appartement" },
+  { img: "/lounge-4.jpg", alt: "zen lounge appartement" },
+  { img: "/piscine.jpeg", alt: "zen lounge piscine" },
+];
+
+export const roomData = {
+  description: [
+    "Découvrez notre Serenity Suite, un appartement cosy conçue pour allier confort, élégance et détente. Nichée dans un cadre apaisant, cette offre une atmosphère chaleureuse et intimiste, idéale pour vous ressourcer. Profitez d'une décoration soignée, d'un lit d'un confort exceptionnel, et d'un accès direct à des équipements modernes.",
+    "Pour votre bien-être, nous mettons à votre disposition un jacuzzi privé et une piscine extérieure pour des moments de relaxation inoubliables. Vous avez également la possibilité de réserver un délicieux brunch ou repas préparé avec des ingrédients frais et locaux. Que vous veniez seul ou accompagné, la Serenity Suite est l'endroit parfait pour vivre une expérience unique.",
+  ],
+  amenities: [
+    {
+      icon: <PiWifiHighLight />,
+      title: "Wi-Fi Haut Débit",
+      description:
+        "Restez connecté avec notre connexion Wi-Fi gratuite et rapide, disponible dans toute la suite.",
+    },
+    {
+      icon: <PiBathtubLight />,
+      title: "Jacuzzi Privé",
+      description:
+        "Un jacuzzi chauffé pour des moments de relaxation en toute intimité.",
+    },
+    {
+      icon: <PiSwimmingPoolLight />,
+      title: "Piscine",
+      description:
+        "Accédez à une piscine extérieure pour un moment de fraîcheur et de détente.",
+    },
+    {
+      icon: <PiHamburgerLight />,
+      title: "Brunch ou Repas",
+      description:
+        "Savourez un délicieux brunch ou un repas complet préparé avec des ingrédients frais.",
+    },
+  ],
+  houseRules: [
+    "Le check-in s'effectue à partir de 12h.",
+    "Le départ doit être effectué avant 12h le lendemain.",
+    "Les animaux de compagnie ne sont pas autorisés.",
+    "Il est interdit de fumer à l'intérieur de la suite.",
+    "Respectez la tranquillité des lieux après 22h.",
+  ],
+};
+
+export const roomDetails = [
+  { icon: <PiRulerLight />, value: "50m²" },
+  { icon: <PiUserCheckLight />, value: "2 Personnes" },
+  { icon: <PiBedLight />, value: "1 Lit + 1 Canapé" },
+  { icon: <PiShower />, value: "1 Salle de Bain" },
 ];

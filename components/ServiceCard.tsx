@@ -9,6 +9,7 @@ interface ServiceCardProps {
   description: string;
   duration: string;
   price: string;
+  buttonText?: string; // Texte du bouton
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({
@@ -17,12 +18,13 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   description,
   duration,
   price,
+  buttonText = "Réserver mon moment", // Valeur par défaut
 }) => {
   return (
-    <div className="bg-white rounded-3xl border border-rose-dark">
-      <div className="flex flex-col p-5 gap-5">
-        {/* Image Section */}
-        <div className="flex flex-col md:flex-row">
+    <div className="bg-white rounded-3xl border border-rose-dark shadow-md shadow-rose-light h-full">
+      <div className="flex flex-col justify-between h-full p-5 gap-5">
+        <div className="flex flex-col h-full md:flex-row">
+          {/* Image Section */}
           <div className="relative w-full h-full aspect-square max-h-[300px]">
             <Image
               fill
@@ -33,19 +35,19 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           </div>
 
           {/* Content Section */}
-          <div className="w-full py-5 md:p-5 flex flex-col justify-between text-sm font-medium">
+          <div className="w-full h-full py-5 md:px-5 md:py-2 flex flex-col grow justify-between text-sm font-medium">
             {/* Title and Description */}
             <div>
-              <h3 className="text-2xl font-bold text-brown-background">
+              <h3 className="text-2xl font-bold text-brown-background mb-4">
                 {name}
               </h3>
-              <p className="text-base text-blue-light mt-2">{description}</p>
+              <p className="text-base text-blue-light">{description}</p>
             </div>
 
             {/* Details */}
-            <div className="flex flex-col gap-4 mt-4 text-blue-light">
+            <div className="flex flex-col md:flex-row gap-2 mt-4 text-blue-light">
               {/* Duration */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
                 <span className="text-xl text-brown-dark">
                   <PiTimer />
                 </span>
@@ -53,7 +55,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
               </div>
 
               {/* Price */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
                 <span className="text-xl text-brown-dark">
                   <PiCurrencyEur />
                 </span>
@@ -63,7 +65,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           </div>
         </div>
         {/* CTA Button */}
-        <Button color="empty">Réserver mon moment</Button>
+        <Button color="rose">{buttonText}</Button>
       </div>
     </div>
   );

@@ -50,9 +50,9 @@ const Category: React.FC<CategoryProps> = ({
           {keyInfo.map((info, index) => (
             <div
               key={index}
-              className="flex items-center gap-2 border-b border-gray-300 py-8"
+              className="flex items-center gap-2 border-b border-gray-300 py-6 md:py-8"
             >
-              <span className="text-xl text-brown-dark">{info.icon}</span>
+              <span className="text-2xl text-brown-dark">{info.icon}</span>
               <p className="text-blue-light font-medium">{info.text}</p>
             </div>
           ))}

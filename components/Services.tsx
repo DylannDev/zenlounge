@@ -4,7 +4,7 @@ import Category from "./Category";
 
 const Services = () => {
   return (
-    <div className="flex flex-col gap-10 py-20">
+    <div className="flex flex-col gap-5 md:gap-10 py-10 md:py-20">
       <SectionHeader
         title="Nos Prestations"
         subtitle={["Explorez notre gamme de soins et massages"]}
