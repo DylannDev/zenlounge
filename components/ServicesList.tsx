@@ -8,8 +8,9 @@ interface ServicesListProps {
     description: string;
     duration: string;
     price: string;
+    slug: string;
   }[];
-  buttonText?: string; // Prop pour le texte des boutons
+  buttonText?: string;
 }
 
 const ServicesList: React.FC<ServicesListProps> = ({
@@ -26,7 +27,8 @@ const ServicesList: React.FC<ServicesListProps> = ({
             description={service.description}
             duration={service.duration}
             price={service.price}
-            buttonText={buttonText} // Passe le texte à ServiceCard
+            buttonText={buttonText}
+            slug={service.slug}
           />
         </li>
       ))}

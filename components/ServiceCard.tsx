@@ -10,6 +10,7 @@ interface ServiceCardProps {
   duration: string;
   price: string;
   buttonText?: string; // Texte du bouton
+  slug: string;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({
@@ -19,9 +20,10 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   duration,
   price,
   buttonText = "Réserver mon moment", // Valeur par défaut
+  slug,
 }) => {
   return (
-    <div className="bg-white rounded-3xl border border-rose-dark shadow-md shadow-rose-light h-full">
+    <div className="bg-white rounded-3xl border border-rose-dark h-full">
       <div className="flex flex-col justify-between h-full p-5 gap-5">
         <div className="flex flex-col h-full md:flex-row">
           {/* Image Section */}
@@ -65,7 +67,9 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           </div>
         </div>
         {/* CTA Button */}
-        <Button color="rose">{buttonText}</Button>
+        <Button href={`/reservations/${slug}`} color="rose">
+          {buttonText}
+        </Button>
       </div>
     </div>
   );

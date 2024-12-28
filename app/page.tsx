@@ -18,31 +18,33 @@ export default function Home() {
           <Faq />
         </div>
 
-        <BackgroundIllustration
-          src="/leaf-illustration-2.svg"
-          position="top-[calc(100dvh+2350px)] -left-[100px]"
-          opacity="opacity-30"
-          maxWidth="max-w-[200px] sm:max-w-[250px]"
-        />
+        <div className="overflow-hidden">
+          <BackgroundIllustration
+            src="/leaf-illustration-2.svg"
+            position="top-[calc(100dvh+2350px)] -left-[100px]"
+            opacity="opacity-30"
+            maxWidth="max-w-[200px] sm:max-w-[250px]"
+          />
 
-        <BackgroundIllustration
-          src="/leaf-illustration-6.svg"
-          position="top-[calc(100dvh+3080px)] -right-[50px]"
-          opacity="opacity-30"
-          maxWidth="max-w-[200px] sm:max-w-[250px]"
-        />
-        <BackgroundIllustration
-          src="/leaf-illustration-4.svg"
-          position="top-[calc(100dvh+4500px)] left-[50px] rotate-180"
-          opacity="opacity-30"
-          maxWidth="max-w-[200px] sm:max-w-[250px]"
-        />
-        <BackgroundIllustration
-          src="/leaf-illustration-1.svg"
-          position="top-[calc(100dvh+5200px)] -right-[100px]"
-          opacity="opacity-30"
-          maxWidth="max-w-[200px] sm:max-w-[250px]"
-        />
+          <BackgroundIllustration
+            src="/leaf-illustration-6.svg"
+            position="top-[calc(100dvh+3080px)] -right-[50px]"
+            opacity="opacity-30"
+            maxWidth="max-w-[200px] sm:max-w-[250px]"
+          />
+          <BackgroundIllustration
+            src="/leaf-illustration-4.svg"
+            position="top-[calc(100dvh+4500px)] left-[50px] rotate-180"
+            opacity="opacity-30"
+            maxWidth="max-w-[200px] sm:max-w-[250px]"
+          />
+          <BackgroundIllustration
+            src="/leaf-illustration-1.svg"
+            position="top-[calc(100dvh+5200px)] -right-[100px]"
+            opacity="opacity-30"
+            maxWidth="max-w-[200px] sm:max-w-[250px]"
+          />
+        </div>
       </div>
     </>
   );

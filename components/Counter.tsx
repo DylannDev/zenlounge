@@ -23,14 +23,17 @@ const Counter: React.FC<CounterProps> = ({
   return (
     <div className="flex items-center gap-2 border border-rose-dark rounded-lg max-w-[112px]">
       <button
-        className="p-2 h-full cursor-pointer"
+        className="p-2 cursor-pointer rounded-lg active:bg-orange"
         onClick={onDecrement}
         disabled={value <= minValue} // Désactiver si la valeur atteint minValue
       >
         <PiMinus />
       </button>
-      <span className="p-2 text-sm min-w-[30px]">{value}</span>
-      <button className="p-2 cursor-pointer" onClick={onIncrement}>
+      <span className="px-2 text-sm min-w-[30px]">{value}</span>
+      <button
+        className="p-2 cursor-pointer rounded-lg active:bg-orange"
+        onClick={onIncrement}
+      >
         <PiPlus />
       </button>
     </div>

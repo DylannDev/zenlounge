@@ -1,5 +1,4 @@
 import {
-  PiBathtub,
   PiBathtubLight,
   PiBed,
   PiBedLight,
@@ -9,18 +8,15 @@ import {
   PiDrop,
   PiFlowerLotus,
   PiGift,
-  PiHamburger,
   PiHamburgerLight,
   PiRulerLight,
   PiSealPercent,
   PiShower,
   PiSparkle,
-  PiSwimmingPool,
   PiSwimmingPoolLight,
   PiTimer,
   PiUserCheckLight,
   PiUsers,
-  PiWifiHigh,
   PiWifiHighLight,
 } from "react-icons/pi";
 import {
@@ -176,6 +172,7 @@ export const massageServices = [
     description: "Un massage personnalisé pour répondre à vos besoins uniques.",
     duration: "60 min",
     price: "75€",
+    slug: "massage-intuitif",
   },
   {
     imageUrl: "/massage-head.jpg",
@@ -183,6 +180,7 @@ export const massageServices = [
     description: "Détendez vos épaules et votre tête avec ce massage ciblé.",
     duration: "30 min",
     price: "40€",
+    slug: "head-shoulders",
   },
   {
     imageUrl: "/foot-massage.jpg",
@@ -191,6 +189,7 @@ export const massageServices = [
       "Soulagez la fatigue et détendez vos pieds avec ce soin apaisant.",
     duration: "30 min",
     price: "35€",
+    slug: "foot-massage",
   },
   {
     imageUrl: "/massage-1.jpg",
@@ -198,6 +197,7 @@ export const massageServices = [
     description: "Un massage doux et apaisant pour une relaxation totale.",
     duration: "1h",
     price: "65€",
+    slug: "massage-relax",
   },
   {
     imageUrl: "/massage-pierre-1.jpg",
@@ -205,6 +205,7 @@ export const massageServices = [
     description: "Un massage aux pierres chaudes pour détendre vos muscles.",
     duration: "45 min",
     price: "70€",
+    slug: "pierres-chaudes-45mn",
   },
   {
     imageUrl: "/massage-pierre-2.png",
@@ -213,6 +214,7 @@ export const massageServices = [
       "Une expérience prolongée de relaxation avec les pierres chaudes.",
     duration: "1h30",
     price: "120€",
+    slug: "pierres-chaudes-1h30",
   },
   {
     imageUrl: "/massage-sel.jpg",
@@ -221,6 +223,7 @@ export const massageServices = [
       "Un massage revitalisant pour redonner de l'énergie à votre corps.",
     duration: "1h",
     price: "80€",
+    slug: "massage-escale-energy",
   },
   {
     imageUrl: "/massage-dos.jpg",
@@ -229,6 +232,7 @@ export const massageServices = [
       "Profitez d'un massage relaxant chez vous, dans le confort de votre maison.",
     duration: "1h",
     price: "90€",
+    slug: "massage-relaxant-domicile",
   },
 ];
 
@@ -241,6 +245,7 @@ export const soinsServices = {
         "Jacuzzi, massage relaxant et gommage pour un moment de douceur.",
       duration: "60 min",
       price: "120€",
+      slug: "evasion-feminine",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -249,6 +254,7 @@ export const soinsServices = {
         "Jacuzzi, massage relaxant et soin du visage pour une beauté sublimée.",
       duration: "90 min",
       price: "170€",
+      slug: "rituel-visage-feminin",
     },
   ],
   men: [
@@ -259,6 +265,7 @@ export const soinsServices = {
         "Jacuzzi, massage énergisant et gommage pour une relaxation complète.",
       duration: "90 min",
       price: "150€",
+      slug: "detente-masculine",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -267,6 +274,7 @@ export const soinsServices = {
         "Jacuzzi, massage relaxant et soin des pieds pour un bien-être absolu.",
       duration: "90 min",
       price: "170€",
+      slug: "rituel-pieds-masculin",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -274,6 +282,7 @@ export const soinsServices = {
       description: "Soin rapide et efficace pour l'épilation des sourcils.",
       duration: "15 min",
       price: "35€",
+      slug: "epilation-sourcils",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -282,6 +291,7 @@ export const soinsServices = {
         "Massage facial japonais pour revitaliser et lisser les traits.",
       duration: "30 min",
       price: "60€",
+      slug: "khobido-homme",
     },
   ],
 };
@@ -295,6 +305,7 @@ export const forfaitSeances = {
         "Un massage relaxant avec des lissages et pressions ciblées pour améliorer la circulation sanguine et apaiser les tensions.",
       duration: "45 min",
       price: "450€",
+      slug: "forfait-massage-pierres-chaudes",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -303,6 +314,7 @@ export const forfaitSeances = {
         "Un massage revitalisant des bras et jambes pour stimuler la circulation énergétique. Idéal pour retrouver légèreté et énergie.",
       duration: "30 min",
       price: "190€",
+      slug: "forfait-circulation-energetique",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -311,6 +323,7 @@ export const forfaitSeances = {
         "Un massage ciblant les cervicales, guidé par notre spécialiste, pour une relaxation profonde et un soulagement des tensions.",
       duration: "1h",
       price: "450€",
+      slug: "forfait-massage-intuitif-therapy",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -319,6 +332,7 @@ export const forfaitSeances = {
         "Un massage des pieds apprécié pour relancer la circulation sanguine et éliminer les toxines du corps. Une véritable cure de bien-être.",
       duration: "30 min",
       price: "180€",
+      slug: "forfait-foot-massage",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -327,6 +341,7 @@ export const forfaitSeances = {
         "Profitez d’un massage aux huiles essentielles parfumées naturelles, reconnues pour leurs vertus apaisantes.",
       duration: "60 min",
       price: "375€",
+      slug: "forfait-massage-relaxant",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -335,6 +350,7 @@ export const forfaitSeances = {
         "Le massage Tui Na, idéal pour soulager les douleurs de dos et détendre les tensions musculaires.",
       duration: "30 min",
       price: "220€",
+      slug: "forfait-massage-dos-cervicales",
     },
   ],
   tenSessions: [
@@ -345,6 +361,7 @@ export const forfaitSeances = {
         "10 séances de massage relaxant avec baume et huiles essentielles pour un bien-être prolongé.",
       duration: "60 min",
       price: "700€",
+      slug: "forfait-10-massage-relaxant",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -353,6 +370,7 @@ export const forfaitSeances = {
         "Un massage ciblé combinant pressions shiatsu et techniques Tui Na, parfait pour soulager les douleurs dorsales.",
       duration: "30 min",
       price: "420€",
+      slug: "forfait-10-cure-dos-cervicales",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -361,6 +379,7 @@ export const forfaitSeances = {
         "Un massage combiné des cervicales, dos, et jambes pour une relaxation complète et une meilleure circulation.",
       duration: "30 min",
       price: "450€",
+      slug: "forfait-10-neck-shoulders-soft-foot",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -369,6 +388,7 @@ export const forfaitSeances = {
         "Un massage drainant spécialement conçu pour soulager les jambes lourdes et améliorer la circulation.",
       duration: "30 min",
       price: "390€",
+      slug: "forfait-10-massage-jambes-lourdes",
     },
   ],
 };
