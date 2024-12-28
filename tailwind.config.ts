@@ -15,7 +15,7 @@ export default {
           light: "#944524",
           DEFAULT: "#73361c",
           dark: "#522714",
-          background: "#171310",
+          background: "#241E19",
         },
         rose: {
           background: "#FEF4EC",

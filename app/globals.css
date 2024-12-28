@@ -58,6 +58,9 @@
 
 body {
   font-family: "Satoshi", sans-serif;
+}
+
+body {
   @apply text-brown-background;
 }
 
