@@ -24,13 +24,15 @@ const BookingPage = () => {
 
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [selectedTime, setSelectedTime] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [step, setStep] = useState(1);
 
   const handleConfirm = () => {
     if (!selectedDate || !selectedTime) {
-      alert("Veuillez sélectionner une date et une heure.");
+      setErrorMessage("Veuillez sélectionner une date et une heure.");
       return;
     }
+    setErrorMessage("");
     setStep(2);
   };
 
@@ -64,9 +66,21 @@ const BookingPage = () => {
               />
             </div>
 
-            <Button button onClick={handleConfirm}>
-              Confirmer
-            </Button>
+            <div className="flex flex-col gap-2">
+              {/* Message d'erreur */}
+              {errorMessage && (
+                <p
+                  className="text-red-500 text-sm mt-2 text-center"
+                  role="alert"
+                >
+                  {errorMessage}
+                </p>
+              )}
+
+              <Button button onClick={handleConfirm}>
+                Confirmer
+              </Button>
+            </div>
           </div>
         )}
 
@@ -78,6 +92,8 @@ const BookingPage = () => {
               selectedDate={selectedDate}
               selectedTime={selectedTime}
               setStep={setStep}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
             />
           </div>
         )}

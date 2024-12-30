@@ -13,6 +13,8 @@ interface BookingFormProps {
   selectedDate: Date | undefined;
   selectedTime: string;
   setStep: (step: number) => void;
+  errorMessage: string;
+  setErrorMessage: (message: string) => void;
 }
 
 const BookingForm: React.FC<BookingFormProps> = ({
@@ -20,6 +22,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
   selectedDate,
   selectedTime,
   setStep,
+  errorMessage,
+  setErrorMessage,
 }) => {
   const [formData, setFormData] = useState<
     Record<"name" | "email" | "phone", string>
@@ -28,7 +32,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
     email: "",
     phone: "",
   });
-  const [errorMessage, setErrorMessage] = useState<string>(""); // Ajout de l'état pour l'erreur
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -57,11 +60,14 @@ const BookingForm: React.FC<BookingFormProps> = ({
   };
 
   return (
-    <>
-      <div className="">
-        <h2 className="text-xl font-bold mb-4">Date et heure sélectionnée</h2>
+    <div className="flex flex-col justify-between h-full">
+      <div className="mb-8">
+        <h2 className="text-xl font-bold mb-4">Date et heure sélectionnées</h2>
         <button
-          onClick={() => setStep(1)}
+          onClick={() => {
+            setStep(1);
+            setErrorMessage("");
+          }}
           className="flex items-center gap-2 w-fit px-3 py-2 text-sm rounded-md border border-blue-light/20 bg-white text-blue-light focus:outline-none"
         >
           <PiCalendarCheck className="text-lg text-orange" />
@@ -118,18 +124,22 @@ const BookingForm: React.FC<BookingFormProps> = ({
           </div>
         ))}
 
-        {/* Message d'erreur */}
-        {errorMessage && (
-          <p className="text-red-500 text-sm mt-2" role="alert">
-            {errorMessage}
-          </p>
-        )}
+        <div className="flex flex-col gap-2 mt-12">
+          {/* Message d'erreur */}
+          <div>
+            {errorMessage && (
+              <p className="text-red-500 text-sm text-center" role="alert">
+                {errorMessage}
+              </p>
+            )}
+          </div>
 
-        <Button button type="submit">
-          Réserver
-        </Button>
+          <Button button type="submit">
+            Réserver
+          </Button>
+        </div>
       </form>
-    </>
+    </div>
   );
 };
 
