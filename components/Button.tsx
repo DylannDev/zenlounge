@@ -15,6 +15,7 @@ type ButtonProps = {
   disabled?: boolean;
   button?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  type?: "submit" | undefined;
 };
 
 const Button = ({
@@ -26,6 +27,7 @@ const Button = ({
   disabled = false,
   button = false,
   onClick,
+  type,
 }: ButtonProps) => {
   const baseClasses =
     "rounded-full px-8 py-4 font-bold text-center text-base transition-all duration-200 ease-in-out active:scale-95";
@@ -50,7 +52,12 @@ const Button = ({
   );
 
   return button ? (
-    <button className={classes} disabled={disabled} onClick={onClick}>
+    <button
+      className={classes}
+      disabled={disabled}
+      onClick={onClick}
+      type={type}
+    >
       {content}
     </button>
   ) : (
