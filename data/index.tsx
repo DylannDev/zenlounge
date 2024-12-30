@@ -93,7 +93,7 @@ export const categories = [
     title: "Séjours Détente",
     description:
       "Plongez dans un univers de sérénité avec nos séjours détente. Profitez d'une combinaison parfaite entre soins relaxants et moments d’évasion pour un bien-être prolongé.",
-    imageUrl: "/jacuzzi.jpg",
+    imageUrl: "/lounge-1.jpg",
     keyInfo: [
       { icon: <PiCurrencyEur />, text: "De 120€ à 350€" },
       {
