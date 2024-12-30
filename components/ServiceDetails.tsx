@@ -14,7 +14,7 @@ interface ServiceDetailsProps {
 
 const ServiceDetails: React.FC<ServiceDetailsProps> = ({ service }) => {
   return (
-    <div className="relative aspect-square w-full">
+    <div className="relative aspect-square w-full h-full">
       <Image
         fill
         src={service.imageUrl}
