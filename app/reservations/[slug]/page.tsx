@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { massageServices, soinsServices, forfaitSeances } from "@/data";
 import { useParams } from "next/navigation";
 import SectionHeader from "@/components/SectionHeader";
@@ -9,6 +9,7 @@ import BookingForm from "@/components/BookingForm";
 import ServiceDetails from "@/components/ServiceDetails";
 import TimeSelector from "@/components/TimeSelector";
 import DateSelector from "@/components/DateSelector";
+import { fetchBookings } from "@/actions/fetchBookings";
 
 const BookingPage = () => {
   const params = useParams();
@@ -22,10 +23,28 @@ const BookingPage = () => {
 
   const service = allServices.find((item) => item.slug === slug);
 
+  const [bookings, setBookings] = useState<any[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [step, setStep] = useState(1);
+
+  // Charger les réservations au montage
+  useEffect(() => {
+    const loadBookings = async () => {
+      try {
+        const fetchedBookings = await fetchBookings();
+        setBookings(fetchedBookings);
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des réservations :",
+          error
+        );
+      }
+    };
+
+    loadBookings();
+  }, []);
 
   const handleConfirm = () => {
     if (!selectedDate || !selectedTime) {
@@ -61,8 +80,11 @@ const BookingPage = () => {
                 onSelectDate={setSelectedDate}
               />
               <TimeSelector
+                selectedDate={selectedDate}
+                serviceDuration={service.duration}
                 selectedTime={selectedTime}
                 onSelectTime={setSelectedTime}
+                bookings={bookings}
               />
             </div>
 
