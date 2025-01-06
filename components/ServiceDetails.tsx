@@ -7,8 +7,8 @@ interface ServiceDetailsProps {
     imageUrl: string;
     name: string;
     description: string;
-    duration: string;
-    price: string;
+    duration: number;
+    price: number;
   };
 }
 
@@ -30,14 +30,14 @@ const ServiceDetails: React.FC<ServiceDetailsProps> = ({ service }) => {
               <span className="text-2xl text-rose-dark">
                 <PiTimer />
               </span>
-              <p>{service.duration}</p>
+              <p>{service.duration} min</p>
             </div>
             <span className="text-xl">|</span>
             <div className="flex items-center gap-1">
               <span className="text-2xl text-rose-dark">
                 <PiWallet />
               </span>
-              <p>{service.price}</p>
+              <p>{service.price}€</p>
             </div>
           </div>
         </div>
