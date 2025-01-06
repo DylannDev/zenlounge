@@ -7,8 +7,8 @@ interface ServiceCardProps {
   imageUrl: string;
   name: string;
   description: string;
-  duration: string;
-  price: string;
+  duration: number;
+  price: number;
   buttonText?: string; // Texte du bouton
   slug: string;
 }

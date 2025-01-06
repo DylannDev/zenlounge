@@ -6,8 +6,8 @@ interface ServicesListProps {
     imageUrl: string;
     name: string;
     description: string;
-    duration: string;
-    price: string;
+    duration: number;
+    price: number;
     slug: string;
   }[];
   buttonText?: string;
