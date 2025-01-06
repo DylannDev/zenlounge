@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { cn } from "@/lib/utils";
-import { capitalizeFirstLetter } from "@/utils";
+import { capitalizeFirstLetter, cn } from "@/lib/utils";
 import { PiStarDuotone, PiStarFill, PiUser } from "react-icons/pi";
 import React, { useState } from "react";
 
