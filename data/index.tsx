@@ -28,8 +28,8 @@ import {
 export const navbarLinks = [
   { href: "massages", label: "Massages" },
   { href: "soins", label: "Soins" },
-  { href: "sejours", label: "Séjours" },
   { href: "forfaits", label: "Forfaits" },
+  { href: "sejours", label: "Séjours" },
 ];
 
 export const socialLinks = [
@@ -170,16 +170,16 @@ export const massageServices = [
     imageUrl: "/massage-cou.jpg",
     name: "Massage Intuitif",
     description: "Un massage personnalisé pour répondre à vos besoins uniques.",
-    duration: "60 min",
-    price: "75€",
+    duration: 60,
+    price: 75,
     slug: "massage-intuitif",
   },
   {
     imageUrl: "/massage-head.jpg",
     name: "Head & Shoulders",
     description: "Détendez vos épaules et votre tête avec ce massage ciblé.",
-    duration: "30 min",
-    price: "40€",
+    duration: 30,
+    price: 40,
     slug: "head-shoulders",
   },
   {
@@ -187,24 +187,24 @@ export const massageServices = [
     name: "Foot Massage",
     description:
       "Soulagez la fatigue et détendez vos pieds avec ce soin apaisant.",
-    duration: "30 min",
-    price: "35€",
+    duration: 30,
+    price: 35,
     slug: "foot-massage",
   },
   {
     imageUrl: "/massage-1.jpg",
     name: "Massage Relax",
     description: "Un massage doux et apaisant pour une relaxation totale.",
-    duration: "1h",
-    price: "65€",
+    duration: 60,
+    price: 65,
     slug: "massage-relax",
   },
   {
     imageUrl: "/massage-pierre-1.jpg",
     name: "Pierres Chaudes 45mn",
     description: "Un massage aux pierres chaudes pour détendre vos muscles.",
-    duration: "45 min",
-    price: "70€",
+    duration: 45,
+    price: 70,
     slug: "pierres-chaudes-45mn",
   },
   {
@@ -212,8 +212,8 @@ export const massageServices = [
     name: "Pierres Chaudes 1h30",
     description:
       "Une expérience prolongée de relaxation avec les pierres chaudes.",
-    duration: "1h30",
-    price: "120€",
+    duration: 90,
+    price: 120,
     slug: "pierres-chaudes-1h30",
   },
   {
@@ -221,8 +221,8 @@ export const massageServices = [
     name: "Massage Escale Energy",
     description:
       "Un massage revitalisant pour redonner de l'énergie à votre corps.",
-    duration: "1h",
-    price: "80€",
+    duration: 60,
+    price: 80,
     slug: "massage-escale-energy",
   },
   {
@@ -230,8 +230,8 @@ export const massageServices = [
     name: "Massage Relaxant Domicile",
     description:
       "Profitez d'un massage relaxant chez vous, dans le confort de votre maison.",
-    duration: "1h",
-    price: "90€",
+    duration: 60,
+    price: 90,
     slug: "massage-relaxant-domicile",
   },
 ];
@@ -243,8 +243,8 @@ export const soinsServices = {
       name: "Évasion Féminine",
       description:
         "Jacuzzi, massage relaxant et gommage pour un moment de douceur.",
-      duration: "60 min",
-      price: "120€",
+      duration: 60,
+      price: 120,
       slug: "evasion-feminine",
     },
     {
@@ -252,8 +252,8 @@ export const soinsServices = {
       name: "Rituel Visage Féminin",
       description:
         "Jacuzzi, massage relaxant et soin du visage pour une beauté sublimée.",
-      duration: "90 min",
-      price: "170€",
+      duration: 90,
+      price: 170,
       slug: "rituel-visage-feminin",
     },
   ],
@@ -263,8 +263,8 @@ export const soinsServices = {
       name: "Détente Masculine",
       description:
         "Jacuzzi, massage énergisant et gommage pour une relaxation complète.",
-      duration: "90 min",
-      price: "150€",
+      duration: 90,
+      price: 150,
       slug: "detente-masculine",
     },
     {
@@ -272,16 +272,16 @@ export const soinsServices = {
       name: "Rituel Pieds Masculin",
       description:
         "Jacuzzi, massage relaxant et soin des pieds pour un bien-être absolu.",
-      duration: "90 min",
-      price: "170€",
+      duration: 90,
+      price: 170,
       slug: "rituel-pieds-masculin",
     },
     {
       imageUrl: "/massage-cou.jpg",
       name: "Épilation Sourcils",
       description: "Soin rapide et efficace pour l'épilation des sourcils.",
-      duration: "15 min",
-      price: "35€",
+      duration: 15,
+      price: 35,
       slug: "epilation-sourcils",
     },
     {
@@ -289,8 +289,8 @@ export const soinsServices = {
       name: "Khobido Homme",
       description:
         "Massage facial japonais pour revitaliser et lisser les traits.",
-      duration: "30 min",
-      price: "60€",
+      duration: 30,
+      price: 60,
       slug: "khobido-homme",
     },
   ],
@@ -303,8 +303,8 @@ export const forfaitSeances = {
       name: "Massage Pierres Chaudes",
       description:
         "Un massage relaxant avec des lissages et pressions ciblées pour améliorer la circulation sanguine et apaiser les tensions.",
-      duration: "45 min",
-      price: "450€",
+      duration: 45,
+      price: 450,
       slug: "forfait-massage-pierres-chaudes",
     },
     {
@@ -312,8 +312,8 @@ export const forfaitSeances = {
       name: "Circulation Énergétique",
       description:
         "Un massage revitalisant des bras et jambes pour stimuler la circulation énergétique. Idéal pour retrouver légèreté et énergie.",
-      duration: "30 min",
-      price: "190€",
+      duration: 30,
+      price: 190,
       slug: "forfait-circulation-energetique",
     },
     {
@@ -321,8 +321,8 @@ export const forfaitSeances = {
       name: "Massage Intuitif Therapy",
       description:
         "Un massage ciblant les cervicales, guidé par notre spécialiste, pour une relaxation profonde et un soulagement des tensions.",
-      duration: "1h",
-      price: "450€",
+      duration: 60,
+      price: 450,
       slug: "forfait-massage-intuitif-therapy",
     },
     {
@@ -330,8 +330,8 @@ export const forfaitSeances = {
       name: "Foot Massage",
       description:
         "Un massage des pieds apprécié pour relancer la circulation sanguine et éliminer les toxines du corps. Une véritable cure de bien-être.",
-      duration: "30 min",
-      price: "180€",
+      duration: 30,
+      price: 180,
       slug: "forfait-foot-massage",
     },
     {
@@ -339,8 +339,8 @@ export const forfaitSeances = {
       name: "Massage Relaxant",
       description:
         "Profitez d’un massage aux huiles essentielles parfumées naturelles, reconnues pour leurs vertus apaisantes.",
-      duration: "60 min",
-      price: "375€",
+      duration: 60,
+      price: 375,
       slug: "forfait-massage-relaxant",
     },
     {
@@ -348,8 +348,8 @@ export const forfaitSeances = {
       name: "Massage Dos Cervicales",
       description:
         "Le massage Tui Na, idéal pour soulager les douleurs de dos et détendre les tensions musculaires.",
-      duration: "30 min",
-      price: "220€",
+      duration: 30,
+      price: 220,
       slug: "forfait-massage-dos-cervicales",
     },
   ],
@@ -359,8 +359,8 @@ export const forfaitSeances = {
       name: "Massage Relaxant",
       description:
         "10 séances de massage relaxant avec baume et huiles essentielles pour un bien-être prolongé.",
-      duration: "60 min",
-      price: "700€",
+      duration: 60,
+      price: 700,
       slug: "forfait-10-massage-relaxant",
     },
     {
@@ -368,8 +368,8 @@ export const forfaitSeances = {
       name: "Cure Dos Cervicales",
       description:
         "Un massage ciblé combinant pressions shiatsu et techniques Tui Na, parfait pour soulager les douleurs dorsales.",
-      duration: "30 min",
-      price: "420€",
+      duration: 30,
+      price: 420,
       slug: "forfait-10-cure-dos-cervicales",
     },
     {
@@ -377,8 +377,8 @@ export const forfaitSeances = {
       name: "Neck and Shoulders Soft Foot",
       description:
         "Un massage combiné des cervicales, dos, et jambes pour une relaxation complète et une meilleure circulation.",
-      duration: "30 min",
-      price: "450€",
+      duration: 30,
+      price: 450,
       slug: "forfait-10-neck-shoulders-soft-foot",
     },
     {
@@ -386,8 +386,8 @@ export const forfaitSeances = {
       name: "Massage Jambes Lourdes",
       description:
         "Un massage drainant spécialement conçu pour soulager les jambes lourdes et améliorer la circulation.",
-      duration: "30 min",
-      price: "390€",
+      duration: 30,
+      price: 390,
       slug: "forfait-10-massage-jambes-lourdes",
     },
   ],
@@ -398,7 +398,6 @@ export const carouselImages = [
   { img: "/lounge-2.jpg", alt: "zen lounge appartement" },
   { img: "/lounge-3.jpg", alt: "zen lounge appartement" },
   { img: "/lounge-4.jpg", alt: "zen lounge appartement" },
-  { img: "/piscine.jpeg", alt: "zen lounge piscine" },
 ];
 
 export const roomData = {
@@ -419,12 +418,12 @@ export const roomData = {
       description:
         "Un jacuzzi chauffé pour des moments de relaxation en toute intimité.",
     },
-    {
-      icon: <PiSwimmingPoolLight />,
-      title: "Piscine",
-      description:
-        "Accédez à une piscine extérieure pour un moment de fraîcheur et de détente.",
-    },
+    // {
+    //   icon: <PiSwimmingPoolLight />,
+    //   title: "Piscine",
+    //   description:
+    //     "Accédez à une piscine extérieure pour un moment de fraîcheur et de détente.",
+    // },
     {
       icon: <PiHamburgerLight />,
       title: "Brunch ou Repas",
