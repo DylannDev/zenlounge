@@ -53,7 +53,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
                 <span className="text-xl text-brown-dark">
                   <PiTimer />
                 </span>
-                <p>{duration}</p>
+                <p>{duration} min</p>
               </div>
 
               {/* Price */}
@@ -61,7 +61,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
                 <span className="text-xl text-brown-dark">
                   <PiCurrencyEur />
                 </span>
-                <p>{price}</p>
+                <span>{price}€</span>
               </div>
             </div>
           </div>

@@ -14,7 +14,7 @@ const buttonVariants = cva(
         destructive:
           "bg-red-500 text-zinc-50 shadow-sm hover:bg-red-500/90 dark:bg-red-900 dark:text-zinc-50 dark:hover:bg-red-900/90",
         outline:
-          "border border-rose-dark bg-white hover:bg-rose-background hover:text-rose-dark",
+          "border border-rose-dark bg-white hover:bg-rose-light hover:text-rose-dark",
         secondary:
           "bg-zinc-100 text-zinc-900 shadow-sm hover:bg-zinc-100/80 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-800/80",
         ghost:
@@ -22,8 +22,6 @@ const buttonVariants = cva(
         link: "text-zinc-900 underline-offset-4 hover:underline dark:text-zinc-50",
         // Nouvelle variante
         rose: "bg-rose-dark text-brown-dark hover:bg-rose",
-        outside:
-          "bg-rose-dark/0 text-brown-dark/0 hover:bg-rose/0 hover:text-transparent pointer-events-none",
       },
       size: {
         default: "h-9 px-4 py-2",

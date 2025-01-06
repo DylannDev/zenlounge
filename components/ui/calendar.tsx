@@ -50,10 +50,8 @@ function Calendar({
           "bg-orange text-zinc-50 hover:bg-rose-light hover:text-white hover:bg-orange/80 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-50 dark:hover:text-zinc-900 dark:focus:bg-zinc-50 dark:focus:text-zinc-900",
         // day_today:
         //   "bg-rose-light text-zinc-900",
-        day_outside: cn(
-          buttonVariants({ variant: "outside" }),
-          "h-8 w-8 p-0 font-normal aria-selected:opacity-100"
-        ),
+        day_outside:
+          "text-zinc-500 opacity-50 dark:text-zinc-400 pointer-events-none",
         day_disabled: "text-zinc-500 opacity-50 dark:text-zinc-400",
         day_range_middle:
           "aria-selected:bg-zinc-100 aria-selected:text-zinc-900 dark:aria-selected:bg-zinc-800 dark:aria-selected:text-zinc-50",
