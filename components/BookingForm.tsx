@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-
 import Button from "@/components/Button";
 import { formFields } from "@/data/BookingForm.config";
 import { PiCalendarCheck } from "react-icons/pi";
+import { saveBooking } from "@/actions/saveBooking";
+import { useRouter } from "next/navigation";
+import { sendEmail } from "@/actions/sendEmail";
 
 interface BookingFormProps {
   service: {
     name: string;
-    duration: string;
-    price: string;
+    duration: number;
+    price: number;
   };
   selectedDate: Date | undefined;
   selectedTime: string;
@@ -32,31 +34,40 @@ const BookingForm: React.FC<BookingFormProps> = ({
     email: "",
     phone: "",
   });
+  const router = useRouter();
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setErrorMessage(""); // Réinitialiser le message d'erreur lorsque l'utilisateur modifie un champ
   };
 
-  const handleReservation = async () => {
+  const handleBooking = async () => {
     if (!formData.name || !formData.email || !formData.phone) {
       setErrorMessage("Veuillez remplir tous les champs avant de continuer.");
       return;
     }
 
-    const reservationData = {
+    const bookingData = {
       serviceName: service.name,
-      serviceDuration: service.duration,
-      servicePrice: service.price,
-      selectedDate: selectedDate?.toISOString(),
-      selectedTime,
-      customerName: formData.name,
-      customerEmail: formData.email,
-      customerPhone: formData.phone,
+      duration: service.duration,
+      price: service.price,
+      date: selectedDate,
+      time: selectedTime,
+      clientName: formData.name,
+      clientEmail: formData.email,
+      clientPhone: formData.phone,
     };
 
-    console.log("Réservation effectuée :", reservationData);
-    setErrorMessage(""); // Réinitialiser l'erreur si la réservation est réussie
+    try {
+      await saveBooking(bookingData);
+      await sendEmail(bookingData);
+      setErrorMessage("");
+
+      router.push("/success");
+    } catch (error) {
+      setErrorMessage("Une erreur est survenue lors de la réservation.");
+      console.log(error);
+    }
   };
 
   return (
@@ -88,7 +99,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
         className="flex flex-col gap-4"
         onSubmit={(e) => {
           e.preventDefault();
-          handleReservation();
+          handleBooking();
         }}
         aria-labelledby="reservation-form"
       >
