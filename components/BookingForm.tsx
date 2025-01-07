@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import Button from "@/components/Button";
 import { formFields } from "@/data/BookingForm.config";
 import { PiCalendarCheck } from "react-icons/pi";
-import { saveBooking } from "@/actions/saveBooking";
-import { useRouter } from "next/navigation";
-import { sendEmail } from "@/actions/sendEmail";
 import { createCheckoutSession } from "@/actions/createCheckoutSession";
 import { loadStripe } from "@stripe/stripe-js";
 
