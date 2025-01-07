@@ -27,8 +27,8 @@ export async function createCheckoutSession(bookingData: PaymentSessionInput) {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"], // inclut Apple Pay et Google Pay implicitement
       mode: "payment",
-      success_url: `http://localhost:3000/success`,
-      cancel_url: `http://localhost:3000/cancel`,
+      success_url: `https://zenlounge-guyane.vercel.app/success`,
+      cancel_url: `https://zenlounge-guyane.vercel.app/cancel`,
       customer_email: clientEmail,
       line_items: [
         {
