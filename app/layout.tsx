@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         // className={`bg-gradient-to-b from-rose-background/80 from-0% to-white to-30% antialiased`}
-        className="bg-white"
+        className="bg-white overflow-x-hidden"
       >
         <div className="w-full flex flex-col min-h-screen">
           <div className="flex flex-col flex-grow mx-auto w-full max-w-[1600px] px-5 min-[900px]:px-8 lg:px-10">
