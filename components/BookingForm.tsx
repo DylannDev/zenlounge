@@ -5,6 +5,11 @@ import { PiCalendarCheck } from "react-icons/pi";
 import { saveBooking } from "@/actions/saveBooking";
 import { useRouter } from "next/navigation";
 import { sendEmail } from "@/actions/sendEmail";
+import { createCheckoutSession } from "@/actions/createCheckoutSession";
+import { loadStripe } from "@stripe/stripe-js";
+
+// Initialiser Stripe avec la clé publique
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
 interface BookingFormProps {
   service: {
@@ -34,7 +39,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
     email: "",
     phone: "",
   });
-  const router = useRouter();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -59,14 +65,36 @@ const BookingForm: React.FC<BookingFormProps> = ({
     };
 
     try {
-      await saveBooking(bookingData);
-      await sendEmail(bookingData);
-      setErrorMessage("");
+      setIsLoading(true);
 
-      router.push("/success");
+      // Créer une session de paiement Stripe
+      const checkoutSession = await createCheckoutSession(bookingData);
+
+      if (checkoutSession?.success && checkoutSession?.sessionId) {
+        const stripe = await stripePromise;
+        if (!stripe) throw new Error("Stripe n'a pas pu être initialisé.");
+
+        // Redirection vers Stripe Checkout
+        const { error } = await stripe.redirectToCheckout({
+          sessionId: checkoutSession.sessionId,
+        });
+
+        if (error) {
+          throw new Error(`Erreur de redirection : ${error.message}`);
+        }
+      } else {
+        throw new Error(
+          checkoutSession?.error ||
+            "Erreur lors de la création de la session Stripe."
+        );
+      }
+
+      setErrorMessage("");
     } catch (error) {
+      console.error("Erreur lors de la réservation :", error);
       setErrorMessage("Une erreur est survenue lors de la réservation.");
-      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -123,7 +151,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
               value={formData[field.name]}
               onChange={handleFormChange}
               required={field.required}
-              // pattern={field.pattern || undefined}
               aria-required={field.ariaRequired}
               className="border border-blue-light/20 rounded-lg px-4 py-2 mt-1 w-full placeholder:text-sm focus:outline-none focus:border-brown-light"
             />
@@ -145,8 +172,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
             )}
           </div>
 
-          <Button button type="submit">
-            Réserver
+          <Button button type="submit" disabled={isLoading}>
+            {isLoading ? "Chargement..." : "Réserver"}
           </Button>
         </div>
       </form>
