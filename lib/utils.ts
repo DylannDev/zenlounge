@@ -29,8 +29,9 @@ export const formatSlot = (slot: number): string => {
 export const formatDate = (date: Date): string => {
   // Options pour formater la date
   const options: Intl.DateTimeFormatOptions = {
+    weekday: "short",
     day: "numeric",
-    month: "long",
+    month: "short",
     year: "numeric",
   };
 
