@@ -5,18 +5,9 @@ import BookingNotification from "@/emails/BookingNotification";
 import { resend } from "@/lib/resend";
 import { formatDate } from "@/lib/utils";
 
-type BookingData = {
-  serviceName: string;
-  duration: number;
-  price: number;
-  date: Date | undefined;
-  time: string;
-  clientName: string;
-  clientEmail: string;
-  clientPhone: string;
-};
-
-export const sendEmail = async (bookingData: BookingData): Promise<void> => {
+export const sendEmail = async (
+  bookingData: BookingDataType
+): Promise<void> => {
   try {
     // Validation des données
     if (

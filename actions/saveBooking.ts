@@ -1,18 +1,7 @@
 import { db } from "@/firebase/firebase";
 import { collection, addDoc } from "firebase/firestore";
 
-type saveBooking = {
-  serviceName: string;
-  duration: number;
-  price: number;
-  date: Date | undefined;
-  time: string;
-  clientName: string;
-  clientEmail: string;
-  clientPhone: string;
-};
-
-export const saveBooking = async (bookingData: saveBooking) => {
+export const saveBooking = async (bookingData: BookingDataType) => {
   try {
     const docRef = await addDoc(collection(db, "bookings"), bookingData);
     return docRef.id;
