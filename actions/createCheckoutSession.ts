@@ -4,6 +4,8 @@ import { stripe } from "@/lib/stripe";
 import { formatDate } from "@/lib/utils";
 
 export async function createCheckoutSession(bookingData: BookingDataType) {
+  console.log("createCheckoutSession", bookingData.date);
+
   try {
     const { serviceName, price, duration, date, time, clientEmail } =
       bookingData;
