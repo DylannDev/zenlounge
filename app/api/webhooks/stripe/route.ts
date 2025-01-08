@@ -3,10 +3,12 @@ import Stripe from "stripe";
 import { saveBooking } from "@/actions/saveBooking";
 import { sendEmail } from "@/actions/sendEmail";
 import { stripe } from "@/lib/stripe";
+import { headers } from "next/headers";
+import { bookingDataSchema } from "@/validation/bookingData";
 
 export const config = {
   api: {
-    bodyParser: false, // Stripe demande de désactiver bodyParser pour les webhooks
+    bodyParser: false,
   },
 };
 
@@ -16,9 +18,9 @@ export async function POST(req: Request) {
   let event: Stripe.Event;
   try {
     const body = await req.text();
-    const signature = req.headers.get("stripe-signature")!;
+    const headersList = await headers();
+    const signature = headersList.get("stripe-signature")!;
 
-    // Vérifier l'événement Stripe
     event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
   } catch (error: unknown) {
     console.error("Erreur de vérification du webhook :", error);
@@ -28,18 +30,21 @@ export async function POST(req: Request) {
     );
   }
 
-  // Gérer l'événement `checkout.session.completed`
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
 
     try {
-      // Récupérer les données de la session Stripe
-      const bookingData = JSON.parse(session.metadata!.bookingData);
+      // Récupérer et valider les données de réservation
+      const bookingData = bookingDataSchema.parse(
+        JSON.parse(session.metadata!.bookingData)
+      );
 
-      // Enregistrer la réservation dans Firebase
+      console.log("bookingData: ", bookingData);
+
+      // Enregistrer la réservation
       await saveBooking(bookingData);
 
-      // Envoyer un email de confirmation au client
+      // Envoyer l'email
       await sendEmail(bookingData);
 
       console.log("Réservation enregistrée et email envoyé.");
