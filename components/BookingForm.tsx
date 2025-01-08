@@ -4,6 +4,7 @@ import { formFields } from "@/data/BookingForm.config";
 import { PiCalendarCheck } from "react-icons/pi";
 import { createCheckoutSession } from "@/actions/createCheckoutSession";
 import { loadStripe } from "@stripe/stripe-js";
+import { formatDate } from "@/lib/utils";
 
 // Initialiser Stripe avec la clé publique
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
@@ -36,7 +37,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
     email: "",
     phone: "",
   });
-
   const [isLoading, setIsLoading] = useState(false);
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -109,12 +109,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
           <PiCalendarCheck className="text-lg text-orange" />
           <span>
             {selectedDate
-              ? selectedDate.toLocaleDateString("fr-FR", {
-                  weekday: "short",
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                })
+              ? formatDate(selectedDate)
               : "Aucune date sélectionnée"}{" "}
             - {selectedTime || "Aucune heure sélectionnée"}
           </span>
