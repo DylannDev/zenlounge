@@ -3,17 +3,7 @@
 import { stripe } from "@/lib/stripe";
 import { formatDate } from "@/lib/utils";
 
-interface PaymentSessionInput {
-  serviceName: string;
-  price: number;
-  duration: number;
-  date: Date | undefined;
-  time: string;
-  clientEmail: string;
-  clientName: string;
-}
-
-export async function createCheckoutSession(bookingData: PaymentSessionInput) {
+export async function createCheckoutSession(bookingData: BookingDataType) {
   try {
     const { serviceName, price, duration, date, time, clientEmail } =
       bookingData;
