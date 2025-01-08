@@ -14,6 +14,8 @@ export const config = {
 
 export async function POST(req: Request) {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+  // const webhookSecret =
+  //   "whsec_85b6473b0e319f8a35655d61e6d7b02c064e7f0930b6344a3de9e06ec8228660";
 
   let event: Stripe.Event;
   try {
@@ -38,8 +40,6 @@ export async function POST(req: Request) {
       const bookingData = bookingDataSchema.parse(
         JSON.parse(session.metadata!.bookingData)
       );
-
-      console.log("bookingData: ", bookingData);
 
       // Enregistrer la réservation
       await saveBooking(bookingData);

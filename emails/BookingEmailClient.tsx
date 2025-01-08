@@ -23,9 +23,7 @@ interface BookingEmailClientProps {
   price: number;
 }
 
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000"; // Développement local
+const baseUrl = "https://zenlounge.vercel.app";
 
 export const BookingEmailClient = ({
   clientName,
