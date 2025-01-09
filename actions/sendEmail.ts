@@ -3,7 +3,6 @@
 import BookingEmailClient from "@/emails/BookingEmailClient";
 import BookingNotification from "@/emails/BookingNotification";
 import { resend } from "@/lib/resend";
-import { formatDate } from "@/lib/utils";
 
 export const sendEmail = async (
   bookingData: BookingDataType
@@ -24,7 +23,7 @@ export const sendEmail = async (
     const EmailClient = BookingEmailClient({
       clientName: bookingData.clientName,
       serviceName: bookingData.serviceName,
-      date: formatDate(bookingData.date),
+      date: bookingData.date,
       time: bookingData.time,
       duration: bookingData.duration,
       price: bookingData.price,
@@ -33,7 +32,7 @@ export const sendEmail = async (
     const EmailAdmin = BookingNotification({
       clientName: bookingData.clientName,
       serviceName: bookingData.serviceName,
-      date: formatDate(bookingData.date),
+      date: bookingData.date,
       time: bookingData.time,
       duration: bookingData.duration,
       price: bookingData.price,
