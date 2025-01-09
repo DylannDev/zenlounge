@@ -34,7 +34,7 @@ export const BookingEmailClient = ({
     <Html>
       <Preview>Votre réservation est confirmée</Preview>
       <Body className="bg-white m-0 font-sans">
-        <Container className="mx-auto px-5 py-6">
+        <Container className="mx-auto px-[10px] py-6">
           <Img
             alt="service icon"
             width="200"
