@@ -26,14 +26,18 @@ export const formatSlot = (slot: number): string => {
 
 // console.log(formatSlot(570)); // "09:30"
 
-export const formatDate = (date: Date): string => {
+export const formatDate = (input: Date | string): string => {
   // Options pour formater la date
   const options: Intl.DateTimeFormatOptions = {
     weekday: "short",
     day: "numeric",
     month: "short",
     year: "numeric",
+    timeZone: "Europe/Paris",
   };
+
+  // Si l'entrée est une chaîne, la convertir en Date
+  const date = typeof input === "string" ? new Date(input) : input;
 
   // Formatage
   return date.toLocaleDateString("fr-FR", options);
