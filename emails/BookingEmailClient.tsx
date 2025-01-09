@@ -14,14 +14,10 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-interface BookingEmailClientProps {
-  serviceName: string;
-  duration: number;
-  date: string;
-  time: string;
-  clientName: string;
-  price: number;
-}
+type BookingNotificationDataType = Omit<
+  BookingDataType,
+  "clientEmail" | "clientPhone"
+>;
 
 const baseUrl = "https://zenlounge.vercel.app";
 
@@ -32,7 +28,7 @@ export const BookingEmailClient = ({
   time,
   duration,
   price,
-}: BookingEmailClientProps) => (
+}: BookingNotificationDataType) => (
   <Tailwind>
     <Html>
       <Preview>Votre réservation est confirmée</Preview>
@@ -57,7 +53,7 @@ export const BookingEmailClient = ({
                 <Img
                   alt="service icon"
                   height="48"
-                  src={`${baseUrl}/lotus.svg`}
+                  src={`${baseUrl}/lotus.png`}
                   width="48"
                 />
               </Column>
@@ -78,7 +74,7 @@ export const BookingEmailClient = ({
                 <Img
                   alt="calendar icon"
                   height="48"
-                  src={`${baseUrl}/calendar.svg`}
+                  src={`${baseUrl}/calendar.png`}
                   width="48"
                 />
               </Column>
@@ -99,7 +95,7 @@ export const BookingEmailClient = ({
                 <Img
                   alt="location icon"
                   height="48"
-                  src={`${baseUrl}/location.svg`}
+                  src={`${baseUrl}/location.png`}
                   width="48"
                 />
               </Column>
