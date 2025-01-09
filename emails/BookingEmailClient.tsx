@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/utils";
 import {
   Body,
   Column,
@@ -19,7 +20,7 @@ type BookingNotificationDataType = Omit<
   "clientEmail" | "clientPhone"
 >;
 
-const baseUrl = "https://zenlounge.vercel.app";
+const baseUrl = "https://zenlounge-guyane.vercel.app";
 
 export const BookingEmailClient = ({
   clientName,
@@ -83,7 +84,7 @@ export const BookingEmailClient = ({
                   Date et Heure
                 </Text>
                 <Text className="m-0 mt-[8px] text-[16px] leading-[24px] text-gray-500">
-                  {date} à {time}
+                  {formatDate(date)} à {time}
                 </Text>
               </Column>
             </Row>
