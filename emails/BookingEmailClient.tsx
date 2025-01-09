@@ -37,10 +37,12 @@ export const BookingEmailClient = ({
         <Container className="mx-auto px-5 py-6">
           <Img
             alt="service icon"
-            height="48"
+            width="200"
+            className="mx-auto"
             src={`${baseUrl}/logo.png`}
-            width="48"
           />
+          <Hr className="mx-0 my-[28px] w-full border border-solid !border-gray-300" />
+
           {/* Welcome Text */}
           <Text className="text-lg text-gray-700 mb-6">
             Bonjour {clientName},
@@ -53,7 +55,7 @@ export const BookingEmailClient = ({
           {/* Reservation Details */}
           <Section className="mt-10">
             <Row>
-              <Column className="align-baseline mr-4">
+              <Column className="align-baseline pr-5">
                 <Img
                   alt="service icon"
                   height="48"
@@ -61,7 +63,7 @@ export const BookingEmailClient = ({
                   width="48"
                 />
               </Column>
-              <Column className="w-[85%]">
+              <Column className="">
                 <Text className="m-0 text-[18px] font-semibold leading-[20px] text-gray-900">
                   Prestation choisie
                 </Text>
@@ -74,7 +76,7 @@ export const BookingEmailClient = ({
           <Hr className="mx-0 my-[28px] w-full border border-solid !border-gray-300" />
           <Section>
             <Row>
-              <Column className="align-baseline mr-4">
+              <Column className="align-baseline pr-5">
                 <Img
                   alt="calendar icon"
                   height="48"
@@ -82,12 +84,12 @@ export const BookingEmailClient = ({
                   width="48"
                 />
               </Column>
-              <Column className="w-[85%]">
+              <Column className="">
                 <Text className="m-0 text-[18px] font-semibold leading-[20px] text-gray-900">
                   Date et Heure
                 </Text>
                 <Text className="m-0 mt-[8px] text-[16px] leading-[24px] text-gray-500">
-                  {formatDate(date)} à {time}
+                  {date ? formatDate(date) : ""} à {time}
                 </Text>
               </Column>
             </Row>
@@ -95,7 +97,7 @@ export const BookingEmailClient = ({
           <Hr className="mx-0 my-[28px] w-full border border-solid !border-gray-300" />
           <Section className="mb-10">
             <Row>
-              <Column className="align-baseline mr-4">
+              <Column className="align-baseline pr-5">
                 <Img
                   alt="location icon"
                   height="48"
@@ -103,7 +105,7 @@ export const BookingEmailClient = ({
                   width="48"
                 />
               </Column>
-              <Column className="w-[85%]">
+              <Column className="">
                 <Text className="m-0 text-[18px] font-semibold leading-[20px] text-gray-900">
                   Adresse
                 </Text>
