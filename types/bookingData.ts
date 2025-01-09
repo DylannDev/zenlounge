@@ -2,7 +2,7 @@ type BookingDataType = {
   serviceName: string;
   duration: number;
   price: number;
-  date: string;
+  date: Date;
   time: string;
   clientName: string;
   clientEmail: string;

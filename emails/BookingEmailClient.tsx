@@ -89,7 +89,7 @@ export const BookingEmailClient = ({
                   Date et Heure
                 </Text>
                 <Text className="m-0 mt-[8px] text-[16px] leading-[24px] text-gray-500">
-                  {date ? formatDate(date) : ""} à {time}
+                  {formatDate(date)} à {time}
                 </Text>
               </Column>
             </Row>

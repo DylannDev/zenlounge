@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { massageServices, soinsServices, forfaitSeances } from "@/data";
-import { useParams } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import SectionHeader from "@/components/SectionHeader";
 import Button from "@/components/Button";
 import BookingForm from "@/components/BookingForm";
@@ -56,7 +56,7 @@ const BookingPage = () => {
   };
 
   if (!service) {
-    return <p>Chargement...</p>;
+    return notFound();
   }
 
   return (
