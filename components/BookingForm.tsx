@@ -5,6 +5,7 @@ import { PiCalendarCheck } from "react-icons/pi";
 import { createCheckoutSession } from "@/actions/createCheckoutSession";
 import { loadStripe } from "@stripe/stripe-js";
 import { formatDate } from "@/lib/utils";
+import { format } from "date-fns";
 
 // Initialiser Stripe avec la clé publique
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
@@ -15,7 +16,7 @@ interface BookingFormProps {
     duration: number;
     price: number;
   };
-  selectedDate: Date | undefined;
+  selectedDate: Date;
   selectedTime: string;
   setStep: (step: number) => void;
   errorMessage: string;
@@ -50,11 +51,14 @@ const BookingForm: React.FC<BookingFormProps> = ({
       return;
     }
 
+    // Convertir la date en chaîne au format "YYYY-MM-DD"
+    const formattedDate = format(selectedDate, "yyyy-MM-dd");
+
     const bookingData = {
       serviceName: service.name,
       duration: service.duration,
       price: service.price,
-      date: selectedDate,
+      date: formattedDate,
       time: selectedTime,
       clientName: formData.name,
       clientEmail: formData.email,
