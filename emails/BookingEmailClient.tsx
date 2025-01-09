@@ -55,7 +55,7 @@ export const BookingEmailClient = ({
           {/* Reservation Details */}
           <Section className="mt-10">
             <Row>
-              <Column className="align-baseline pr-5">
+              <Column className="w-[48px] pr-5">
                 <Img
                   alt="service icon"
                   height="48"
@@ -76,7 +76,7 @@ export const BookingEmailClient = ({
           <Hr className="mx-0 my-[28px] w-full border border-solid !border-gray-300" />
           <Section>
             <Row>
-              <Column className="align-baseline pr-5">
+              <Column className="w-[48px] pr-5">
                 <Img
                   alt="calendar icon"
                   height="48"
@@ -97,7 +97,7 @@ export const BookingEmailClient = ({
           <Hr className="mx-0 my-[28px] w-full border border-solid !border-gray-300" />
           <Section className="mb-10">
             <Row>
-              <Column className="align-baseline pr-5">
+              <Column className="w-[48px] pr-5">
                 <Img
                   alt="location icon"
                   height="48"

@@ -39,6 +39,7 @@ export const BookingEmailClient = ({
             className="mx-auto"
             src={`${baseUrl}/logo.png`}
           />
+          <Hr className="mx-0 my-[28px] w-full border border-solid !border-gray-300" />
           {/* Welcome Text */}
           <Text className="text-2xl font-bold text-gray-700 mb-6">
             Vous avez une nouvelle réservation !
@@ -47,11 +48,11 @@ export const BookingEmailClient = ({
           {/* Reservation Details */}
           <Section className="mt-10">
             <Row>
-              <Column className="align-baseline pr-5">
+              <Column className="w-[48px] pr-5">
                 <Img
                   alt="service icon"
                   height="48"
-                  src={`${baseUrl}/lotus.svg`}
+                  src={`${baseUrl}/lotus.png`}
                   width="48"
                 />
               </Column>
@@ -71,11 +72,11 @@ export const BookingEmailClient = ({
           <Hr className="mx-0 my-[28px] w-full border border-solid !border-gray-300" />
           <Section className="mb-10">
             <Row>
-              <Column className="align-baseline pr-5">
+              <Column className="w-[48px] pr-5">
                 <Img
                   alt="calendar icon"
                   height="48"
-                  src={`${baseUrl}/calendar.svg`}
+                  src={`${baseUrl}/calendar.png`}
                   width="48"
                 />
               </Column>
