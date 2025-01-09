@@ -4,8 +4,6 @@ import { stripe } from "@/lib/stripe";
 import { formatDate } from "@/lib/utils";
 
 export async function createCheckoutSession(bookingData: BookingDataType) {
-  console.log("createCheckoutSession", bookingData.date);
-
   try {
     const { serviceName, price, duration, date, time, clientEmail } =
       bookingData;
@@ -17,7 +15,7 @@ export async function createCheckoutSession(bookingData: BookingDataType) {
 
     // Création de la session Stripe
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"], // inclut Apple Pay et Google Pay implicitement
+      payment_method_types: ["card"],
       mode: "payment",
       success_url: `https://zenlounge-guyane.vercel.app/success`,
       cancel_url: `https://zenlounge-guyane.vercel.app/cancel`,
