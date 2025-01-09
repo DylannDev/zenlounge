@@ -111,7 +111,7 @@ const BookingPage = () => {
           <div className="flex flex-col justify-between pt-6 md:pl-10">
             <BookingForm
               service={service}
-              selectedDate={selectedDate}
+              selectedDate={selectedDate!}
               selectedTime={selectedTime}
               setStep={setStep}
               errorMessage={errorMessage}
