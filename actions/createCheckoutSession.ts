@@ -27,6 +27,7 @@ export async function createCheckoutSession(bookingData: BookingDataType) {
             product_data: {
               name: serviceName,
               description: `${duration} min • ${formatDate(date)} à ${time}`,
+              images: ["https://zenlounge-guyane.vercel.app/logo.png"],
             },
             unit_amount: price * 100, // Stripe attend le montant en centimes
           },
