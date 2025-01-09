@@ -33,9 +33,12 @@ export const BookingEmailClient = ({
       <Preview>Vous avez une nouvelle réservation</Preview>
       <Body className="bg-white m-0 font-sans">
         <Container className="mx-auto px-5 py-6">
-          <Heading className="text-3xl text-gray-900 mb-6 text-center">
-            Zen Lounge
-          </Heading>
+          <Img
+            alt="service icon"
+            height="48"
+            src={`${baseUrl}/logo.png`}
+            width="48"
+          />
           {/* Welcome Text */}
           <Text className="text-2xl font-bold text-gray-700 mb-6">
             Vous avez une nouvelle réservation !
@@ -44,11 +47,11 @@ export const BookingEmailClient = ({
           {/* Reservation Details */}
           <Section className="mt-10">
             <Row>
-              <Column className="align-baseline">
+              <Column className="align-baseline mr-4">
                 <Img
                   alt="service icon"
                   height="48"
-                  src={`${baseUrl}/lotus.png`}
+                  src={`${baseUrl}/lotus.svg`}
                   width="48"
                 />
               </Column>
@@ -68,11 +71,11 @@ export const BookingEmailClient = ({
           <Hr className="mx-0 my-[28px] w-full border border-solid !border-gray-300" />
           <Section className="mb-10">
             <Row>
-              <Column className="align-baseline">
+              <Column className="align-baseline mr-4">
                 <Img
                   alt="calendar icon"
                   height="48"
-                  src={`${baseUrl}/calendar.png`}
+                  src={`${baseUrl}/calendar.svg`}
                   width="48"
                 />
               </Column>
