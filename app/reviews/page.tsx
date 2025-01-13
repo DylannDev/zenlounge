@@ -19,7 +19,7 @@ const INITIAL_FORM_DATA = {
 const Reviews = () => {
   const router = useRouter();
   const [error, setError] = useState("");
-  const [submitted, setSubmitted] = useState(true);
+  const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
   const handleChange = (
