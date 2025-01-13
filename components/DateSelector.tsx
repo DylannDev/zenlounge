@@ -15,7 +15,13 @@ const DateSelector: React.FC<DateSelectorProps> = ({
   const isDisabled = (date: Date) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // On s'assure de ne pas comparer avec les heures
-    return date.getDay() === 0 || date < today; // Dimanche ou avant aujourd'hui
+    const selected = new Date(date);
+    selected.setHours(0, 0, 0, 0); // On enlève les heures pour la comparaison
+
+    return (
+      selected.getDay() === 0 || // Désactiver les dimanches
+      selected <= today // Désactiver aujourd'hui et les dates passées
+    );
   };
 
   return (
