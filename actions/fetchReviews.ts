@@ -6,7 +6,6 @@ import { collection, getDocs } from "firebase/firestore";
 type Review = {
   id: string;
   name: string;
-  title: string;
   message: string;
   stars: number;
 };
@@ -15,10 +14,17 @@ export const fetchReviews = async (): Promise<Review[]> => {
   try {
     const reviewsCollection = collection(db, "reviews");
     const reviewsSnapshot = await getDocs(reviewsCollection);
-    const reviews = reviewsSnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    })) as Review[];
+
+    // Map uniquement les champs nécessaires
+    const reviews = reviewsSnapshot.docs.map((doc) => {
+      const { name, message, stars } = doc.data();
+      return {
+        id: doc.id,
+        name,
+        message,
+        stars,
+      };
+    }) as Review[];
 
     return reviews;
   } catch (error) {
