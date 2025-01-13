@@ -13,7 +13,6 @@ import {
   PiSealPercent,
   PiShower,
   PiSparkle,
-  PiSwimmingPoolLight,
   PiTimer,
   PiUserCheckLight,
   PiUsers,

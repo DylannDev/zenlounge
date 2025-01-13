@@ -5,6 +5,7 @@ interface SectionHeaderProps {
   subtitle: string[];
   className?: string;
   bigTitle?: boolean;
+  textCenter?: boolean;
 }
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({
@@ -12,12 +13,13 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
   subtitle,
   className = "",
   bigTitle = false,
+  textCenter = false,
 }) => {
   return (
     <div
       className={`mb-1 flex flex-col ${className} ${
         bigTitle ? "gap-8" : "gap-2"
-      }`}
+      } ${textCenter && "text-center"}`}
     >
       <h2
         className={`font-bold ${

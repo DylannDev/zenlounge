@@ -3,7 +3,7 @@ import Link from "next/link";
 
 type LogoProps = {
   color?: "white" | "black" | "rose"; // Couleurs supportées
-  size?: string;
+  size?: string; // Taille personnalisée en pixels
 };
 
 const Logo = ({ color = "black", size }: LogoProps) => {
@@ -21,7 +21,11 @@ const Logo = ({ color = "black", size }: LogoProps) => {
 
   return (
     <Link href={"/"}>
-      <div className={`relative ${size ? `w-[${size}px]` : "w-[200px]"}`}>
+      <div
+        className={`relative ${
+          size ? `w-[${size}px]` : "w-[150px] sm:w-[200px]"
+        }`}
+      >
         <Image
           src={logoSrc}
           alt={`Logo Zen Lounge - ${color}`}

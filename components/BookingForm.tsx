@@ -148,7 +148,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
               onChange={handleFormChange}
               required={field.required}
               aria-required={field.ariaRequired}
-              className="border border-blue-light/20 rounded-lg px-4 py-2 mt-1 w-full placeholder:text-sm focus:outline-none focus:border-brown-light"
+              className="border border-blue-light/20 rounded-lg px-4 py-2 mt-1 w-full placeholder:text-sm focus:outline-none focus:border-rose-dark"
             />
             {field.additionalInfo && (
               <p id={`${field.id}-help`} className="text-sm text-gray-500 mt-1">
