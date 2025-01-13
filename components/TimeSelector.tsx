@@ -11,6 +11,7 @@ interface TimeSelectorProps {
 
 const TimeSelector: React.FC<TimeSelectorProps> = ({
   selectedDate,
+  serviceDuration,
   selectedTime,
   onSelectTime,
   bookings,
@@ -35,37 +36,64 @@ const TimeSelector: React.FC<TimeSelectorProps> = ({
     1110, // 18:30
   ];
 
+  const morningClosingTime = 720; // 12:00 en minutes
+  const afternoonOpeningTime = 840; // 14:00 en minutes
+  const eveningClosingTime = 1140; // 19:00 en minutes
+
   // Fonction pour obtenir les créneaux disponibles
   const getAvailableSlots = (): number[] => {
     if (!selectedDate) return [];
 
+    // Filtrer les réservations pour le jour sélectionné
     const dayBookings = bookings.filter(
       (booking) =>
         booking.date.toLocaleDateString("fr-FR") ===
         selectedDate.toLocaleDateString("fr-FR")
     );
 
-    if (dayBookings.length === 0) {
-      return allSlots; // Aucun créneau réservé, tout est disponible
-    }
-
     const unavailableSlots = new Set<number>();
 
     dayBookings.forEach((booking) => {
       const startTime = timeToMinutes(booking.time); // Heure de début en minutes
-      const duration = booking.duration; // Durée en minutes
-      for (let i = 0; i < duration; i += 30) {
-        unavailableSlots.add(startTime + i);
+      const endTime = startTime + booking.duration; // Heure de fin en minutes
+      for (let i = startTime; i < endTime; i += 30) {
+        unavailableSlots.add(i);
       }
     });
 
-    return allSlots.filter((slot) => !unavailableSlots.has(slot));
+    return allSlots.filter((slot) => {
+      const slotEnd = slot + serviceDuration;
+
+      // Vérifier si le créneau dépasse les heures de travail
+      if (
+        (slot < morningClosingTime && slotEnd > morningClosingTime) || // Chevauche la fermeture du midi
+        (slot >= morningClosingTime && slot < afternoonOpeningTime) || // Pendant la pause du midi
+        slotEnd > eveningClosingTime // Dépasse la fermeture du soir
+      ) {
+        return false;
+      }
+
+      // Vérifier s'il chevauche une réservation existante
+      const hasOverlap = dayBookings.some((booking) => {
+        const bookingStart = timeToMinutes(booking.time);
+        const bookingEnd = bookingStart + booking.duration;
+
+        // Vérifiez si la plage sélectionnée chevauche une réservation existante
+        return (
+          (slot >= bookingStart && slot < bookingEnd) || // Le créneau commence dans une réservation
+          (slotEnd > bookingStart && slotEnd <= bookingEnd) || // Le créneau se termine dans une réservation
+          (slot < bookingStart && slotEnd > bookingEnd) // Le créneau englobe une réservation
+        );
+      });
+
+      return !hasOverlap;
+    });
   };
 
   // Mémoisation pour éviter un recalcul inutile
   const availableSlots = useMemo(
     () => getAvailableSlots(),
-    [selectedDate, bookings]
+    [selectedDate, bookings, serviceDuration]
   );
 
   return (
