@@ -10,7 +10,7 @@ const CancelPage = () => {
         le problème persiste.
       </p>
       <div className="flex justify-center gap-4 mt-6">
-        <Button width="normal" href="/">
+        <Button responsiveWidth={{ default: "normal" }} href="/">
           Retour à l'accueil
         </Button>
       </div>

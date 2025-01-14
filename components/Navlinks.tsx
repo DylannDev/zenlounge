@@ -16,9 +16,7 @@ const Navlinks = () => {
           </Link>
         ))}
       </nav>
-      <Button color="rose" width="large">
-        Réserver
-      </Button>
+      <Button color="rose">Réserver</Button>
     </div>
   );
 };

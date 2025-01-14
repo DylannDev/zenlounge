@@ -58,12 +58,8 @@ const Category: React.FC<CategoryProps> = ({
           ))}
         </div>
         <div className="flex items-center gap-2 pt-10">
-          <Button color="rose" width="large">
-            Découvrir
-          </Button>
-          <Button color="empty" width="large">
-            Réserver
-          </Button>
+          <Button color="rose">Découvrir</Button>
+          <Button color="empty">Réserver</Button>
         </div>
       </div>
     </div>

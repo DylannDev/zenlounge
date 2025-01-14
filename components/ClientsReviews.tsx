@@ -69,7 +69,11 @@ const ClientsReviews = () => {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-1/5 bg-gradient-to-b from-rose-background to-rose-background/0"></div>
       </div>
       <div className="pt-10 flex justify-center w-full">
-        <Button href="/reviews" color="empty" width="normal">
+        <Button
+          responsiveWidth={{ default: "normal" }}
+          href="/reviews"
+          color="empty"
+        >
           Laisser un commentaire
         </Button>
       </div>

@@ -4,7 +4,7 @@ import Button from "./Button";
 const Hero = () => {
   return (
     <div className="pb-10">
-      <div className="relative w-full aspect-1/2 min-[500px]:aspect-2/3 sm:aspect-3/4 md:aspect-4/3 lg:aspect-video max-h-[calc(100dvh-70px)] sm:max-h-[calc(100dvh-120px)] overflow-hidden">
+      <div className="relative w-full aspect-1/2 min-[500px]:aspect-2/3 sm:aspect-3/4 md:aspect-4/3 lg:aspect-video max-h-[calc(100dvh-100px)] lg:max-h-[calc(100dvh-160px)] overflow-hidden">
         <Image
           src={"/massage-1.jpg"}
           alt="massage photo"
@@ -26,16 +26,13 @@ const Hero = () => {
             <p className="font-medium text-sm sm:text-lg text-center sm:text-left">
               Massages, soins du corps et visage, et séjours détente en Guyane.
             </p>
-            <div className="flex md:hidden">
-              <Button color="white" width="large">
-                Réserver mon moment
-              </Button>
-            </div>
-            <div className="hidden md:flex">
-              <Button color="white" width="normal">
-                Réserver mon moment
-              </Button>
-            </div>
+
+            <Button
+              color="white"
+              responsiveWidth={{ default: "large", md: "normal" }}
+            >
+              Réserver mon moment
+            </Button>
           </div>
         </div>
       </div>

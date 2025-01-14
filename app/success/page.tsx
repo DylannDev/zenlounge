@@ -11,7 +11,11 @@ const SuccessPage = () => {
         La réservation a bien été prise en compte, vous recevrez un mail de
         confirmation.
       </p>
-      <Button href="/">Retour à l'accueil</Button>
+      <div className="flex justify-center gap-4 mt-6">
+        <Button responsiveWidth={{ default: "normal" }} href="/">
+          Retour à l'accueil
+        </Button>
+      </div>
     </section>
   );
 };
