@@ -52,7 +52,7 @@ const Sejours = () => {
 
         {/* BookingCard Section */}
         <div className="w-full md:grid md:grid-cols-2 min-[1200px]:block min-[1200px]:w-1/3 min-[1200px]:mt-16">
-          <div className="sticky top-5">
+          <div className="sticky top-[160px]">
             <BookingCard />
           </div>
         </div>

@@ -18,7 +18,7 @@ const ServicesList: React.FC<ServicesListProps> = ({
   buttonText,
 }) => {
   return (
-    <ul className="grid grid-cols-1 xl:grid-cols-2 gap-6 w-full mt-10 sm:my-20 auto-rows-fr">
+    <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full my-10 auto-rows-fr">
       {services.map((service, index) => (
         <li key={index}>
           <ServiceCard

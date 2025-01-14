@@ -5,32 +5,36 @@ import { forfaitSeances } from "@/data";
 
 const Forfaits = () => {
   return (
-    <section className="relative max-w-[1200px] mx-auto flex flex-col pt-10 pb-40">
+    <section className="relative max-w-[1200px] mx-auto flex flex-col gap-20 pt-10 pb-40">
       {/* Section 5 séances */}
-      <SectionHeader
-        title="Nos Forfaits 5 Séances"
-        subtitle={[
-          "Tous nos forfaits peuvent être partagés avec la personne de votre choix.",
-        ]}
-        bigTitle
-      />
-      <ServicesList
-        services={forfaitSeances.fiveSessions}
-        buttonText="Réserver mes 5 séances"
-      />
+      <div>
+        <SectionHeader
+          title="Nos Forfaits 5 Séances"
+          subtitle={[
+            "Tous nos forfaits peuvent être partagés avec la personne de votre choix.",
+          ]}
+          bigTitle
+        />
+        <ServicesList
+          services={forfaitSeances.fiveSessions}
+          buttonText="Réserver mes 5 séances"
+        />
+      </div>
 
       {/* Section 10 séances */}
-      <SectionHeader
-        title="Nos Forfaits 10 Séances"
-        subtitle={[
-          "Tous nos forfaits peuvent être partagés avec la personne de votre choix.",
-        ]}
-        bigTitle
-      />
-      <ServicesList
-        services={forfaitSeances.tenSessions}
-        buttonText="Réserver mes 10 séances"
-      />
+      <div>
+        <SectionHeader
+          title="Nos Forfaits 10 Séances"
+          subtitle={[
+            "Tous nos forfaits peuvent être partagés avec la personne de votre choix.",
+          ]}
+          bigTitle
+        />
+        <ServicesList
+          services={forfaitSeances.tenSessions}
+          buttonText="Réserver mes 10 séances"
+        />
+      </div>
 
       {/* Background Illustration */}
       <BackgroundIllustration
