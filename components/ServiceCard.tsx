@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./Button";
 import Image from "next/image";
-import { PiCurrencyEur, PiTimer } from "react-icons/pi";
+import { PiCurrencyEur, PiTimer, PiWallet } from "react-icons/pi";
 
 interface ServiceCardProps {
   imageUrl: string;
@@ -25,7 +25,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   return (
     <div className="bg-white rounded-3xl border border-rose-dark h-full">
       <div className="flex flex-col justify-between h-full p-5 gap-5">
-        <div className="flex flex-col h-full md:flex-row">
+        <div className="flex flex-col h-full">
           {/* Image Section */}
           <div className="relative w-full h-full aspect-square max-h-[300px]">
             <Image
@@ -37,39 +37,52 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           </div>
 
           {/* Content Section */}
-          <div className="w-full h-full py-5 md:px-5 md:py-2 flex flex-col grow justify-between text-sm font-medium">
+          <div className="w-full h-full pt-5 flex flex-col gap-12 grow justify-between text-sm font-medium">
             {/* Title and Description */}
-            <div>
-              <h3 className="text-2xl font-bold text-brown-background mb-4">
+            <div className="flex flex-col gap-4">
+              <h3 className="text-2xl font-bold text-brown-background">
                 {name}
               </h3>
               <p className="text-base text-blue-light">{description}</p>
             </div>
 
             {/* Details */}
-            <div className="flex flex-col md:flex-row gap-2 mt-4 text-blue-light">
-              {/* Duration */}
-              <div className="flex items-center gap-1">
-                <span className="text-xl text-brown-dark">
-                  <PiTimer />
-                </span>
-                <p>{duration} min</p>
+            <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row gap-4 justify-between">
+              <div className="flex gap-2 text-blue-light">
+                {/* Duration */}
+                <div className="flex items-center gap-1 whitespace-nowrap">
+                  <span className="text-xl text-brown-dark">
+                    <PiTimer />
+                  </span>
+                  <p>{duration} min</p>
+                </div>
+
+                {/* Price */}
+                <div className="flex items-center gap-1">
+                  <span className="text-xl text-brown-dark">
+                    <PiWallet />
+                  </span>
+                  <span>{price}€</span>
+                </div>
               </div>
 
-              {/* Price */}
-              <div className="flex items-center gap-1">
-                <span className="text-xl text-brown-dark">
-                  <PiCurrencyEur />
-                </span>
-                <span>{price}€</span>
-              </div>
+              <Button
+                href={`/reservations/${slug}`}
+                color="rose"
+                responsiveWidth={{
+                  default: "large",
+                  sm: "normal",
+                  md: "large",
+                  lg: "normal",
+                }}
+                compact
+              >
+                {buttonText}
+              </Button>
             </div>
           </div>
         </div>
         {/* CTA Button */}
-        <Button href={`/reservations/${slug}`} color="rose">
-          {buttonText}
-        </Button>
       </div>
     </div>
   );
