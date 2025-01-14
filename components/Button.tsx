@@ -3,15 +3,23 @@
 import Link from "next/link";
 import React, { ReactNode } from "react";
 
-type ColorOption = "white" | "rose" | "empty" | "brown";
+type ColorOption = "white" | "rose" | "empty";
 type WidthOption = "large" | "normal";
+
+type ResponsiveWidth = {
+  default: WidthOption;
+  sm?: WidthOption;
+  md?: WidthOption;
+  lg?: WidthOption;
+};
 
 type ButtonProps = {
   children?: string;
   icon?: ReactNode;
   href?: string;
   color?: ColorOption;
-  width?: WidthOption;
+  responsiveWidth?: ResponsiveWidth;
+  compact?: boolean;
   disabled?: boolean;
   button?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -23,26 +31,36 @@ const Button = ({
   icon,
   href,
   color = "rose",
-  width = "large",
+  responsiveWidth = { default: "large" },
+  compact = false,
   disabled = false,
   button = false,
   onClick,
   type,
 }: ButtonProps) => {
   const baseClasses =
-    "rounded-full px-8 py-4 font-bold text-center text-base transition-all duration-200 ease-in-out active:scale-95";
-  const widthClass = width === "large" ? "w-full" : "w-fit";
+    "rounded-full px-8 font-bold text-center text-base transition-all duration-200 ease-in-out active:scale-95";
+
+  // Gérer les classes de largeur responsive avec des valeurs fixes
+  const responsiveClasses = `
+    ${responsiveWidth.default === "large" ? "w-full" : "w-fit"}
+    ${responsiveWidth.sm === "large" ? "sm:w-full" : responsiveWidth.sm === "normal" ? "sm:w-fit" : ""}
+    ${responsiveWidth.md === "large" ? "md:w-full" : responsiveWidth.md === "normal" ? "md:w-fit" : ""}
+    ${responsiveWidth.lg === "large" ? "lg:w-full" : responsiveWidth.lg === "normal" ? "lg:w-fit" : ""}
+  `;
+
+  const heightClass = compact ? "py-3" : "py-4"; // Hauteur basée sur `compact`
+
   const colorClasses = {
     white: "bg-white text-brown-dark hover:bg-rose-light",
     rose: "bg-rose-background border border-rose-dark text-brown-dark hover:bg-rose-light",
     empty:
       "bg-white border border-rose-dark text-brown-dark hover:bg-rose-light",
-    brown: "bg-brown text-white hover:bg-brown-light",
   };
 
-  const classes = `${baseClasses} ${widthClass} ${colorClasses[color]} ${
-    disabled ? "cursor-not-allowed opacity-75" : ""
-  }`;
+  const classes = `${baseClasses} ${responsiveClasses} ${heightClass} ${
+    colorClasses[color]
+  } ${disabled ? "cursor-not-allowed opacity-75" : ""}`;
 
   const content = (
     <>
