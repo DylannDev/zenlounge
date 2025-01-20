@@ -11,11 +11,13 @@ interface ServicesListProps {
     slug: string;
   }[];
   buttonText?: string;
+  isForfaitsPage?: boolean;
 }
 
 const ServicesList: React.FC<ServicesListProps> = ({
   services,
   buttonText,
+  isForfaitsPage,
 }) => {
   return (
     <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full my-10 auto-rows-fr">
@@ -29,6 +31,7 @@ const ServicesList: React.FC<ServicesListProps> = ({
             price={service.price}
             buttonText={buttonText}
             slug={service.slug}
+            isForfaitsPage={isForfaitsPage}
           />
         </li>
       ))}

@@ -18,6 +18,7 @@ const Forfaits = () => {
         <ServicesList
           services={forfaitSeances.fiveSessions}
           buttonText="Réserver mes 5 séances"
+          isForfaitsPage={true}
         />
       </div>
 
@@ -33,6 +34,7 @@ const Forfaits = () => {
         <ServicesList
           services={forfaitSeances.tenSessions}
           buttonText="Réserver mes 10 séances"
+          isForfaitsPage={true}
         />
       </div>
 

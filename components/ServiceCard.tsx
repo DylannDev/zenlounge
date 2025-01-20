@@ -1,7 +1,11 @@
+"use client";
+
 import React from "react";
 import Button from "./Button";
 import Image from "next/image";
-import { PiCurrencyEur, PiTimer, PiWallet } from "react-icons/pi";
+import { PiTimer, PiWallet } from "react-icons/pi";
+// import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface ServiceCardProps {
   imageUrl: string;
@@ -9,8 +13,9 @@ interface ServiceCardProps {
   description: string;
   duration: number;
   price: number;
-  buttonText?: string; // Texte du bouton
+  buttonText?: string;
   slug: string;
+  isForfaitsPage?: boolean;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({
@@ -19,9 +24,22 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   description,
   duration,
   price,
-  buttonText = "Réserver mon moment", // Valeur par défaut
+  buttonText = "Réserver mon moment",
   slug,
+  isForfaitsPage = false,
 }) => {
+  // const { data: session } = useSession();
+  const router = useRouter();
+
+  const handleBooking = () => {
+    if (isForfaitsPage) {
+      router.push(`/forfaits/${slug}`);
+      return;
+    }
+
+    router.push(`/reservations/${slug}`);
+  };
+
   return (
     <div className="bg-white rounded-3xl border border-rose-dark h-full">
       <div className="flex flex-col justify-between h-full p-5 gap-5">
@@ -67,7 +85,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
               </div>
 
               <Button
-                href={`/reservations/${slug}`}
+                onClick={handleBooking}
                 color="rose"
                 responsiveWidth={{
                   default: "large",
@@ -76,13 +94,13 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
                   lg: "normal",
                 }}
                 compact
+                button
               >
                 {buttonText}
               </Button>
             </div>
           </div>
         </div>
-        {/* CTA Button */}
       </div>
     </div>
   );
