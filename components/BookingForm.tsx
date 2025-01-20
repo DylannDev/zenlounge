@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import Button from "@/components/Button";
 import { formFields } from "@/data/BookingForm.config";
 import { PiCalendarCheck } from "react-icons/pi";
-import { createCheckoutSession } from "@/actions/createCheckoutSession";
-import { loadStripe } from "@stripe/stripe-js";
 import { formatDate } from "@/lib/utils";
 import { format } from "date-fns";
-
-// Initialiser Stripe avec la clé publique
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
+import { initStripePayment } from "@/lib/InitStripePayment";
 
 interface BookingFormProps {
   service: {
@@ -67,29 +63,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
 
     try {
       setIsLoading(true);
-
-      // Créer une session de paiement Stripe
-      const checkoutSession = await createCheckoutSession(bookingData);
-
-      if (checkoutSession?.success && checkoutSession?.sessionId) {
-        const stripe = await stripePromise;
-        if (!stripe) throw new Error("Stripe n'a pas pu être initialisé.");
-
-        // Redirection vers Stripe Checkout
-        const { error } = await stripe.redirectToCheckout({
-          sessionId: checkoutSession.sessionId,
-        });
-
-        if (error) {
-          throw new Error(`Erreur de redirection : ${error.message}`);
-        }
-      } else {
-        throw new Error(
-          checkoutSession?.error ||
-            "Erreur lors de la création de la session Stripe."
-        );
-      }
-
+      await initStripePayment(bookingData);
       setErrorMessage("");
     } catch (error) {
       console.error("Erreur lors de la réservation :", error);
