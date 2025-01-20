@@ -11,8 +11,20 @@ export async function createCheckoutSession(
   bookingData: createCheckoutSessionType
 ) {
   try {
-    const { serviceName, price, duration, date, time, clientEmail } =
-      bookingData;
+    const {
+      serviceName,
+      price,
+      duration,
+      date,
+      time,
+      clientEmail,
+      isForfait,
+      forfaitType,
+    } = bookingData;
+
+    // Déterminer le nombre de seances en fonction du forfait
+    const forfait =
+      forfaitType === "forfait-5" ? "Forfait 5 Séances" : "Forfait 10 Séances";
 
     // Validation des données
     if (!serviceName || !price || !duration || !date || !time || !clientEmail) {
@@ -34,7 +46,7 @@ export async function createCheckoutSession(
             currency: "eur",
             product_data: {
               name: serviceName,
-              description: `${duration} min • ${formatDate(date)} à ${time}`,
+              description: `${isForfait ? forfait + " • " : ""} ${duration} min • ${formatDate(date)} à ${time}`,
               images: ["https://zenlounge-guyane.vercel.app/logo.png"],
             },
             unit_amount: price * 100, // Stripe attend le montant en centimes
