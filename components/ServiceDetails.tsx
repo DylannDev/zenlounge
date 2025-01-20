@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { PiTimer, PiWallet } from "react-icons/pi";
+import { forfaitSeances } from "@/data";
 
 interface ServiceDetailsProps {
   service: {
@@ -9,10 +10,19 @@ interface ServiceDetailsProps {
     description: string;
     duration: number;
     price: number;
+    slug: string;
   };
 }
 
 const ServiceDetails: React.FC<ServiceDetailsProps> = ({ service }) => {
+  // Vérifier si le service est un forfait 5 ou 10 séances
+  const isFiveSessions = forfaitSeances.fiveSessions.some(
+    (forfait) => forfait.slug === service.slug
+  );
+  const isTenSessions = forfaitSeances.tenSessions.some(
+    (forfait) => forfait.slug === service.slug
+  );
+
   return (
     <div className="relative aspect-square w-full h-full">
       <Image
@@ -26,6 +36,14 @@ const ServiceDetails: React.FC<ServiceDetailsProps> = ({ service }) => {
           <h1 className="text-4xl font-bold">{service.name}</h1>
           <p className="text-lg mt-2">{service.description}</p>
           <div className="flex flex-col md:flex-row gap-2 mt-4">
+            {/* Forfait Sessions (5 ou 10 séances) */}
+            {(isFiveSessions || isTenSessions) && (
+              <div className="flex items-center px-3 py-1 text-sm font-semibold bg-rose-dark text-brown-dark rounded-lg w-fit">
+                {isFiveSessions ? "Forfait 5 séances" : "Forfait 10 séances"}
+              </div>
+            )}
+
+            {/* Durée */}
             <div className="flex items-center gap-1">
               <span className="text-2xl text-rose-dark">
                 <PiTimer />
@@ -33,6 +51,8 @@ const ServiceDetails: React.FC<ServiceDetailsProps> = ({ service }) => {
               <p>{service.duration} min</p>
             </div>
             <span className="text-xl">|</span>
+
+            {/* Prix */}
             <div className="flex items-center gap-1">
               <span className="text-2xl text-rose-dark">
                 <PiWallet />
