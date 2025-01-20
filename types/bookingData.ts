@@ -7,4 +7,6 @@ type BookingDataType = {
   clientName: string;
   clientEmail: string;
   clientPhone: string;
+  isForfait?: boolean;
+  forfaitType?: "forfait-5" | "forfait-10";
 };
