@@ -1,0 +1,65 @@
+export const loginFormFields = [
+  {
+    id: "email",
+    name: "email",
+    type: "email",
+    label: "Adresse Email",
+    placeholder: "johndoe@gmail.com",
+    required: true,
+    ariaRequired: "true",
+  },
+  {
+    id: "password",
+    name: "password",
+    type: "password",
+    label: "Mot de passe",
+    placeholder: "••••••••",
+    required: true,
+    ariaRequired: "true",
+  },
+];
+
+export const signupFormFields = [
+  {
+    id: "firstName",
+    name: "firstName",
+    type: "text",
+    placeholder: "Prénom",
+    label: "Prénom",
+    required: true,
+    halfWidth: true,
+  },
+  {
+    id: "lastName",
+    name: "lastName",
+    type: "text",
+    placeholder: "Nom",
+    label: "Nom",
+    required: true,
+    halfWidth: true,
+  },
+  {
+    id: "phone",
+    name: "phone",
+    type: "text",
+    placeholder: "Numéro de téléphone",
+    label: "Téléphone",
+    required: true,
+  },
+  {
+    id: "email",
+    name: "email",
+    type: "email",
+    placeholder: "Adresse email",
+    label: "Email",
+    required: true,
+  },
+  {
+    id: "password",
+    name: "password",
+    type: "password",
+    placeholder: "Mot de passe",
+    label: "Mot de passe",
+    required: true,
+  },
+];
