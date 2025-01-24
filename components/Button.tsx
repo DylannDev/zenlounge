@@ -39,7 +39,7 @@ const Button = ({
   type,
 }: ButtonProps) => {
   const baseClasses =
-    "rounded-full px-8 font-bold text-center text-base transition-all duration-200 ease-in-out active:scale-95";
+    "rounded-full px-8 font-bold text-center text-base transition-all duration-200 ease-in-out active:scale-95 flex justify-center items-center gap-2";
 
   // Gérer les classes de largeur responsive avec des valeurs fixes
   const responsiveClasses = `
