@@ -8,20 +8,25 @@ import { loginFormFields } from "@/data/LoginForm.config";
 import { loginSchema } from "@/validation/Login";
 import { signIn, signInWithGoogle } from "@/actions/authClient";
 import { useRouter } from "next/navigation";
+import Loader from "./Loader";
 
 type LoginFormInputs = {
   email: string;
   password: string;
 };
 
-const LoginForm = () => {
+const LoginForm = ({
+  setLoading,
+}: {
+  setLoading: (value: boolean) => void;
+}) => {
   const router = useRouter();
   const [error, setError] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LoginFormInputs>({
     resolver: zodResolver(loginSchema),
   });
@@ -44,15 +49,12 @@ const LoginForm = () => {
   const handleGoogleSignIn = async () => {
     try {
       setError("");
-      const response = await signInWithGoogle();
-
-      if (response.success) {
-        router.push("/profil");
-      } else {
-        setError(response.message || "Erreur de connexion avec Google");
-      }
+      await signInWithGoogle();
+      setLoading(true);
+      router.push("/profil");
     } catch (err) {
       setError("Une erreur est survenue avec la connexion Google");
+      setLoading(false);
       console.error(err);
     }
   };
@@ -83,8 +85,12 @@ const LoginForm = () => {
 
         {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
-        <Button button type="submit" color="rose">
-          Se connecter
+        <Button button type="submit" color="rose" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <Loader text="Connexion en cours..." />
+          ) : (
+            "Se connecter"
+          )}
         </Button>
       </form>
 
@@ -93,8 +99,12 @@ const LoginForm = () => {
         <span className="px-3 text-gray-500 text-sm">ou</span>
         <div className="flex-grow border-t border-gray-300"></div>
       </div>
-
-      <Button button onClick={handleGoogleSignIn} color="empty">
+      <Button
+        button
+        onClick={handleGoogleSignIn}
+        color="empty"
+        disabled={isSubmitting}
+      >
         Connexion avec Google
       </Button>
     </div>
