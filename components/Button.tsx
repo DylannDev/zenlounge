@@ -14,7 +14,7 @@ type ResponsiveWidth = {
 };
 
 type ButtonProps = {
-  children?: string;
+  children: string | React.ReactNode;
   icon?: ReactNode;
   href?: string;
   color?: ColorOption;
