@@ -8,6 +8,7 @@ import {
 } from "firebase/auth";
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { setAuthToken, removeAuthToken } from "@/actions/authActions";
+import { getAuthErrorMessage } from "@/lib/authErrors";
 
 // 🔹 Connexion avec email & mot de passe
 export const signIn = async (email: string, password: string) => {
@@ -25,7 +26,7 @@ export const signIn = async (email: string, password: string) => {
 
     return { success: true, user };
   } catch (error: any) {
-    return { success: false, message: error.message };
+    return { success: false, message: getAuthErrorMessage(error.code) };
   }
 };
 
@@ -48,13 +49,14 @@ export const signInWithGoogle = async () => {
       });
     }
 
-    // Stocker le token avec la Server Action
+    // Récupérer et stocker le token avec la Server Action
     const token = await user.getIdToken();
     await setAuthToken(token);
 
     return { success: true, userId: user.uid };
   } catch (error: any) {
-    return { success: false, message: error.message };
+    console.error("Erreur de connexion avec Google :", error);
+    return { success: false, message: getAuthErrorMessage(error.code) };
   }
 };
 

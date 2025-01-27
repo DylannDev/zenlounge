@@ -5,6 +5,7 @@ import { firebaseAdmin } from "@/firebase/admin";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@/firebase/firebase";
 import { collection, doc, setDoc } from "firebase/firestore";
+import { getAuthErrorMessage } from "@/lib/authErrors";
 
 type ClientData = {
   firstName: string;
@@ -79,12 +80,8 @@ export const signUp = async (data: ClientData) => {
       isForfait: false,
     });
 
-    // Stocker le token avec la Server Action
-    const token = await user.getIdToken();
-    await setAuthToken(token);
-
     return { success: true, userId: user.uid };
   } catch (error: any) {
-    return { success: false, message: error.message };
+    return { success: false, message: getAuthErrorMessage(error.code) };
   }
 };
