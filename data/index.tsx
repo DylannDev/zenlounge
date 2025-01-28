@@ -12,9 +12,11 @@ import {
   PiRulerLight,
   PiSealPercent,
   PiShower,
+  PiSignOut,
   PiSparkle,
   PiTimer,
   PiUserCheckLight,
+  PiUserCircle,
   PiUsers,
   PiWifiHighLight,
 } from "react-icons/pi";
@@ -444,4 +446,21 @@ export const roomDetails = [
   { icon: <PiUserCheckLight />, value: "2 Personnes" },
   { icon: <PiBedLight />, value: "1 Lit + 1 Canapé" },
   { icon: <PiShower />, value: "1 Salle de Bain" },
+];
+
+export const loggedInLinks = [
+  {
+    label: "Profil",
+    href: "/profil",
+    icon: <PiUserCircle />,
+  },
+  {
+    label: "Prestations",
+    href: "/prestations",
+    icon: <PiFlowerLotus />,
+  },
+  {
+    label: "Déconnexion",
+    icon: <PiSignOut />,
+  },
 ];
