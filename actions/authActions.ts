@@ -4,8 +4,9 @@ import { cookies } from "next/headers";
 import { firebaseAdmin } from "@/firebase/admin";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@/firebase/firebase";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { getAuthErrorMessage } from "@/lib/authErrors";
+import { convertFirebaseTimestamp } from "@/lib/utils";
 
 type ClientData = {
   firstName: string;
@@ -59,6 +60,28 @@ export const getCurrentUser = async () => {
   }
 };
 
+export const getUserProfile = async (userId: string) => {
+  if (!userId) throw new Error("L'ID utilisateur est requis.");
+
+  try {
+    const userRef = doc(db, "clients", userId);
+    const docSnap = await getDoc(userRef);
+
+    if (!docSnap.exists()) return null; // Retourne null si l'utilisateur n'existe pas
+
+    const userData = docSnap.data();
+
+    return {
+      ...userData,
+      id: docSnap.id,
+      createdAt: convertFirebaseTimestamp(userData.createdAt),
+    };
+  } catch (error) {
+    console.error("Erreur lors de la récupération du profil :", error);
+    throw new Error("Impossible de récupérer le profil utilisateur.");
+  }
+};
+
 // 🔹 Création de compte avec stockage Firestore
 export const signUp = async (data: ClientData) => {
   try {
@@ -74,9 +97,11 @@ export const signUp = async (data: ClientData) => {
     // Stocker l'utilisateur en Firestore
     const clientRef = doc(collection(db, "clients"), user.uid);
     await setDoc(clientRef, {
-      name: `${data.firstName} ${data.lastName}`,
+      firstName: data.firstName,
+      lastName: data.lastName,
       email: data.email,
       phone: data.phone,
+      createdAt: new Date(),
       isForfait: false,
     });
 
