@@ -37,7 +37,7 @@ const MobileMenu = () => {
 
       {/* Menu mobile */}
       <div
-        className={`fixed top-[80px] lg:top-[120px] left-0 right-0 py-10 sm:px-10 px-5 z-40 h-screen bg-white transform transition-transform duration-500 ease-in-out ${
+        className={`fixed top-[80px] left-0 right-0 py-10 sm:px-10 px-5 z-40 h-screen bg-white transform transition-transform duration-500 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >

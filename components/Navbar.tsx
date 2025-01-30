@@ -21,10 +21,15 @@ const Navbar = () => {
         !isHomePage ? "border-b" : ""
       }`}
     >
-      <div className="flex items-center justify-between px-5 min-[900px]:px-16 lg:px-20 mx-auto max-w-[1600px] w-full">
+      <div className="relative flex items-center justify-between px-5 min-[900px]:px-16 lg:px-20 mx-auto max-w-[1600px] w-full">
         <Logo />
-        <MobileMenu />
-        <div className="flex items-center">
+        <div className="flex items-center gap-2">
+          <MobileMenu />
+          <div className="flex lg:hidden">
+            <LoggedInMenu />
+          </div>
+        </div>
+        <div className="hidden lg:flex items-center">
           <Navlinks />
           <div className="ml-8">
             {user ? (
