@@ -26,19 +26,33 @@ export const formatSlot = (slot: number): string => {
 
 // console.log(formatSlot(570)); // "09:30"
 
-export const formatDate = (input: Date | string): string => {
-  // Options pour formater la date
+export const formatDate = (
+  input: Date | string,
+  showWeekday: boolean = true
+): string => {
+  // Options de formatage
   const options: Intl.DateTimeFormatOptions = {
-    weekday: "short",
     day: "numeric",
     month: "short",
     year: "numeric",
     timeZone: "Europe/Paris",
   };
 
-  // Si l'entrée est une chaîne, la convertir en Date
+  // Ajouter "weekday" seulement si showWeekday est true
+  if (showWeekday) {
+    options.weekday = "short";
+  }
+
+  // Convertir la chaîne en Date si nécessaire
   const date = typeof input === "string" ? new Date(input) : input;
 
-  // Formatage
   return date.toLocaleDateString("fr-FR", options);
+};
+
+export const convertFirebaseTimestamp = (timestamp: {
+  seconds: number;
+  nanoseconds: number;
+}) => {
+  if (!timestamp?.seconds) return null;
+  return new Date(timestamp.seconds * 1000); // Convertir les secondes en millisecondes
 };
