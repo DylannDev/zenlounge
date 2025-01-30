@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import React, { ReactNode } from "react";
+import Link from "next/link";
 
 type ColorOption = "white" | "rose" | "empty";
 type WidthOption = "large" | "normal";
