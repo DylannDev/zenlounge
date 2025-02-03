@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { InfosFormFields } from "@/data/ProfileForm.config";
 import { infosProfileSchema } from "@/validation/Profile";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,6 +9,7 @@ import { useForm } from "react-hook-form";
 import Button from "../Button";
 import Loader from "../Loader";
 import { UserData } from "@/types/userData";
+import { updateUserProfile } from "@/actions/updateUserProfile";
 
 type InfosFormInputs = {
   firstName: string;
@@ -15,10 +18,20 @@ type InfosFormInputs = {
 };
 
 const InfosProfileForm = ({ userData }: { userData: UserData }) => {
+  const router = useRouter();
+
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isFormModified, setIsFormModified] = useState(false);
+  const [initialValues, setInitialValues] = useState<InfosFormInputs | null>(
+    null
+  );
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    watch,
+    formState: { errors, isSubmitting, isDirty },
   } = useForm<InfosFormInputs>({
     resolver: zodResolver(infosProfileSchema),
     defaultValues: {
@@ -29,8 +42,43 @@ const InfosProfileForm = ({ userData }: { userData: UserData }) => {
   });
 
   const onSubmit = async (data: any) => {
-    console.log("Données modifiées :", data);
+    setError(""); // Réinitialisation de l'erreur
+    setSuccessMessage(""); // Réinitialisation du message de succès
+
+    const response = await updateUserProfile(data);
+
+    if (response.success) {
+      setSuccessMessage("Vos informations ont été mises à jour.");
+      setIsFormModified(false);
+      setTimeout(() => {
+        router.refresh();
+        setSuccessMessage("");
+      }, 3000);
+    } else {
+      setError(response.message || "Une erreur est survenue.");
+    }
   };
+
+  useEffect(() => {
+    if (userData) {
+      setInitialValues({
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        phone: userData.phone,
+      });
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    if (!initialValues) return;
+
+    const hasChanged =
+      initialValues.firstName !== watch("firstName") ||
+      initialValues.lastName !== watch("lastName") ||
+      initialValues.phone !== watch("phone");
+
+    setIsFormModified(hasChanged);
+  }, [watch("firstName"), watch("lastName"), watch("phone"), initialValues]);
 
   return (
     <div className="flex flex-col gap-4">
@@ -87,7 +135,7 @@ const InfosProfileForm = ({ userData }: { userData: UserData }) => {
           button
           type="submit"
           color="rose"
-          disabled={isSubmitting}
+          disabled={isSubmitting || !isFormModified}
           responsiveWidth={{ default: "normal" }}
           compact
         >
@@ -98,6 +146,11 @@ const InfosProfileForm = ({ userData }: { userData: UserData }) => {
           )}
         </Button>
       </form>
+
+      {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
+      {successMessage && (
+        <p className="text-green-500 text-sm font-medium">{successMessage}</p>
+      )}
     </div>
   );
 };

@@ -16,8 +16,24 @@ export const infosProfileSchema = z.object({
 });
 
 // ✅ Validation du formulaire de modification du mot de passe
-export const credentialProfileSchema = z.object({
-  password: z
-    .string()
-    .min(6, "Le mot de passe doit contenir au moins 6 caractères."),
-});
+export const credentialProfileSchema = z
+  .object({
+    currentPassword: z
+      .string()
+      .min(6, "Le mot de passe actuel doit contenir au moins 6 caractères."),
+
+    newPassword: z
+      .string()
+      .min(6, "Le nouveau mot de passe doit contenir au moins 6 caractères."),
+
+    confirmPassword: z
+      .string()
+      .min(
+        6,
+        "Le mot de passe de confirmation doit contenir au moins 6 caractères."
+      ),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Les nouveaux mots de passe ne correspondent pas.",
+    path: ["confirmPassword"],
+  });

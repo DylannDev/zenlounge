@@ -28,20 +28,28 @@ export const InfosFormFields = [
 ];
 
 export const credentialFormFields = [
-  // {
-  //   id: "email",
-  //   name: "email",
-  //   type: "email",
-  //   placeholder: "Adresse email",
-  //   label: "Email",
-  //   required: true,
-  // },
   {
-    id: "password",
-    name: "password",
+    id: "currentPassword",
+    name: "currentPassword",
     type: "password",
-    placeholder: "Mot de passe",
-    label: "Mot de passe",
+    placeholder: "Mot de passe actuel",
+    label: "Mot de passe actuel",
+    required: true,
+  },
+  {
+    id: "newPassword",
+    name: "newPassword",
+    type: "password",
+    placeholder: "Nouveau mot de passe",
+    label: "Nouveau mot de passe",
+    required: true,
+  },
+  {
+    id: "confirmPassword",
+    name: "confirmPassword",
+    type: "password",
+    placeholder: "Confirmer le nouveau mot de passe",
+    label: "Confirmer le nouveau mot de passe",
     required: true,
   },
 ];
