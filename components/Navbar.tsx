@@ -1,26 +1,17 @@
-"use client";
-
-import { useAuth } from "@/hooks/useAuth";
+import { getCurrentUser } from "@/actions/authActions";
 import Logo from "./Logo";
 import MobileMenu from "./MobileMenu";
 import Navlinks from "./Navlinks";
-import { usePathname } from "next/navigation";
 import LoggedInMenu from "./LoggedInMenu";
 import Button from "./Button";
 import { PiSignInBold } from "react-icons/pi";
+import ClientPathChecker from "./ClientPathChecker";
 
-const Navbar = () => {
-  const pathname = usePathname();
-  const user = useAuth();
-
-  const isHomePage = pathname === "/";
+const Navbar = async () => {
+  const user = await getCurrentUser();
 
   return (
-    <div
-      className={`h-[80px] lg:h-[120px] fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg flex items-center ${
-        !isHomePage ? "border-b" : ""
-      }`}
-    >
+    <ClientPathChecker>
       <div className="relative flex items-center justify-between px-5 min-[900px]:px-16 lg:px-20 mx-auto max-w-[1600px] w-full">
         <Logo />
         <div className="flex items-center gap-2">
@@ -32,7 +23,7 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center">
           <Navlinks />
           <div className="ml-8">
-            {user ? (
+            {user !== null ? (
               <LoggedInMenu />
             ) : (
               <Button
@@ -47,7 +38,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </div>
+    </ClientPathChecker>
   );
 };
 
