@@ -4,7 +4,6 @@ import React from "react";
 import Button from "./Button";
 import Image from "next/image";
 import { PiTimer, PiWallet } from "react-icons/pi";
-// import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 interface ServiceCardProps {
@@ -28,7 +27,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   slug,
   isForfaitsPage = false,
 }) => {
-  // const { data: session } = useSession();
   const router = useRouter();
 
   const handleBooking = () => {

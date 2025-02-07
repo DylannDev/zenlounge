@@ -306,7 +306,7 @@ export const forfaitSeances = {
         "Un massage relaxant avec des lissages et pressions ciblées pour améliorer la circulation sanguine et apaiser les tensions.",
       duration: 45,
       price: 450,
-      slug: "forfait-massage-pierres-chaudes",
+      slug: "massage-pierres-chaudes-forfait-5",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -315,7 +315,7 @@ export const forfaitSeances = {
         "Un massage revitalisant des bras et jambes pour stimuler la circulation énergétique. Idéal pour retrouver légèreté et énergie.",
       duration: 30,
       price: 190,
-      slug: "forfait-circulation-energetique",
+      slug: "circulation-energetique-forfait-5",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -324,7 +324,7 @@ export const forfaitSeances = {
         "Un massage ciblant les cervicales, guidé par notre spécialiste, pour une relaxation profonde et un soulagement des tensions.",
       duration: 60,
       price: 450,
-      slug: "forfait-massage-intuitif-therapy",
+      slug: "massage-intuitif-therapy-forfait-5",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -333,7 +333,7 @@ export const forfaitSeances = {
         "Un massage des pieds apprécié pour relancer la circulation sanguine et éliminer les toxines du corps. Une véritable cure de bien-être.",
       duration: 30,
       price: 180,
-      slug: "forfait-foot-massage",
+      slug: "foot-massage-forfait-5",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -342,7 +342,7 @@ export const forfaitSeances = {
         "Profitez d’un massage aux huiles essentielles parfumées naturelles, reconnues pour leurs vertus apaisantes.",
       duration: 60,
       price: 375,
-      slug: "forfait-massage-relaxant",
+      slug: "massage-relaxant-forfait-5",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -351,7 +351,7 @@ export const forfaitSeances = {
         "Le massage Tui Na, idéal pour soulager les douleurs de dos et détendre les tensions musculaires.",
       duration: 30,
       price: 220,
-      slug: "forfait-massage-dos-cervicales",
+      slug: "massage-dos-cervicales-forfait-5",
     },
   ],
   tenSessions: [
@@ -362,7 +362,7 @@ export const forfaitSeances = {
         "10 séances de massage relaxant avec baume et huiles essentielles pour un bien-être prolongé.",
       duration: 60,
       price: 700,
-      slug: "forfait-10-massage-relaxant",
+      slug: "massage-relaxant-forfait-10",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -371,7 +371,7 @@ export const forfaitSeances = {
         "Un massage ciblé combinant pressions shiatsu et techniques Tui Na, parfait pour soulager les douleurs dorsales.",
       duration: 30,
       price: 420,
-      slug: "forfait-10-cure-dos-cervicales",
+      slug: "cure-dos-cervicales-forfait-10",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -380,7 +380,7 @@ export const forfaitSeances = {
         "Un massage combiné des cervicales, dos, et jambes pour une relaxation complète et une meilleure circulation.",
       duration: 30,
       price: 450,
-      slug: "forfait-10-neck-shoulders-soft-foot",
+      slug: "neck-shoulders-soft-foot-forfait-10",
     },
     {
       imageUrl: "/massage-cou.jpg",
@@ -389,7 +389,7 @@ export const forfaitSeances = {
         "Un massage drainant spécialement conçu pour soulager les jambes lourdes et améliorer la circulation.",
       duration: 30,
       price: 390,
-      slug: "forfait-10-massage-jambes-lourdes",
+      slug: "massage-jambes-lourdes-forfait-10",
     },
   ],
 };

@@ -102,7 +102,6 @@ export const signUp = async (data: ClientData) => {
       email: data.email,
       phone: data.phone,
       createdAt: new Date(),
-      isForfait: false,
     });
 
     return { success: true, userId: user.uid };
