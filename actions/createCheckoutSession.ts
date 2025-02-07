@@ -3,13 +3,21 @@
 import { stripe } from "@/lib/stripe";
 import { formatDate } from "@/lib/utils";
 
-type createCheckoutSessionType = Omit<BookingDataType, "date"> & {
-  date: string;
+// Définition du type pour les paramètres
+type InitStripePaymentParams = Omit<BookingDataType, "date"> & { date: string };
+
+// Définition du type de retour
+type CreateCheckoutSessionResponse = {
+  sessionId?: string;
+  success: boolean;
+  error?: string;
 };
 
 export async function createCheckoutSession(
-  bookingData: createCheckoutSessionType
-) {
+  bookingData: InitStripePaymentParams,
+  forfaitId?: string,
+  userId?: string
+): Promise<CreateCheckoutSessionResponse> {
   try {
     const {
       serviceName,
@@ -22,8 +30,8 @@ export async function createCheckoutSession(
       forfaitType,
     } = bookingData;
 
-    // Déterminer le nombre de seances en fonction du forfait
-    const forfait =
+    // Déterminer le nombre de séances selon le type de forfait
+    const forfaitLabel =
       forfaitType === "forfait-5" ? "Forfait 5 Séances" : "Forfait 10 Séances";
 
     // Validation des données
@@ -31,7 +39,7 @@ export async function createCheckoutSession(
       throw new Error("Tous les champs sont requis.");
     }
 
-    // Création de la session Stripe
+    // ✅ Création de la session Stripe
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
@@ -46,7 +54,9 @@ export async function createCheckoutSession(
             currency: "eur",
             product_data: {
               name: serviceName,
-              description: `${isForfait ? forfait + " • " : ""} ${duration} min • ${formatDate(date)} à ${time}`,
+              description: `${
+                isForfait ? forfaitLabel + " • " : ""
+              } ${duration} min • ${formatDate(date)} à ${time}`,
               images: ["https://zenlounge-guyane.vercel.app/logo.png"],
             },
             unit_amount: price * 100, // Stripe attend le montant en centimes
@@ -56,6 +66,8 @@ export async function createCheckoutSession(
       ],
       metadata: {
         bookingData: JSON.stringify(bookingData),
+        forfaitId: forfaitId || "",
+        userId: userId || "",
       },
     });
 

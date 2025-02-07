@@ -1,25 +1,28 @@
 import { createCheckoutSession } from "@/actions/createCheckoutSession";
 import { loadStripe } from "@stripe/stripe-js";
 
-// Initialiser Stripe avec la clé publique
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
-type initStripePaymentProps = Omit<BookingDataType, "date"> & {
-  date: string;
-};
+type InitStripePaymentParams = Omit<BookingDataType, "date"> & { date: string };
 
 export const initStripePayment = async (
-  bookingData: initStripePaymentProps
-) => {
+  bookingData: InitStripePaymentParams,
+  forfaitId?: string,
+  userId?: string
+): Promise<void> => {
   try {
-    // Créer une session de paiement Stripe
-    const checkoutSession = await createCheckoutSession(bookingData);
+    // ✅ Création de la session de paiement Stripe
+    const checkoutSession = await createCheckoutSession(
+      bookingData,
+      forfaitId,
+      userId
+    );
 
     if (checkoutSession?.success && checkoutSession?.sessionId) {
       const stripe = await stripePromise;
       if (!stripe) throw new Error("Stripe n'a pas pu être initialisé.");
 
-      // Redirection vers Stripe Checkout
+      // ✅ Redirection vers Stripe Checkout
       const { error } = await stripe.redirectToCheckout({
         sessionId: checkoutSession.sessionId,
       });
@@ -35,6 +38,6 @@ export const initStripePayment = async (
     }
   } catch (error) {
     console.error("Erreur lors du paiement Stripe :", error);
-    throw error; // Renvoyer l'erreur pour que l'appelant puisse la gérer
+    throw error;
   }
 };
