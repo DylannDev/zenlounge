@@ -1,7 +1,14 @@
 "use server";
 
 import { db } from "@/firebase/firebase";
-import { collection, addDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 
 export const saveBooking = async (
   bookingData: BookingDataType,
@@ -13,18 +20,30 @@ export const saveBooking = async (
     if (userId) {
       const userBookingsRef = collection(db, "clients", userId, "bookings");
 
-      // ✅ Vérification du forfait si applicable
+      // ✅ Vérification et création du forfait si applicable
       if (forfaitId) {
         const forfaitRef = doc(db, "clients", userId, "forfaits", forfaitId);
-        const forfaitSnap = await getDoc(forfaitRef);
+        let forfaitSnap = await getDoc(forfaitRef);
 
+        // 🟡 Si le forfait n'existe pas, on le crée !
         if (!forfaitSnap.exists()) {
-          throw new Error("Forfait non trouvé.");
+          const totalSessions = forfaitId.includes("forfait-5") ? 5 : 10;
+
+          await setDoc(forfaitRef, {
+            forfaitId,
+            totalSessions,
+            remainingSessions: totalSessions,
+            price: bookingData.price,
+            serviceName: bookingData.serviceName,
+            createdAt: new Date(),
+          });
+
+          forfaitSnap = await getDoc(forfaitRef); // Récupérer les nouvelles données
         }
 
         const forfaitData = forfaitSnap.data();
 
-        if (!forfaitData.isActive || forfaitData.remainingSessions <= 0) {
+        if (!forfaitData || forfaitData.remainingSessions <= 0) {
           throw new Error("Ce forfait n'a plus de séances disponibles.");
         }
 
