@@ -7,15 +7,15 @@ type InitStripePaymentParams = Omit<BookingDataType, "date"> & { date: string };
 
 export const initStripePayment = async (
   bookingData: InitStripePaymentParams,
-  forfaitId?: string,
-  userId?: string
+  userId?: string,
+  forfaitId?: string
 ): Promise<void> => {
   try {
     // ✅ Création de la session de paiement Stripe
     const checkoutSession = await createCheckoutSession(
       bookingData,
-      forfaitId,
-      userId
+      userId,
+      forfaitId
     );
 
     if (checkoutSession?.success && checkoutSession?.sessionId) {
