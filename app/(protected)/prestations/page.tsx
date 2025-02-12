@@ -1,5 +1,6 @@
 import { getCurrentUser } from "@/actions/authActions";
 import { getUserBookings } from "@/actions/getUserBookings";
+import ForfaitServices from "@/components/prestations/ForfaitServices";
 import PastServices from "@/components/prestations/PastServices";
 import UpcomingServices from "@/components/prestations/UpcomingServices";
 import { convertFirebaseTimestamp } from "@/lib/utils";
@@ -11,17 +12,19 @@ const ServicesPage = async () => {
     redirect("/login");
   }
 
-  // ✅ Récupération des services depuis le cache
+  // ✅ Récupération des services et forfaits
   const userBookings = await getUserBookings(
     currentUser.uid!,
     currentUser.email!
   );
 
-  // ✅ Vérification et conversion des timestamps
+  const userForfaits = userBookings?.forfaits ?? [];
+
+  // ✅ Conversion des timestamps en Date
   const bookingsWithDates =
     userBookings?.services?.map((service) => ({
       ...service,
-      date: convertFirebaseTimestamp(service.date), // Convertir le timestamp en Date
+      date: convertFirebaseTimestamp(service.date),
     })) ?? [];
 
   // ✅ Séparation des services passés et à venir
@@ -39,7 +42,15 @@ const ServicesPage = async () => {
         {/* ✅ Services à venir */}
         <UpcomingServices services={upcomingBookings} />
 
-        {/* ✅ Historique des prestations */}
+        {/* ✅ Forfaits actifs (s'il y en a) */}
+        {userForfaits.length !== 0 && (
+          <>
+            <hr />
+            <ForfaitServices forfaits={userForfaits} />
+          </>
+        )}
+
+        {/* ✅ Historique des prestations (s'il y en a) */}
         {pastBookings.length !== 0 && (
           <>
             <hr />
