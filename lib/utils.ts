@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { massageServices, soinsServices, forfaitSeances } from "@/data";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -55,4 +56,19 @@ export const convertFirebaseTimestamp = (timestamp: {
 }) => {
   if (!timestamp?.seconds) return null;
   return new Date(timestamp.seconds * 1000); // Convertir les secondes en millisecondes
+};
+
+// ✅ Fonction pour récupérer l'image correspondant au service
+export const getServiceImage = (serviceName: string) => {
+  // Vérifier dans les massages
+  const foundService =
+    massageServices.find((service) => service.name === serviceName) ||
+    soinsServices.women.find((service) => service.name === serviceName) ||
+    soinsServices.men.find((service) => service.name === serviceName) ||
+    forfaitSeances.fiveSessions.find(
+      (service) => service.name === serviceName
+    ) ||
+    forfaitSeances.tenSessions.find((service) => service.name === serviceName);
+
+  return foundService?.imageUrl || "/massage-1.jpg";
 };
