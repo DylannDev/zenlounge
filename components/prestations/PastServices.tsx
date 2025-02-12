@@ -1,4 +1,4 @@
-import ProfileServiceCard from "./ProfileServiceCard";
+import ProfileBookingCard from "./ProfileBookingCard";
 
 const PastServices = ({ services }: { services: any[] }) => {
   return (
@@ -9,7 +9,11 @@ const PastServices = ({ services }: { services: any[] }) => {
       ) : (
         <ul className="space-y-4">
           {services.map((service) => (
-            <ProfileServiceCard key={service.id} service={service} />
+            <ProfileBookingCard
+              key={service.id}
+              service={service}
+              isPastBookings
+            />
           ))}
         </ul>
       )}
