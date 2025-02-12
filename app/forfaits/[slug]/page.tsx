@@ -15,6 +15,7 @@ import { format } from "date-fns";
 import { useAuth } from "@/hooks/useAuth";
 import { getUserInfos } from "@/actions/getUserInfos";
 import { initStripePayment } from "@/lib/InitStripePayment";
+import { saveBooking } from "@/actions/saveBooking";
 
 const ForfaitBooking = () => {
   const user = useAuth();
@@ -33,6 +34,12 @@ const ForfaitBooking = () => {
     clientEmail: string;
     clientPhone: string;
   } | null>(null);
+
+  const userInfoFields = [
+    { label: "Nom", value: clientInfo?.clientName },
+    { label: "Email", value: clientInfo?.clientEmail },
+    { label: "Téléphone", value: clientInfo?.clientPhone },
+  ];
 
   // 📌 Recherche du forfait correspondant
   const forfait = [
@@ -90,7 +97,8 @@ const ForfaitBooking = () => {
       serviceName: forfait.name,
       duration: forfait.duration,
       price: forfait.price,
-      date: formattedDate,
+      date: selectedDate!,
+      // date: formattedDate,
       time: selectedTime,
       clientName: clientInfo.clientName,
       clientEmail: clientInfo.clientEmail,
@@ -101,7 +109,8 @@ const ForfaitBooking = () => {
 
     try {
       setIsLoading(true);
-      await initStripePayment(bookingData, forfaitId, user.uid);
+      await saveBooking(bookingData, user.uid, forfaitId);
+      // await initStripePayment(bookingData, user.uid, forfaitId);
       setErrorMessage("");
     } catch (error) {
       console.error("Erreur lors de la réservation :", error);
@@ -178,9 +187,24 @@ const ForfaitBooking = () => {
               </button>
             </div>
 
-            <Button button onClick={handlePayment} disabled={isLoading}>
-              {isLoading ? "Chargement..." : "Réserver"}
-            </Button>
+            <div className="flex flex-col gap-2">
+              <h2 id="reservation-form" className="text-xl font-bold">
+                Vos informations
+              </h2>
+              <ul className="flex flex-col gap-2">
+                {userInfoFields.map((field, index) => (
+                  <li key={index} className=" text-blue-light">
+                    <span className="font-semibold">{field.label} :</span>{" "}
+                    {field.value}
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-col gap-2 mt-12">
+                <Button button onClick={handlePayment} disabled={isLoading}>
+                  {isLoading ? "Chargement..." : "Réserver"}
+                </Button>
+              </div>
+            </div>
           </div>
         )}
       </div>
