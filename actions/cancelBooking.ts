@@ -3,11 +3,13 @@
 import { db } from "@/firebase/firebase";
 import {
   doc,
+  getDoc,
   getDocs,
   query,
   where,
   deleteDoc,
   collection,
+  updateDoc,
 } from "firebase/firestore";
 
 export async function cancelBooking({
@@ -20,10 +22,41 @@ export async function cancelBooking({
   clientEmail?: string;
 }) {
   try {
+    let forfaitId: string | null = null;
+
     if (userId) {
-      // Cas où le client est connecté : Suppression dans `/clients/{userId}/bookings/{bookingId}`
-      const userBookingRef = doc(db, `clients/${userId}/bookings/${bookingId}`);
-      await deleteDoc(userBookingRef);
+      // Cas où le client est connecté : Récupérer la réservation
+      const bookingRef = doc(db, `clients/${userId}/bookings/${bookingId}`);
+      const bookingSnap = await getDoc(bookingRef);
+
+      if (!bookingSnap.exists()) {
+        return { success: false, message: "Réservation introuvable." };
+      }
+
+      const bookingData = bookingSnap.data();
+      forfaitId = bookingData.forfaitId || null;
+
+      // Suppression de la réservation
+      await deleteDoc(bookingRef);
+
+      // Si la réservation appartient à un forfait, restituer une séance
+      if (forfaitId) {
+        const forfaitRef = doc(db, `clients/${userId}/forfaits/${forfaitId}`);
+        const forfaitSnap = await getDoc(forfaitRef);
+
+        if (forfaitSnap.exists()) {
+          const forfaitData = forfaitSnap.data();
+          const newRemainingSessions = Math.min(
+            forfaitData.remainingSessions + 1,
+            forfaitData.totalSessions
+          );
+
+          await updateDoc(forfaitRef, {
+            remainingSessions: newRemainingSessions,
+          });
+        }
+      }
+
       return { success: true, message: "Votre réservation a été annulée." };
     } else if (clientEmail) {
       // Cas où le client n'est pas connecté : Recherche par email dans `/bookings/`
@@ -38,16 +71,21 @@ export async function cancelBooking({
         };
       }
 
-      // Suppression de la réservation correspondante
-      const deletePromises = querySnapshot.docs
-        .filter((docSnap) => docSnap.id === bookingId)
-        .map((docSnap) => deleteDoc(doc(db, `bookings/${docSnap.id}`)));
+      let deleted = false;
 
-      if (deletePromises.length === 0) {
-        return { success: false, message: "Réservation introuvable." };
+      for (const docSnap of querySnapshot.docs) {
+        if (docSnap.id === bookingId) {
+          forfaitId = docSnap.data().forfaitId || null;
+
+          await deleteDoc(doc(db, `bookings/${bookingId}`));
+          deleted = true;
+          break; // On supprime seulement la réservation concernée
+        }
       }
 
-      await Promise.all(deletePromises);
+      if (!deleted) {
+        return { success: false, message: "Réservation introuvable." };
+      }
 
       return { success: true, message: "Votre réservation a été annulée." };
     }
