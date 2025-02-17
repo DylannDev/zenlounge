@@ -15,7 +15,7 @@ const UpcomingServices = ({ services }: { services: any[] }) => {
     );
   };
 
-  // Synchroniser `activeBookingss` si `Bookingss` change
+  // Synchroniser `activeBookings` si `Bookings` change
   useEffect(() => {
     setActiveBookings(services);
   }, [services]);

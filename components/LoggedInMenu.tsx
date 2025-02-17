@@ -64,7 +64,7 @@ const LoggedInMenu = () => {
                     onClick={handleLogout}
                     className="flex items-center gap-2 px-2 py-3 text-blue-light hover:bg-rose-background rounded-lg w-full text-left"
                   >
-                    <span className="text-2xl text-rose-dark">{item.icon}</span>
+                    <span className="text-2xl text-orange/70">{item.icon}</span>
                     {item.label}
                   </button>
                 </li>
@@ -75,7 +75,7 @@ const LoggedInMenu = () => {
                   href={item.href as string}
                   className="flex items-center gap-2 px-2 py-3 text-blue-light hover:bg-rose-background rounded-lg w-full text-left"
                 >
-                  <span className="text-2xl text-rose-dark">{item.icon}</span>
+                  <span className="text-2xl text-orange/70">{item.icon}</span>
                   {item.label}
                 </Link>
               </li>

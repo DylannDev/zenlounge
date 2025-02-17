@@ -12,9 +12,22 @@ interface ServiceDetailsProps {
     price: number;
     slug: string;
   };
+  activeForfait:
+    | {
+        id: string;
+        serviceName: string;
+        remainingSessions: number;
+        totalSessions: number;
+        price: number;
+        createdAt: Date;
+      }
+    | undefined;
 }
 
-const ServiceDetails: React.FC<ServiceDetailsProps> = ({ service }) => {
+const ServiceDetails: React.FC<ServiceDetailsProps> = ({
+  service,
+  activeForfait,
+}) => {
   // Vérifier si le service est un forfait 5 ou 10 séances
   const isFiveSessions = forfaitSeances.fiveSessions.some(
     (forfait) => forfait.slug === service.slug
@@ -57,7 +70,11 @@ const ServiceDetails: React.FC<ServiceDetailsProps> = ({ service }) => {
               <span className="text-2xl text-rose-dark">
                 <PiWallet />
               </span>
-              <p>{service.price}€</p>
+              <p>
+                {activeForfait
+                  ? "Inclus dans le forfait"
+                  : `${service.price} €`}
+              </p>
             </div>
           </div>
         </div>

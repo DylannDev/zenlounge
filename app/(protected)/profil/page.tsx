@@ -18,7 +18,7 @@ const ProfilePage = async () => {
 
   return (
     <section className="flex flex-col gap-8 max-w-[800px] w-full mx-auto my-20">
-      <ProfileForm userData={userData} />
+      <ProfileForm userData={userData} provider={currentUser.provider} />
     </section>
   );
 };
