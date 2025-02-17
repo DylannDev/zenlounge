@@ -36,7 +36,7 @@ const LoginForm = ({
       const response = await signIn(data.email, data.password);
       if (response.success) {
         setError("");
-        router.push("/profil");
+        router.push("/prestations");
       } else {
         setError(response.message || "Email ou mot de passe invalide.");
       }
@@ -51,7 +51,7 @@ const LoginForm = ({
       setError("");
       await signInWithGoogle();
       setLoading(true);
-      router.push("/profil");
+      router.push("/prestations");
     } catch (err) {
       setError("Une erreur est survenue avec la connexion Google");
       setLoading(false);
