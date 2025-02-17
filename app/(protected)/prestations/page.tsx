@@ -18,14 +18,25 @@ const ServicesPage = async () => {
     currentUser.email!
   );
 
-  const userForfaits = userBookings?.forfaits ?? [];
+  // ✅ Conversion des timestamps en Date et tri des forfaits par date décroissante (plus récent en premier)
+  const userForfaits: Forfait[] =
+    userBookings?.forfaits
+      ?.map((forfait: ForfaitFirebase) => ({
+        ...forfait,
+        createdAt: convertFirebaseTimestamp(forfait.createdAt),
+      }))
+      .sort(
+        (a: Forfait, b: Forfait) =>
+          b.createdAt.getTime() - a.createdAt.getTime()
+      ) ?? []; // ✅ Tri décroissant
 
-  // ✅ Conversion des timestamps en Date
   const bookingsWithDates =
-    userBookings?.services?.map((service) => ({
-      ...service,
-      date: convertFirebaseTimestamp(service.date),
-    })) ?? [];
+    userBookings?.services
+      ?.map((service) => ({
+        ...service,
+        date: convertFirebaseTimestamp(service.date),
+      }))
+      .sort((a, b) => a.date.getTime() - b.date.getTime()) ?? []; // ✅ Tri par date la plus proche
 
   // ✅ Séparation des services passés et à venir
   const now = new Date();
