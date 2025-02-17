@@ -50,12 +50,11 @@ export const formatDate = (
   return date.toLocaleDateString("fr-FR", options);
 };
 
-export const convertFirebaseTimestamp = (timestamp: {
+export const convertFirebaseTimestamp = (timestamp?: {
   seconds: number;
   nanoseconds: number;
-}) => {
-  if (!timestamp?.seconds) return null;
-  return new Date(timestamp.seconds * 1000); // Convertir les secondes en millisecondes
+}): Date => {
+  return timestamp ? new Date(timestamp.seconds * 1000) : new Date(); // ✅ Retourne toujours une `Date`
 };
 
 // ✅ Fonction pour récupérer l'image correspondant au service
