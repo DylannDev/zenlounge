@@ -54,7 +54,16 @@ export const getCurrentUser = async () => {
     const decodedToken = await firebaseAdmin
       .auth()
       .verifyIdToken(authToken.value);
-    return { uid: decodedToken.uid, email: decodedToken.email };
+
+    // ✅ Récupérer les infos utilisateur pour connaître le provider utilisé
+    const userRecord = await firebaseAdmin.auth().getUser(decodedToken.uid);
+    const providerId = userRecord.providerData[0]?.providerId || "unknown";
+
+    return {
+      uid: decodedToken.uid,
+      email: decodedToken.email,
+      provider: providerId,
+    };
   } catch (error) {
     return null;
   }

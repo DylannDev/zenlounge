@@ -4,8 +4,15 @@ import { PiUserCircleLight } from "react-icons/pi";
 import { formatDate } from "@/lib/utils";
 import { UserData } from "@/types/userData";
 
-const ProfileForm = ({ userData }: { userData: UserData }) => {
+const ProfileForm = ({
+  userData,
+  provider,
+}: {
+  userData: UserData;
+  provider: string;
+}) => {
   const createdAt = userData?.createdAt && new Date(userData?.createdAt);
+
   return (
     <>
       <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
@@ -25,8 +32,14 @@ const ProfileForm = ({ userData }: { userData: UserData }) => {
 
       <div className="flex flex-col gap-8">
         <InfosProfileForm userData={userData} />
-        <hr />
-        <CredentialProfileForm />
+
+        {/* ✅ Afficher la section seulement si l'utilisateur a utilisé email/mot de passe */}
+        {provider === "password" && (
+          <>
+            <hr />
+            <CredentialProfileForm />
+          </>
+        )}
       </div>
     </>
   );

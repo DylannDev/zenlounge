@@ -36,16 +36,21 @@ export const signInWithGoogle = async () => {
     const userCredential = await signInWithPopup(auth, googleProvider);
     const user = userCredential.user;
 
+    // ✅ Extraire prénom et nom depuis displayName
+    const displayName = user.displayName || "";
+    const [firstName, ...lastNameArr] = displayName.split(" ");
+    const lastName = lastNameArr.join(" ") || ""; // Prend tout après le premier mot
+
     // Vérifier si l'utilisateur existe en Firestore
     const userRef = doc(collection(db, "clients"), user.uid);
     const docSnap = await getDoc(userRef);
 
     if (!docSnap.exists()) {
       await setDoc(userRef, {
-        name: user.displayName || "",
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
         email: user.email || "",
         phone: user.phoneNumber || "",
-        isForfait: false,
       });
     }
 
