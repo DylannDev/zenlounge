@@ -1,15 +1,7 @@
-import Button from "@/components/Button";
-import ProfileServiceCard from "./ProfileBookingCard";
 import ProfileForfaitCard from "./ProfileForfaitCard";
 
 interface ForfaitServicesProps {
-  forfaits: {
-    id: string;
-    serviceName: string;
-    remainingSessions: number;
-    totalSessions: number;
-    price: number;
-  }[];
+  forfaits: Forfait[];
 }
 
 const ForfaitServices: React.FC<ForfaitServicesProps> = ({ forfaits }) => {

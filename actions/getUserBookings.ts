@@ -55,6 +55,7 @@ export const getUserBookings = async (userId: string, userEmail: string) => {
       const forfaitsSnapshot = await getDocs(qForfaits);
       forfaits = forfaitsSnapshot.docs.map((doc) => ({
         id: doc.id,
+        userId,
         ...doc.data(),
       }));
     }
