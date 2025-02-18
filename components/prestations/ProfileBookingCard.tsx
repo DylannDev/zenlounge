@@ -15,7 +15,6 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 
 interface Service {
   id: string;
@@ -25,8 +24,8 @@ interface Service {
   time: string;
   duration: number;
   forfaitId: string | null;
-  userId?: string;
-  clientEmail?: string;
+  userId: string;
+  clientEmail: string;
 }
 
 const ProfileBookingCard = ({
@@ -36,7 +35,7 @@ const ProfileBookingCard = ({
 }: {
   service: Service;
   isPastBookings?: boolean;
-  onRemove: (id: string) => void;
+  onRemove?: (id: string) => void;
 }) => {
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,11 +56,13 @@ const ProfileBookingCard = ({
         description: response.message,
       });
     } else {
-      onRemove(service.id);
-      toast({
-        title: "Réservation annulée",
-        description: "Votre prestation a bien été annulée.",
-      });
+      if (onRemove) {
+        onRemove(service.id);
+        toast({
+          title: "Réservation annulée",
+          description: "Votre prestation a bien été annulée.",
+        });
+      }
     }
 
     setLoading(false);

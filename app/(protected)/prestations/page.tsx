@@ -1,5 +1,6 @@
 import { getCurrentUser } from "@/actions/authActions";
 import { getUserBookings } from "@/actions/getUserBookings";
+import CreditServices from "@/components/prestations/CreditServices";
 import ForfaitServices from "@/components/prestations/ForfaitServices";
 import PastServices from "@/components/prestations/PastServices";
 import UpcomingServices from "@/components/prestations/UpcomingServices";
@@ -27,7 +28,7 @@ const ServicesPage = async () => {
       }))
       .sort(
         (a: Forfait, b: Forfait) =>
-          b.createdAt.getTime() - a.createdAt.getTime()
+          b.createdAt!.getTime() - a.createdAt!.getTime()
       ) ?? []; // ✅ Tri décroissant
 
   const bookingsWithDates =
@@ -37,6 +38,11 @@ const ServicesPage = async () => {
         date: convertFirebaseTimestamp(service.date),
       }))
       .sort((a, b) => a.date.getTime() - b.date.getTime()) ?? []; // ✅ Tri par date la plus proche
+
+  // ✅ Récupérer les crédits utilisateurs
+  const userCredits = userBookings?.credits?.map((credit: any) => ({
+    ...credit,
+  }));
 
   // ✅ Séparation des services passés et à venir
   const now = new Date();
@@ -52,6 +58,14 @@ const ServicesPage = async () => {
       <div className="flex flex-col gap-12">
         {/* ✅ Services à venir */}
         <UpcomingServices services={upcomingBookings} />
+
+        {/* ✅ Credits (s'il y en a) */}
+        {userCredits.length !== 0 && (
+          <>
+            <hr />
+            <CreditServices credits={userCredits} />
+          </>
+        )}
 
         {/* ✅ Forfaits actifs (s'il y en a) */}
         {userForfaits.length !== 0 && (

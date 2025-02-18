@@ -13,6 +13,7 @@ import { saveBooking } from "@/actions/saveBooking";
 
 interface BookingFormProps {
   service: {
+    slug: string;
     name: string;
     duration: number;
     price: number;
@@ -93,6 +94,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
     const formattedDate = format(selectedDate, "yyyy-MM-dd");
 
     const bookingData = {
+      serviceId: service.slug,
       serviceName: service.name,
       duration: service.duration,
       price: service.price,

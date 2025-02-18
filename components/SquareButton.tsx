@@ -24,7 +24,7 @@ const SquareButton: React.FC<SquareButtonProps> = ({
     default:
       "bg-rose-background border-rose-dark text-brown-dark hover:bg-rose-light",
     destructive:
-      "bg-brown-dark border-brown-dark text-white hover:bg-brown-dark/90",
+      "bg-rose-dark border-rose-dark text-brown-dark hover:bg-rose-dark/90",
     cancel:
       "bg-blue-light/20 border-blue-light text-white hover:bg-blue-light/90",
   };

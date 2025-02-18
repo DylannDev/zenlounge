@@ -1,4 +1,5 @@
 type BookingDataType = {
+  serviceId: string;
   serviceName: string;
   duration: number;
   price: number;

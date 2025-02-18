@@ -68,6 +68,7 @@ export const saveBooking = async (
 
       // ✅ Réservation normale (hors forfait)
       const docRef = await addDoc(userBookingsRef, {
+        serviceId: bookingData.serviceId,
         serviceName: bookingData.serviceName,
         date: bookingData.date,
         time: bookingData.time,

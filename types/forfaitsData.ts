@@ -16,8 +16,8 @@ interface Forfait {
   remainingSessions: number;
   totalSessions: number;
   price: number;
-  createdAt: Date; // ✅ Date JavaScript après conversion
-  userId: string;
+  userId: string; // ✅ Facultatif pour les crédits
+  createdAt: Date; // ✅ Facultatif pour les crédits
 }
 
 // ✅ Mise à jour de l'interface globale

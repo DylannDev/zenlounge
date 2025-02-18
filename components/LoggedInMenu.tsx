@@ -25,6 +25,13 @@ const LoggedInMenu = () => {
     router.push("/");
   };
 
+  // ✅ Détecte les changements d'authentification et met à jour la navbar
+  useEffect(() => {
+    if (user === null) {
+      router.refresh(); // ✅ Rafraîchir si l'utilisateur est déconnecté
+    }
+  }, [user, router]);
+
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);

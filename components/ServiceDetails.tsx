@@ -12,7 +12,7 @@ interface ServiceDetailsProps {
     price: number;
     slug: string;
   };
-  activeForfait:
+  activeForfait?:
     | {
         id: string;
         serviceName: string;
