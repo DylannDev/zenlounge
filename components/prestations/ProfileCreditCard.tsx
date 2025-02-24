@@ -6,17 +6,6 @@ import { PiWallet, PiCalendarCheck, PiTimer } from "react-icons/pi";
 import { getServiceImage } from "@/lib/utils";
 import SquareButton from "../SquareButton";
 
-interface ProfileCreditCardProps {
-  credit: {
-    id: string;
-    serviceName: string;
-    remainingSessions: number;
-    totalSessions: number;
-    price: number;
-    duration: number;
-  };
-}
-
 const ProfileCreditCard: React.FC<ProfileCreditCardProps> = ({ credit }) => {
   const router = useRouter();
 
@@ -44,8 +33,8 @@ const ProfileCreditCard: React.FC<ProfileCreditCardProps> = ({ credit }) => {
             <div className="flex flex-col">
               <h3 className="text-xl font-bold">{credit.serviceName}</h3>
               <p className="text-blue-light text-sm">
-                {credit.remainingSessions} / {credit.totalSessions} crédits
-                restants
+                {credit.remainingSessions} / {credit.totalSessions} crédit
+                restant
               </p>
             </div>
 

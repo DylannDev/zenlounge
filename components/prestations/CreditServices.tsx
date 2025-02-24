@@ -1,15 +1,6 @@
-import ProfileCreditCard from "./ProfileCreditCard";
+"use client";
 
-interface CreditServicesProps {
-  credits: {
-    id: string;
-    serviceName: string;
-    remainingSessions: number;
-    totalSessions: number;
-    price: number;
-    duration: number;
-  }[];
-}
+import ProfileCreditCard from "./ProfileCreditCard";
 
 const CreditServices: React.FC<CreditServicesProps> = ({ credits }) => {
   return (

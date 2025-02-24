@@ -139,8 +139,7 @@ const ForfaitBooking: React.FC<Forfait> = ({ forfaits }) => {
         router.push("/prestations");
       } else {
         // ✅ Paiement normal via Stripe
-        // await initStripePayment(bookingData, user.uid, slug);
-        await saveBooking(bookingData, user.uid, slug);
+        // await initStripePayment(bookingData, user.uid);
       }
 
       setErrorMessage("");
