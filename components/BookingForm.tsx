@@ -10,6 +10,8 @@ import { initStripePayment } from "@/lib/InitStripePayment";
 import { useAuth } from "@/hooks/useAuth";
 import { getUserInfos } from "@/actions/getUserInfos";
 import { saveBooking } from "@/actions/saveBooking";
+import { toast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 interface BookingFormProps {
   service: {
@@ -23,6 +25,7 @@ interface BookingFormProps {
   setStep: (step: number) => void;
   errorMessage: string;
   setErrorMessage: (message: string) => void;
+  activeCredit?: Credit;
 }
 
 const BookingForm: React.FC<BookingFormProps> = ({
@@ -32,8 +35,10 @@ const BookingForm: React.FC<BookingFormProps> = ({
   setStep,
   errorMessage,
   setErrorMessage,
+  activeCredit,
 }) => {
   const user = useAuth();
+  const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
   const [clientInfo, setClientInfo] = useState({
@@ -108,8 +113,21 @@ const BookingForm: React.FC<BookingFormProps> = ({
 
     try {
       setIsLoading(true);
-      await saveBooking(bookingData, user?.uid);
-      // await initStripePayment(bookingData, user?.uid);
+
+      if (activeCredit) {
+        // ✅ Utilisation du forfait (pas de paiement Stripe)
+        await saveBooking(bookingData, user?.uid, null, activeCredit);
+        toast({
+          title: "Séance réservée",
+          description: "✅ Votre séance a été réservée.",
+        });
+        router.push("/prestations");
+      } else {
+        // ✅ Paiement normal via Stripe
+        // await initStripePayment(bookingData, user?.uid);
+        await saveBooking(bookingData, user?.uid);
+        router.push("/prestations");
+      }
       setErrorMessage("");
     } catch (error) {
       console.error("Erreur lors de la réservation :", error);

@@ -22,11 +22,13 @@ interface ServiceDetailsProps {
         createdAt: Date;
       }
     | undefined;
+  activeCredit?: Credit;
 }
 
 const ServiceDetails: React.FC<ServiceDetailsProps> = ({
   service,
   activeForfait,
+  activeCredit,
 }) => {
   // Vérifier si le service est un forfait 5 ou 10 séances
   const isFiveSessions = forfaitSeances.fiveSessions.some(
@@ -65,7 +67,7 @@ const ServiceDetails: React.FC<ServiceDetailsProps> = ({
             </div>
             <span className="text-xl">|</span>
 
-            {/* Prix */}
+            {/* Prix ou Crédit utilisé */}
             <div className="flex items-center gap-1">
               <span className="text-2xl text-rose-dark">
                 <PiWallet />
@@ -73,7 +75,9 @@ const ServiceDetails: React.FC<ServiceDetailsProps> = ({
               <p>
                 {activeForfait
                   ? "Inclus dans le forfait"
-                  : `${service.price} €`}
+                  : activeCredit
+                    ? "Crédit utilisé"
+                    : `${service.price} €`}
               </p>
             </div>
           </div>
