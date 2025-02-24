@@ -15,6 +15,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { useRouter } from "next/navigation";
 
 interface Service {
   id: string;
@@ -40,6 +41,7 @@ const ProfileBookingCard = ({
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
 
   const handleCancel = async () => {
     setLoading(true);
@@ -62,6 +64,9 @@ const ProfileBookingCard = ({
           title: "Réservation annulée",
           description: "Votre prestation a bien été annulée.",
         });
+        setTimeout(() => {
+          router.refresh(); // ✅ Rafraîchir après un léger délai
+        }, 500);
       }
     }
 
