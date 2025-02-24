@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "Situé à La Chaumière en Guyane, notre salon de beauté propose des massages relaxants, soins visage et corps, séjours bien-être et forfaits pour une sérénité absolue.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
