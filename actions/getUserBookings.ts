@@ -10,11 +10,10 @@ import {
   getDoc,
 } from "firebase/firestore";
 
-// ✅ Server Action pour récupérer les services, forfaits et crédits d'un utilisateur
 export const getUserBookings = async (userId: string, userEmail: string) => {
   try {
     const bookingsRef = collection(db, "bookings"); // Réservations sans compte
-    const clientsRef = doc(db, "clients", userId); // Réservations, forfaits & crédits avec compte
+    const clientsRef = doc(db, "clients", userId); // Réservations et forfaits avec compte
 
     // 🔹 1. Vérifier les réservations SANS compte via l'email
     const qBookings = query(bookingsRef, where("clientEmail", "==", userEmail));
@@ -27,20 +26,19 @@ export const getUserBookings = async (userId: string, userEmail: string) => {
 
     // 🔹 2. Vérifier les réservations et forfaits AVEC compte via le userId
     const clientSnapshot = await getDoc(clientsRef);
-    let accountBookings: any = [];
-    let forfaits: any = [];
-    let credits: any = [];
+    let accountBookings: any[] = [];
+    let forfaits: any[] = [];
+    let credits: any[] = []; // ✅ Initialisation de credits
 
     if (clientSnapshot.exists()) {
-      const clientData = clientSnapshot.data();
-
       // ✅ Récupérer les réservations du client
       const bookingsSubCollection = collection(
         db,
         `clients/${userId}/bookings`
       );
-      const qClientBookings = query(bookingsSubCollection);
-      const clientBookingsSnapshot = await getDocs(qClientBookings);
+      const clientBookingsSnapshot = await getDocs(
+        query(bookingsSubCollection)
+      );
       accountBookings = clientBookingsSnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -53,8 +51,7 @@ export const getUserBookings = async (userId: string, userEmail: string) => {
         db,
         `clients/${userId}/forfaits`
       );
-      const qForfaits = query(forfaitsSubCollection);
-      const forfaitsSnapshot = await getDocs(qForfaits);
+      const forfaitsSnapshot = await getDocs(query(forfaitsSubCollection));
       forfaits = forfaitsSnapshot.docs.map((doc) => ({
         id: doc.id,
         userId,
@@ -63,8 +60,7 @@ export const getUserBookings = async (userId: string, userEmail: string) => {
 
       // ✅ Récupérer les crédits du client
       const creditsSubCollection = collection(db, `clients/${userId}/credits`);
-      const qCredits = query(creditsSubCollection);
-      const creditsSnapshot = await getDocs(qCredits);
+      const creditsSnapshot = await getDocs(query(creditsSubCollection));
       credits = creditsSnapshot.docs.map((doc) => ({
         id: doc.id,
         userId,
@@ -79,7 +75,7 @@ export const getUserBookings = async (userId: string, userEmail: string) => {
       success: true,
       services: allBookings,
       forfaits: forfaits,
-      credits: credits, // ✅ Retourner les crédits du client
+      credits: credits, // ✅ Retourne toujours credits
     };
   } catch (error) {
     console.error(
@@ -88,7 +84,10 @@ export const getUserBookings = async (userId: string, userEmail: string) => {
     );
     return {
       success: false,
-      message: "Impossible de récupérer vos services, forfaits et crédits.",
+      message: "Impossible de récupérer vos services et forfaits.",
+      services: [],
+      forfaits: [],
+      credits: [], // ✅ Ajout d'un tableau vide même en cas d'erreur
     };
   }
 };

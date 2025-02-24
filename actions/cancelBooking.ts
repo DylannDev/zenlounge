@@ -108,6 +108,7 @@ export async function cancelBooking({
           totalSessions: 1,
           price,
           duration,
+          serviceId,
         });
       }
     }
