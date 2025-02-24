@@ -17,8 +17,10 @@ type LoginFormInputs = {
 
 const LoginForm = ({
   setLoading,
+  isAdminForm = false,
 }: {
   setLoading: (value: boolean) => void;
+  isAdminForm?: boolean;
 }) => {
   const router = useRouter();
   const [error, setError] = useState("");
@@ -94,19 +96,23 @@ const LoginForm = ({
         </Button>
       </form>
 
-      <div className="flex items-center my-6">
-        <div className="flex-grow border-t border-gray-300"></div>
-        <span className="px-3 text-gray-500 text-sm">ou</span>
-        <div className="flex-grow border-t border-gray-300"></div>
-      </div>
-      <Button
-        button
-        onClick={handleGoogleSignIn}
-        color="empty"
-        disabled={isSubmitting}
-      >
-        Connexion avec Google
-      </Button>
+      {!isAdminForm && (
+        <>
+          <div className="flex items-center my-6">
+            <div className="flex-grow border-t border-gray-300"></div>
+            <span className="px-3 text-gray-500 text-sm">ou</span>
+            <div className="flex-grow border-t border-gray-300"></div>
+          </div>
+          <Button
+            button
+            onClick={handleGoogleSignIn}
+            color="empty"
+            disabled={isSubmitting}
+          >
+            Connexion avec Google
+          </Button>
+        </>
+      )}
     </div>
   );
 };
