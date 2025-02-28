@@ -3,10 +3,9 @@
 import { db } from "@/firebase/firebase";
 import { collection, getDocs, query } from "firebase/firestore";
 
-// ✅ Fonction pour récupérer toutes les réservations à venir
+// ✅ Fonction pour récupérer toutes les réservations (passées & futures)
 export const fetchBookings = async (): Promise<any[]> => {
   try {
-    const now = new Date();
     let allBookings: any[] = [];
 
     // ✅ Récupérer les réservations des clients NON CONNECTÉS (dans /bookings)
@@ -15,6 +14,11 @@ export const fetchBookings = async (): Promise<any[]> => {
     const publicBookings = publicSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
+      date: doc.data().date?.seconds
+        ? new Date(doc.data().date.seconds * 1000)
+        : null,
+      clientName: doc.data().clientName || "Inconnu",
+      clientEmail: doc.data().clientEmail || "Non renseigné",
     }));
 
     allBookings = [...publicBookings];
@@ -23,6 +27,15 @@ export const fetchBookings = async (): Promise<any[]> => {
     const clientsCollection = await getDocs(collection(db, "clients"));
     for (const clientDoc of clientsCollection.docs) {
       const userId = clientDoc.id;
+      const clientData = clientDoc.data();
+
+      const fullName =
+        clientData.firstName && clientData.lastName
+          ? `${clientData.firstName} ${clientData.lastName}`
+          : "Inconnu";
+      const email = clientData.email || "Non renseigné";
+
+      // Récupérer les réservations du client
       const clientBookingsQuery = query(
         collection(db, "clients", userId, "bookings")
       );
@@ -30,20 +43,17 @@ export const fetchBookings = async (): Promise<any[]> => {
       const clientBookings = clientSnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
+        date: doc.data().date?.seconds
+          ? new Date(doc.data().date.seconds * 1000)
+          : null,
+        clientName: fullName,
+        clientEmail: email,
       }));
 
       allBookings = [...allBookings, ...clientBookings];
     }
 
-    // ✅ Filtrer les réservations pour ne garder que celles après aujourd'hui
-    return allBookings
-      .map((booking) => {
-        if (booking.date?.seconds) {
-          booking.date = new Date(booking.date.seconds * 1000);
-        }
-        return booking;
-      })
-      .filter((booking) => booking.date >= now);
+    return allBookings;
   } catch (e) {
     console.error("Erreur lors de la récupération des réservations :", e);
     return [];
