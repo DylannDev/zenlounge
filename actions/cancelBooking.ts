@@ -5,7 +5,6 @@ import {
   doc,
   getDoc,
   getDocs,
-  deleteDoc,
   updateDoc,
   setDoc,
   collection,
@@ -28,7 +27,7 @@ export async function cancelBooking({
     let serviceName: string | null = null;
     let price: number | null = null;
     let duration: number | null = null;
-    let deleted = false;
+    let updated = false;
 
     // 📌 Vérifier dans "clients/{userId}/bookings/{bookingId}"
     const bookingRef = doc(db, `clients/${userId}/bookings/${bookingId}`);
@@ -42,9 +41,9 @@ export async function cancelBooking({
       price = bookingData.price;
       duration = bookingData.duration;
 
-      // ✅ Supprimer la réservation
-      await deleteDoc(bookingRef);
-      deleted = true;
+      // ✅ Mettre à jour le statut de la réservation
+      await updateDoc(bookingRef, { status: "cancelled" });
+      updated = true;
     } else {
       // 📌 Vérifier dans "bookings/{bookingId}" (réservations anonymes)
       const bookingsRef = collection(db, "bookings");
@@ -60,20 +59,22 @@ export async function cancelBooking({
           price = bookingData.price;
           duration = bookingData.duration;
 
-          // ✅ Supprimer la réservation
-          await deleteDoc(doc(db, `bookings/${bookingId}`));
-          deleted = true;
+          // ✅ Mettre à jour le statut de la réservation
+          await updateDoc(doc(db, `bookings/${bookingId}`), {
+            status: "cancelled",
+          });
+          updated = true;
           break;
         }
       }
     }
 
-    if (!deleted) {
+    if (!updated) {
       return { success: false, message: "Réservation introuvable." };
     }
 
+    // ✅ Gestion du remboursement des forfaits et crédits
     if (forfaitId) {
-      // ✅ Si c'est un forfait, restituer une séance
       const forfaitRef = doc(db, `clients/${userId}/forfaits/${forfaitId}`);
       const forfaitSnap = await getDoc(forfaitRef);
 
@@ -89,19 +90,16 @@ export async function cancelBooking({
         });
       }
     } else if (serviceName && price !== null) {
-      // ✅ Gestion des crédits (clients/{userId}/credits/{serviceId})
       const creditRef = doc(db, `clients/${userId}/credits/${serviceId}`);
       const creditSnap = await getDoc(creditRef);
 
       if (creditSnap.exists()) {
-        // ✅ Mise à jour du crédit existant
         const creditData = creditSnap.data();
         await updateDoc(creditRef, {
           remainingSessions: creditData.remainingSessions + 1,
           totalSessions: creditData.totalSessions + 1,
         });
       } else {
-        // ✅ Création d'un nouveau crédit
         await setDoc(creditRef, {
           serviceName,
           remainingSessions: 1,

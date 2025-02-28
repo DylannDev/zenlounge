@@ -6,18 +6,22 @@ import Button from "../Button";
 import ProfileBookingCard from "./ProfileBookingCard";
 
 const UpcomingServices = ({ services }: { services: any[] }) => {
-  const [activeBookings, setActiveBookings] = useState(services);
+  const [activeBookings, setActiveBookings] = useState(
+    services.filter((service) => service.status === "confirmed")
+  );
 
   // Fonction de suppression
-  const handleRemoveBookings = (bookingsId: string) => {
+  const handleCancelBookings = (bookingId: string) => {
     setActiveBookings((prevBookings) =>
-      prevBookings.filter((bookings) => bookings.id !== bookingsId)
+      prevBookings.filter((booking) => booking.id !== bookingId)
     );
   };
 
-  // Synchroniser `activeBookings` si `Bookings` change
+  // Synchroniser `activeBookings` si `services` change
   useEffect(() => {
-    setActiveBookings(services);
+    setActiveBookings(
+      services.filter((service) => service.status === "confirmed")
+    );
   }, [services]);
 
   return (
@@ -53,7 +57,7 @@ const UpcomingServices = ({ services }: { services: any[] }) => {
               <ProfileBookingCard
                 key={service.id}
                 service={service}
-                onRemove={handleRemoveBookings}
+                onRemove={handleCancelBookings}
               />
             ))}
           </ul>
