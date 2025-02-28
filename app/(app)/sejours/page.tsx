@@ -1,8 +1,8 @@
+import BookingCard from "@/components/BookingCard";
 import { ImageCarousel } from "@/components/ImageCarousel";
 import SectionHeader from "@/components/SectionHeader";
 import { roomData } from "@/data";
 import { PiCheckCircleDuotone } from "react-icons/pi";
-import BookingCard from "../../components/BookingCard";
 
 const Sejours = () => {
   return (
