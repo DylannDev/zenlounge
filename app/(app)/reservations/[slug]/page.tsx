@@ -11,7 +11,5 @@ export default async function ForfaitBookingPage() {
   // ✅ Vérification et assignation correcte
   const credits = userBookings?.credits ?? [];
 
-  console.log("credits", credits);
-
   return <ServiceBooking credits={credits} />;
 }
