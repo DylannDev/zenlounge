@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "@/components/Button";
 import { loginFormFields } from "@/data/LoginForm.config";
 import { loginSchema } from "@/validation/Login";
-import { signIn, signInWithGoogle } from "@/actions/authClient";
+import { signIn, signInAdmin, signInWithGoogle } from "@/actions/authClient";
 import { useRouter } from "next/navigation";
 import Loader from "./Loader";
 
@@ -35,10 +35,17 @@ const LoginForm = ({
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     try {
-      const response = await signIn(data.email, data.password);
+      let response;
+
+      if (isAdminForm) {
+        response = await signInAdmin(data.email, data.password); // ✅ Connexion admin
+      } else {
+        response = await signIn(data.email, data.password); // ✅ Connexion utilisateur normal
+      }
+
       if (response.success) {
         setError("");
-        router.push("/prestations");
+        router.push(isAdminForm ? "/admin/bookings" : "/prestations"); // ✅ Redirection adaptée
       } else {
         setError(response.message || "Email ou mot de passe invalide.");
       }
@@ -49,6 +56,8 @@ const LoginForm = ({
   };
 
   const handleGoogleSignIn = async () => {
+    if (isAdminForm) return;
+
     try {
       setError("");
       await signInWithGoogle();
@@ -63,7 +72,9 @@ const LoginForm = ({
 
   return (
     <div className="w-full p-6">
-      <h2 className="text-2xl font-bold text-center mb-6">Connexion</h2>
+      <h2 className="text-2xl font-bold text-center mb-6">
+        {isAdminForm ? "Connexion Administrateur" : "Connexion"}
+      </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 w-full">
         {loginFormFields.map((field) => (
@@ -96,7 +107,7 @@ const LoginForm = ({
         </Button>
       </form>
 
-      {!isAdminForm && (
+      {!isAdminForm && ( // ✅ Désactiver Google Sign-in pour les admins
         <>
           <div className="flex items-center my-6">
             <div className="flex-grow border-t border-gray-300"></div>
