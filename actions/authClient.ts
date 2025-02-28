@@ -93,12 +93,17 @@ export const signInWithGoogle = async () => {
   }
 };
 
-// 🔹 Déconnexion
-export const logout = async () => {
+// 🔹 Déconnexion améliorée
+export const logout = async (): Promise<{
+  success: boolean;
+  message?: string;
+}> => {
   try {
     await signOut(auth);
     await removeAuthToken();
+    return { success: true };
   } catch (error: any) {
     console.error("Erreur de déconnexion :", error);
+    return { success: false, message: "Erreur lors de la déconnexion." };
   }
 };
