@@ -5,12 +5,14 @@ export const ExtraServicesSelection = ({
   setExtraServices,
 }: {
   extraServices: ExtraService[];
-  setExtraServices: (services: ExtraService[]) => void;
+  setExtraServices: (
+    services: ExtraService[] | ((prev: ExtraService[]) => ExtraService[])
+  ) => void;
 }) => {
   // 📌 Mise à jour des services supplémentaires
   const updateServiceQuantity = (name: string, increment: boolean) => {
-    setExtraServices((prev) =>
-      prev.map((service) =>
+    setExtraServices((prev: ExtraService[]) =>
+      prev.map((service: ExtraService) =>
         service.name === name
           ? {
               ...service,
