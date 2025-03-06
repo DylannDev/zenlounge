@@ -1,19 +1,19 @@
-import BookingCard from "@/components/BookingCard";
 import { ImageCarousel } from "@/components/ImageCarousel";
 import SectionHeader from "@/components/SectionHeader";
 import { roomData } from "@/data";
 import { PiCheckCircleDuotone } from "react-icons/pi";
+import RentBookingCard from "@/components/RentBookingCard";
+import RangeDateSelector from "@/components/RangeDateSelector";
 
 const Sejours = () => {
   return (
     <section className="max-w-[1400px] mx-auto flex flex-col pt-10 pb-20">
       {/* Section Header */}
       <SectionHeader
-        title="Serenity Suite"
+        title="Location courte durée en Guyane – Serenity Suite"
         subtitle={[
-          "Profitez d'un séjour alliant détente, bien-être et confort, seul ou accompagné.",
+          "Profitez d'un séjour tout confort en Guyane, une parenthèse de bien-être dans un cadre apaisant, seul ou accompagné.",
         ]}
-        bigTitle
       />
       <div className="flex flex-col min-[1200px]:flex-row gap-16 min-[1200px]:gap-10 h-full relative">
         {/* Main Content */}
@@ -53,7 +53,7 @@ const Sejours = () => {
         {/* BookingCard Section */}
         <div className="w-full md:grid md:grid-cols-2 min-[1200px]:block min-[1200px]:w-1/3 min-[1200px]:mt-16">
           <div className="sticky top-[160px]">
-            <BookingCard />
+            <RentBookingCard />
           </div>
         </div>
       </div>
