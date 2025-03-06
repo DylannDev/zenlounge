@@ -16,10 +16,10 @@ const AuthForm = () => {
 
         <div className="mt-4 text-center">
           <p className="text-sm text-blue-light">
-            {isLogin ? "Pas encore de compte ?" : "Déjà un compte ?"}{" "}
+            {isLogin ? "Pas encore de compte ?" : "Vous avez déjà un compte ?"}{" "}
             <button
               onClick={() => setIsLogin(!isLogin)}
-              className="text-rose-dark font-semibold hover:underline"
+              className="text-brown-dark font-semibold hover:underline"
             >
               {isLogin ? "Inscrivez-vous" : "Connectez-vous"}
             </button>

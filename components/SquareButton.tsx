@@ -7,7 +7,7 @@ interface SquareButtonProps {
   className?: string;
   type?: "button" | "submit";
   disabled?: boolean;
-  variant?: "default" | "destructive" | "cancel"; // ✅ Ajout des variantes
+  variant?: "default" | "destructive" | "white"; // ✅ Ajout des variantes
 }
 
 const SquareButton: React.FC<SquareButtonProps> = ({
@@ -25,8 +25,7 @@ const SquareButton: React.FC<SquareButtonProps> = ({
       "bg-rose-background border-rose-dark text-brown-dark hover:bg-rose-light",
     destructive:
       "bg-rose-dark border-rose-dark text-brown-dark hover:bg-rose-dark/90",
-    cancel:
-      "bg-blue-light/20 border-blue-light text-white hover:bg-blue-light/90",
+    white: "bg-white border-rose-dark text-brown-dark hover:bg-rose-background",
   };
 
   return (
