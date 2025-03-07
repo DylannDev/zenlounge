@@ -60,3 +60,46 @@ export const clientTableColumns = [
       value ? formatDate(value) : "Non renseigné",
   },
 ];
+
+export const rentBookingTableColumns = [
+  {
+    key: "clientName",
+    label: "Nom",
+  },
+  {
+    key: "clientEmail",
+    label: "Email",
+  },
+  {
+    key: "clientPhone",
+    label: "Téléphone",
+  },
+  {
+    key: "dateFrom",
+    label: "Arrivée",
+    format: (value: Date) => formatDate(value),
+  },
+  {
+    key: "dateTo",
+    label: "Départ",
+    format: (value: Date) => formatDate(value),
+  },
+  {
+    key: "price",
+    label: "Prix",
+    format: (value: number) => `${value} €`,
+  },
+  {
+    key: "extraServices",
+    label: "Extras",
+    format: (services: { name: string; quantity: number; price: number }[]) =>
+      services?.length
+        ? services.map((s) => `${s.name} x${s.quantity}`).join(", ")
+        : "-",
+  },
+  {
+    key: "status",
+    label: "Statut",
+    format: (value: string) => <StatusBadge status={value} />,
+  },
+];
