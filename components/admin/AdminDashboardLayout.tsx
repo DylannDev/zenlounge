@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import Logo from "@/components/Logo";
 import {
   PiFlowerTulip,
+  PiHouseLine,
   PiListMagnifyingGlass,
   PiSignOut,
   PiUserCheck,
@@ -34,9 +35,9 @@ export default function AdminDashboardLayout({
       icon: <PiFlowerTulip className="h-5 w-5 flex-shrink-0" />,
     },
     {
-      label: "Historique",
-      href: "/admin/history",
-      icon: <PiListMagnifyingGlass className="h-5 w-5 flex-shrink-0" />,
+      label: "Location",
+      href: "/admin/rentals",
+      icon: <PiHouseLine className="h-5 w-5 flex-shrink-0" />,
     },
     {
       label: "Clients",
@@ -65,11 +66,12 @@ export default function AdminDashboardLayout({
             <Logo color="rose" />
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
-                <SidebarLink
-                  key={idx}
-                  link={link}
-                  className={`${pathname === link.href && "bg-rose-dark/10 rounded-lg"}`}
-                />
+                <div key={idx} onClick={() => setOpen(false)}>
+                  <SidebarLink
+                    link={link}
+                    className={`${pathname === link.href && "bg-rose-dark/10 rounded-lg"}`}
+                  />
+                </div>
               ))}
             </div>
           </div>

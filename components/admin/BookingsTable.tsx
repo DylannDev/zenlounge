@@ -40,7 +40,7 @@ const BookingsTable = ({
         </thead>
         <tbody>
           {bookings.map((booking) => (
-            <tr key={booking.id} className="text-sm">
+            <tr key={booking.id} className="text-[13.5px]">
               {bookingTableColumns.map((column: any) => (
                 <td key={column.key} className="p-4">
                   {column.format
