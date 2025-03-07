@@ -4,7 +4,7 @@ import CreditServices from "@/components/prestations/CreditServices";
 import ForfaitServices from "@/components/prestations/ForfaitServices";
 import PastServices from "@/components/prestations/PastServices";
 import UpcomingServices from "@/components/prestations/UpcomingServices";
-import { convertFirebaseTimestamp } from "@/lib/utils";
+import RentBookings from "@/components/prestations/RentBookings"; // 🔥 Nouveau composant pour la location
 import { redirect } from "next/navigation";
 
 const ServicesPage = async () => {
@@ -13,43 +13,36 @@ const ServicesPage = async () => {
     redirect("/login");
   }
 
-  // ✅ Récupération des services et forfaits
+  // ✅ Récupération des services, forfaits et locations
   const userBookings = await getUserBookings(
     currentUser.uid!,
     currentUser.email!
   );
 
-  // ✅ Conversion des timestamps en Date et tri des forfaits par date décroissante (plus récent en premier)
-  const userForfaits: Forfait[] =
-    userBookings?.forfaits
-      ?.map((forfait: ForfaitFirebase) => ({
-        ...forfait,
-        createdAt: convertFirebaseTimestamp(forfait.createdAt),
-      }))
-      .sort(
-        (a: Forfait, b: Forfait) =>
-          b.createdAt!.getTime() - a.createdAt!.getTime()
-      ) ?? []; // ✅ Tri décroissant
+  // ✅ Extraction des réservations normales et des locations
+  const bookings = userBookings?.services ?? [];
+  const userForfaits = userBookings?.forfaits ?? [];
+  const userCredits = userBookings?.credits ?? [];
 
-  const bookingsWithDates =
-    userBookings?.services
-      ?.map((service) => ({
-        ...service,
-        date: convertFirebaseTimestamp(service.date),
-      }))
-      .sort((a, b) => a.date.getTime() - b.date.getTime()) ?? []; // ✅ Tri par date la plus proche
+  // ✅ Séparation entre les réservations standards et celles pour la location
+  const rentBookings = bookings.filter(
+    (booking) => booking.type === "rentBooking"
+  );
+  const standardBookings = bookings.filter(
+    (booking) => booking.type !== "rentBooking"
+  );
 
-  // ✅ Récupérer les crédits utilisateurs
-  const userCredits = userBookings?.credits?.map((credit: any) => ({
-    ...credit,
-  }));
+  // ✅ Tri des forfaits par date décroissante
+  const sortedForfaits = [...userForfaits].sort(
+    (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
+  );
 
   // ✅ Séparation des services passés et à venir
   const now = new Date();
-  const upcomingBookings = bookingsWithDates.filter(
+  const upcomingBookings = standardBookings.filter(
     (s) => s.date && s.date > now
   );
-  const pastBookings = bookingsWithDates.filter((s) => s.date && s.date <= now);
+  const pastBookings = standardBookings.filter((s) => s.date && s.date <= now);
 
   return (
     <section className="flex flex-col gap-8 max-w-[800px] w-full mx-auto my-20">
@@ -59,8 +52,16 @@ const ServicesPage = async () => {
         {/* ✅ Services à venir */}
         <UpcomingServices services={upcomingBookings} />
 
+        {/* ✅ Réservations de location (si existantes) */}
+        {rentBookings.length > 0 && (
+          <>
+            <hr />
+            <RentBookings rentBookings={rentBookings} />
+          </>
+        )}
+
         {/* ✅ Credits (s'il y en a) */}
-        {userCredits.length !== 0 && (
+        {userCredits.length > 0 && (
           <>
             <hr />
             <CreditServices credits={userCredits} />
@@ -68,15 +69,15 @@ const ServicesPage = async () => {
         )}
 
         {/* ✅ Forfaits actifs (s'il y en a) */}
-        {userForfaits.length !== 0 && (
+        {sortedForfaits.length > 0 && (
           <>
             <hr />
-            <ForfaitServices forfaits={userForfaits} />
+            <ForfaitServices forfaits={sortedForfaits} />
           </>
         )}
 
         {/* ✅ Historique des prestations (s'il y en a) */}
-        {pastBookings.length !== 0 && (
+        {pastBookings.length > 0 && (
           <>
             <hr />
             <PastServices services={pastBookings} />
