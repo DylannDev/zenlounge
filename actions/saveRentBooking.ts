@@ -5,19 +5,10 @@ import { saveRentBookingSchema } from "@/validation/server/saveRentBookingSchema
 import { collection, addDoc, doc } from "firebase/firestore";
 import { z } from "zod";
 
-// ✅ Type de données pour la réservation
-export interface RentBookingData {
-  serviceName: string;
-  dateFrom: string;
-  dateTo: string;
-  price: number;
-  clientName: string;
-  clientEmail: string;
-  clientPhone: string;
-  extraServices: { name: string; quantity: number; price: number }[];
-}
-
-export const saveRentBooking = async (bookingData: any, userId?: string) => {
+export const saveRentBooking = async (
+  bookingData: BookingDataType,
+  userId?: string
+) => {
   try {
     // ✅ Validation des données avec Zod
     const validatedData = saveRentBookingSchema.parse(bookingData);
