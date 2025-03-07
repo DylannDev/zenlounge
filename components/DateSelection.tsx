@@ -6,7 +6,7 @@ import { DateRange } from "react-day-picker";
 import { fr } from "date-fns/locale";
 import { useEffect, useRef, useState } from "react";
 import Loader from "./Loader";
-import { fetchRentBookings } from "@/actions/fetchRentBookings";
+import { fetchRentBookedDates } from "@/actions/fetchRentBookedDates";
 
 export const DateSelection = ({
   selectedDate,
@@ -35,7 +35,7 @@ export const DateSelection = ({
   useEffect(() => {
     const loadBookedDates = async () => {
       try {
-        const dates = await fetchRentBookings();
+        const dates = await fetchRentBookedDates();
         setBookedDates(dates);
       } catch (error) {
         console.error("🚨 Erreur lors de la récupération des dates :", error);
