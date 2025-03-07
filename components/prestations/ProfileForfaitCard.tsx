@@ -44,6 +44,7 @@ const ProfileForfaitCard: React.FC<ProfileForfaitCardProps> = ({ forfait }) => {
           <div className="relative w-full h-full aspect-square max-h-[200px] max-w-full sm:max-h-[130px] sm:max-w-[130px]">
             <Image
               fill
+              sizes="(max-width: 640px) 100vw, 20vw"
               src={getServiceImage(forfait.serviceName)}
               alt={`Image de ${forfait.serviceName} Zen Lounge`}
               className="object-cover rounded-xl"
