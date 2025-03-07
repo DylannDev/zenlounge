@@ -1,68 +1,95 @@
 "use server";
 
 import { db } from "@/firebase/firebase";
-import { collection, getDocs } from "firebase/firestore";
-import { startOfDay, isValid } from "date-fns";
+import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import { convertFirebaseTimestamp } from "@/lib/utils";
 
-// ✅ Type des plages de dates réservées
-interface BookedDateRange {
-  from: Date;
-  to: Date;
-}
-
-// ✅ Fonction pour récupérer les dates déjà réservées
-export const fetchRentBookings = async (): Promise<BookedDateRange[]> => {
+// ✅ Fonction pour récupérer les réservations
+export const fetchRentBookings = async (): Promise<RentBookingData[]> => {
   try {
-    const today = startOfDay(new Date());
-    let bookedDates: BookedDateRange[] = [];
+    let allRentBookings: RentBookingData[] = [];
 
-    // 📌 Récupération des réservations globales dans "rentBookings"
-    const rentBookingsRef = collection(db, "rentBookings");
-    const rentBookingsSnap = await getDocs(rentBookingsRef);
+    // 📌 1. Récupération des réservations anonymes depuis `rentBookings`
+    try {
+      const rentBookingsRef = collection(db, "rentBookings");
+      const rentBookingsSnap = await getDocs(rentBookingsRef);
 
-    rentBookingsSnap.forEach((doc) => {
-      const data = doc.data();
+      rentBookingsSnap.forEach((docSnap) => {
+        const data = docSnap.data();
+        if (!data.dateFrom || !data.dateTo) return;
 
-      const from = data.dateFrom.toDate ? data.dateFrom.toDate() : null;
-      const to = data.dateTo.toDate ? data.dateTo.toDate() : null;
-
-      if (from && to && isValid(from) && isValid(to) && to >= today) {
-        bookedDates.push({ from, to });
-      }
-    });
-
-    // 📌 Récupération des réservations des clients inscrits
-    const clientsRef = collection(db, "clients");
-    const clientsSnap = await getDocs(clientsRef);
-
-    for (const clientDoc of clientsSnap.docs) {
-      const userId = clientDoc.id;
-      const userRentBookingsRef = collection(
-        db,
-        "clients",
-        userId,
-        "rentBookings"
-      );
-      const userRentBookingsSnap = await getDocs(userRentBookingsRef);
-
-      userRentBookingsSnap.forEach((doc) => {
-        const data = doc.data();
-
-        const from = data.dateFrom.toDate ? data.dateFrom.toDate() : null;
-        const to = data.dateTo.toDate ? data.dateTo.toDate() : null;
-
-        if (from && to && isValid(from) && isValid(to) && to >= today) {
-          bookedDates.push({ from, to });
-        }
+        allRentBookings.push({
+          id: docSnap.id,
+          serviceName: data.serviceName,
+          dateFrom: convertFirebaseTimestamp(data.dateFrom),
+          dateTo: convertFirebaseTimestamp(data.dateTo),
+          price: data.price,
+          clientName: data.clientName,
+          clientEmail: data.clientEmail,
+          clientPhone: data.clientPhone,
+          extraServices: data.extraServices,
+          status: data.status,
+        });
       });
+    } catch (error) {
+      console.error(
+        "🚨 Erreur lors de la récupération des rentBookings :",
+        error
+      );
     }
 
-    return bookedDates;
+    // 📌 2. Récupération des réservations des clients connectés
+    try {
+      const clientsRef = collection(db, "clients");
+      const clientsSnap = await getDocs(clientsRef);
+
+      for (const clientDoc of clientsSnap.docs) {
+        const userId = clientDoc.id;
+
+        // ✅ Récupérer les infos client depuis `clients/{userId}`
+        const clientData = clientDoc.data();
+        const clientName = `${clientData.firstName} ${clientData.lastName}`;
+        const clientEmail = clientData.email;
+        const clientPhone = clientData.phone;
+
+        // ✅ Vérifier si `clients/{userId}/rentBookings` contient des documents
+        const userRentBookingsRef = collection(
+          db,
+          `clients/${userId}/rentBookings`
+        );
+        const userRentBookingsSnap = await getDocs(userRentBookingsRef);
+
+        if (userRentBookingsSnap.empty) {
+          continue; // 🔥 S'il n'y a aucune réservation, inutile de continuer
+        }
+
+        // ✅ Récupérer les réservations de ce client
+        userRentBookingsSnap.forEach((docSnap) => {
+          const data = docSnap.data();
+          if (!data.dateFrom || !data.dateTo) return;
+
+          allRentBookings.push({
+            id: docSnap.id,
+            serviceName: data.serviceName,
+            dateFrom: convertFirebaseTimestamp(data.dateFrom),
+            dateTo: convertFirebaseTimestamp(data.dateTo),
+            price: data.price,
+            extraServices: data.extraServices,
+            status: data.status,
+            userId,
+            clientName,
+            clientEmail,
+            clientPhone,
+          });
+        });
+      }
+    } catch (error) {
+      console.error("🚨 Erreur lors de la récupération des clients :", error);
+    }
+
+    return allRentBookings;
   } catch (error) {
-    console.error(
-      "🚨 Erreur lors de la récupération des réservations :",
-      error
-    );
+    console.error("🚨 Erreur globale dans fetchRentBookings :", error);
     return [];
   }
 };
