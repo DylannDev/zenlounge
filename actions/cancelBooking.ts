@@ -107,6 +107,12 @@ export async function cancelBooking({
           price,
           duration,
           serviceId,
+          createdAt: new Date(),
+          expiresAt: (() => {
+            const date = new Date();
+            date.setMonth(date.getMonth() + 3); // Ajoute 3 mois
+            return date;
+          })(),
         });
       }
     }

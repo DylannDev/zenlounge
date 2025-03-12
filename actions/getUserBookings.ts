@@ -84,6 +84,7 @@ export const getUserBookings = async (userId: string, userEmail: string) => {
           userId,
           ...doc.data(),
           createdAt: convertFirebaseTimestamp(doc.data().createdAt),
+          expiresAt: convertFirebaseTimestamp(doc.data().expiresAt),
         }));
 
         // 📌 Récupération des crédits
@@ -96,6 +97,8 @@ export const getUserBookings = async (userId: string, userEmail: string) => {
           id: doc.id,
           userId,
           ...doc.data(),
+          createdAt: convertFirebaseTimestamp(doc.data().createdAt),
+          expiresAt: convertFirebaseTimestamp(doc.data().expiresAt),
         }));
 
         // 📌 Récupération des réservations de location AVEC compte

@@ -90,6 +90,11 @@ export const saveBooking = async (
           price: bookingData.price,
           serviceName: bookingData.serviceName,
           createdAt: new Date(),
+          expiresAt: (() => {
+            const date = new Date();
+            date.setMonth(date.getMonth() + 3); // Ajoute 3 mois
+            return date;
+          })(),
         });
 
         forfaitSnap = await getDoc(forfaitRef);
@@ -121,7 +126,6 @@ export const saveBooking = async (
 
     // 📌 Réservation normale (hors forfait et crédit)
     const docRef = await addDoc(userBookingsRef, {
-      serviceId: bookingData.serviceId,
       serviceName: bookingData.serviceName,
       date: bookingData.date,
       time: bookingData.time,
