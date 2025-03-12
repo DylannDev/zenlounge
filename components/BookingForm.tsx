@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "@/components/Button";
 import { formFields } from "@/data/BookingForm.config";
-import { PiCalendarCheck } from "react-icons/pi";
+import { PiCalendarCheck, PiCheckCircleDuotone } from "react-icons/pi";
 import { formatDate } from "@/lib/utils";
 import { format } from "date-fns";
 import { initStripePayment } from "@/lib/InitStripePayment";
@@ -12,6 +12,7 @@ import { getUserInfos } from "@/actions/getUserInfos";
 import { saveBooking } from "@/actions/saveBooking";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { profileInformations } from "@/data";
 
 interface BookingFormProps {
   service: {
@@ -157,6 +158,22 @@ const BookingForm: React.FC<BookingFormProps> = ({
             - {selectedTime || "Aucune heure sélectionnée"}
           </span>
         </button>
+      </div>
+      <div>
+        <h2 className="text-xl font-bold mb-4">Informations générales</h2>
+        <ul className="text-blue-light list-none">
+          {profileInformations.map(
+            (info, index) =>
+              index > 0 && (
+                <li key={info.id} className="mb-2 flex gap-2 items-center">
+                  <span>
+                    <PiCheckCircleDuotone className="text-orange text-lg" />
+                  </span>
+                  <span className="text-sm">{info.text}</span>
+                </li>
+              )
+          )}
+        </ul>
       </div>
 
       {/* 📌 Si l'utilisateur est connecté, on saute le formulaire */}

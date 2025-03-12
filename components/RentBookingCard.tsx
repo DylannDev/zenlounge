@@ -36,8 +36,8 @@ const RentBookingCard: React.FC = () => {
 
   // ✅ Extras
   const [extraServices, setExtraServices] = useState<ExtraService[]>([
-    { name: "Massage", price: 50, icon: <PiFlowerLotusLight />, quantity: 0 },
-    { name: "Soin Visage", price: 90, icon: <PiSparkleLight />, quantity: 0 },
+    { name: "Massage", price: 80, icon: <PiFlowerLotusLight />, quantity: 0 },
+    { name: "Massage Duo", price: 150, icon: <PiSparkleLight />, quantity: 0 },
     { name: "Brunch", price: 20, icon: <PiAvocadoLight />, quantity: 0 },
     { name: "Repas", price: 30, icon: <PiHamburgerLight />, quantity: 0 },
   ]);

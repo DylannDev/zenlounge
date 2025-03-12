@@ -1,10 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Button from "./Button";
 import Image from "next/image";
 import { PiTimer, PiWallet } from "react-icons/pi";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import SquareButton from "./SquareButton";
 
 interface ServiceCardProps {
   imageUrl: string;
@@ -28,9 +37,16 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   isForfaitsPage = false,
 }) => {
   const router = useRouter();
+  const user = useAuth();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleBooking = () => {
     if (isForfaitsPage) {
+      // ✅ Vérifier si l'utilisateur est connecté avant l'achat d'un forfait
+      if (!user?.uid) {
+        setIsModalOpen(true);
+        return;
+      }
       router.push(`/forfaits/${slug}`);
       return;
     }
@@ -100,6 +116,24 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           </div>
         </div>
       </div>
+
+      {/* ✅ Boîte de dialogue pour exiger la connexion avant l'achat d'un forfait */}
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent>
+          <DialogTitle>Connexion requise</DialogTitle>
+          <DialogDescription>
+            Vous devez être connecté pour l'achat d'un forfait.
+          </DialogDescription>
+          <DialogFooter className="flex gap-2 sm:gap-1 justify-end">
+            <SquareButton onClick={() => setIsModalOpen(false)} variant="white">
+              Annuler
+            </SquareButton>
+            <SquareButton onClick={() => router.push("/login")}>
+              Se connecter
+            </SquareButton>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

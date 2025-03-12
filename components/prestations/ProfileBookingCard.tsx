@@ -131,18 +131,18 @@ const ProfileBookingCard = ({
                 <DialogContent>
                   <DialogTitle>Confirmer l'annulation</DialogTitle>
                   <DialogDescription>
-                    Êtes-vous sûr de vouloir annuler cette réservation ? Cette
-                    action est irréversible.
+                    Êtes-vous sûr de vouloir annuler cette réservation ? Une
+                    annulation ne permet pas de remboursement, mais un crédit
+                    vous sera attribué pour reprogrammer une nouvelle séance.
                   </DialogDescription>
                   <DialogFooter className="flex gap-2 sm:gap-1 justify-end">
-                    <SquareButton onClick={() => setIsModalOpen(false)}>
+                    <SquareButton
+                      variant="white"
+                      onClick={() => setIsModalOpen(false)}
+                    >
                       Annuler
                     </SquareButton>
-                    <SquareButton
-                      variant="destructive"
-                      onClick={handleCancel}
-                      disabled={loading}
-                    >
+                    <SquareButton onClick={handleCancel} disabled={loading}>
                       {loading ? "Annulation..." : "Confirmer"}
                     </SquareButton>
                   </DialogFooter>

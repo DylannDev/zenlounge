@@ -464,3 +464,18 @@ export const loggedInLinks = [
     icon: <PiSignOut />,
   },
 ];
+
+export const profileInformations = [
+  {
+    id: 1,
+    text: "Les forfaits sont valables pour une durée maximale de 3 mois à compter de la date d'achat.",
+  },
+  {
+    id: 2,
+    text: "Vous pouvez annuler jusqu'à 1 jour avant votre séance. La veille et le jour du rendez-vous, l'annulation n'est plus possible.",
+  },
+  {
+    id: 3,
+    text: "Une annulation ne permet pas de remboursement, mais un crédit vous sera attribué pour reprogrammer une nouvelle séance.",
+  },
+];

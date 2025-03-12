@@ -5,9 +5,18 @@ import Image from "next/image";
 import { PiWallet, PiCalendarCheck, PiTimer } from "react-icons/pi";
 import { getServiceImage } from "@/lib/utils";
 import SquareButton from "../SquareButton";
+import { formatDate } from "../../lib/utils";
 
 const ProfileCreditCard: React.FC<ProfileCreditCardProps> = ({ credit }) => {
   const router = useRouter();
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const expiresAt = new Date(credit.expiresAt);
+  expiresAt.setHours(0, 0, 0, 0);
+
+  const isExpired = expiresAt < today;
 
   // ✅ Gestion de la redirection vers la page de réservation avec crédit
   const handleRedirect = () => {
@@ -30,38 +39,49 @@ const ProfileCreditCard: React.FC<ProfileCreditCardProps> = ({ credit }) => {
           </div>
 
           {/* Infos */}
-          <div className="flex flex-col gap-6 justify-between h-full w-full">
+          <div className="flex flex-col gap-6 justify-between h-full w-full text-blue-light">
             <div className="flex flex-col">
               <h3 className="text-xl font-bold">{credit.serviceName}</h3>
-              <p className="text-blue-light text-sm">
+              <p className="text-sm">
                 {credit.remainingSessions} / {credit.totalSessions} crédit
                 restant
               </p>
             </div>
 
-            <div className="text-blue-light text-sm flex flex-wrap items-center gap-2">
-              <div className="flex items-center px-3 py-1 font-semibold bg-rose-dark text-brown-dark rounded-lg w-fit">
-                Crédit
+            <div className="flex flex-col gap-2">
+              {isExpired ? (
+                <p className="text-sm text-red-500">Crédit expiré</p>
+              ) : (
+                <p className="text-sm">
+                  Votre crédit expire le : {formatDate(expiresAt, false)}
+                </p>
+              )}
+              <div className="text-sm flex flex-wrap items-center gap-2">
+                <div className="flex items-center px-3 py-1 font-semibold bg-rose-dark text-brown-dark rounded-lg w-fit">
+                  Crédit
+                </div>
+                <p className="flex items-center gap-1 whitespace-nowrap">
+                  <span className="text-xl text-brown-dark">
+                    <PiWallet />
+                  </span>{" "}
+                  {credit.price} €
+                </p>
+                <p className="flex items-center gap-1 whitespace-nowrap">
+                  <span className="text-xl text-brown-dark">
+                    <PiTimer />
+                  </span>{" "}
+                  {credit.duration} min
+                </p>
               </div>
-              <p className="flex items-center gap-1 whitespace-nowrap">
-                <span className="text-xl text-brown-dark">
-                  <PiWallet />
-                </span>{" "}
-                {credit.price} €
-              </p>
-              <p className="flex items-center gap-1 whitespace-nowrap">
-                <span className="text-xl text-brown-dark">
-                  <PiTimer />
-                </span>{" "}
-                {credit.duration} min
-              </p>
             </div>
           </div>
         </div>
 
-        <SquareButton icon={<PiCalendarCheck />} onClick={handleRedirect}>
-          Réserver ma séance
-        </SquareButton>
+        {!isExpired && (
+          <SquareButton icon={<PiCalendarCheck />} onClick={handleRedirect}>
+            Réserver ma séance
+          </SquareButton>
+        )}
       </div>
     </li>
   );

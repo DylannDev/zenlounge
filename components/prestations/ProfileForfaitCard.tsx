@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { PiWallet, PiCalendarCheck } from "react-icons/pi";
-import { getServiceImage } from "@/lib/utils";
+import { formatDate, getServiceImage } from "@/lib/utils";
 import SquareButton from "../SquareButton";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
@@ -19,6 +19,14 @@ const ProfileForfaitCard: React.FC<ProfileForfaitCardProps> = ({ forfait }) => {
   const [remainingSessions, setRemainingSessions] = useState(
     forfait.remainingSessions
   );
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const expiresAt = new Date(forfait.expiresAt);
+  expiresAt.setHours(0, 0, 0, 0);
+
+  const isExpired = expiresAt < today;
 
   useEffect(() => {
     const forfaitRef = doc(
@@ -52,40 +60,55 @@ const ProfileForfaitCard: React.FC<ProfileForfaitCardProps> = ({ forfait }) => {
           </div>
 
           {/* Infos */}
-          <div className="flex flex-col gap-6 justify-between h-full w-full">
+          <div className="flex flex-col gap-6 justify-between h-full w-full text-blue-light">
             <div className="flex flex-col">
               <h3 className="text-xl font-bold">{forfait.serviceName}</h3>
-              <p className="text-blue-light text-sm">
+              <p className="text-sm">
                 {remainingSessions} / {forfait.totalSessions} séances restantes
               </p>
             </div>
 
-            <div className="text-blue-light text-sm flex items-center gap-2">
-              <div className="flex items-center px-3 py-1 font-semibold bg-rose-dark text-brown-dark rounded-lg w-fit">
-                {forfait.id.includes("forfait-5")
-                  ? "Forfait 5 séances"
-                  : "Forfait 10 séances"}
+            <div className="flex flex-col gap-2">
+              {isExpired ? (
+                <p className="text-sm text-red-500">Forfait expiré</p>
+              ) : (
+                <p className="text-sm">
+                  Votre forfait expire le : {formatDate(expiresAt, false)}
+                </p>
+              )}
+              <div className="text-blue-light text-sm flex items-center gap-2">
+                <div className="flex items-center px-3 py-1 font-semibold bg-rose-dark text-brown-dark rounded-lg w-fit">
+                  {forfait.id.includes("forfait-5")
+                    ? "Forfait 5 séances"
+                    : "Forfait 10 séances"}
+                </div>
+                <p className="flex items-center gap-1 whitespace-nowrap">
+                  <span className="text-xl text-brown-dark">
+                    <PiWallet />
+                  </span>{" "}
+                  {forfait.price} €
+                </p>
               </div>
-              <p className="flex items-center gap-1 whitespace-nowrap">
-                <span className="text-xl text-brown-dark">
-                  <PiWallet />
-                </span>{" "}
-                {forfait.price} €
-              </p>
             </div>
           </div>
         </div>
 
-        <SquareButton
-          icon={
-            forfait.remainingSessions === 0 ? <PiWallet /> : <PiCalendarCheck />
-          }
-          onClick={handleRedirect}
-        >
-          {forfait.remainingSessions === 0
-            ? "Recharger mon forfait"
-            : "Réserver ma séance"}
-        </SquareButton>
+        {!isExpired && (
+          <SquareButton
+            icon={
+              forfait.remainingSessions === 0 ? (
+                <PiWallet />
+              ) : (
+                <PiCalendarCheck />
+              )
+            }
+            onClick={handleRedirect}
+          >
+            {forfait.remainingSessions === 0
+              ? "Recharger mon forfait"
+              : "Réserver ma séance"}
+          </SquareButton>
+        )}
       </div>
     </li>
   );

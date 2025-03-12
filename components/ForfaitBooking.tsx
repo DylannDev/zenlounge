@@ -2,14 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import { notFound, useParams, useRouter } from "next/navigation";
-import { forfaitSeances } from "@/data";
+import { forfaitSeances, profileInformations } from "@/data";
 import SectionHeader from "@/components/SectionHeader";
 import Button from "@/components/Button";
 import ServiceDetails from "@/components/ServiceDetails";
 import TimeSelector from "@/components/TimeSelector";
 import DateSelector from "@/components/DateSelector";
 import { fetchBookings } from "@/actions/fetchBookings";
-import { PiCalendarCheck } from "react-icons/pi";
+import { PiCalendarCheck, PiCheckCircleDuotone } from "react-icons/pi";
 import { formatDate } from "@/lib/utils";
 import { format } from "date-fns";
 import { useAuth } from "@/hooks/useAuth";
@@ -139,7 +139,8 @@ const ForfaitBooking: React.FC<Forfait> = ({ forfaits }) => {
         router.push("/prestations");
       } else {
         // ✅ Paiement normal via Stripe
-        // await initStripePayment(bookingData, user.uid);
+        // await initStripePayment(bookingData, user.uid, slug);
+        const response = await saveBooking(bookingData, user.uid, slug);
       }
 
       setErrorMessage("");
@@ -233,6 +234,20 @@ const ForfaitBooking: React.FC<Forfait> = ({ forfaits }) => {
                   <li key={index} className=" text-blue-light">
                     <span className="font-semibold">{field.label} :</span>{" "}
                     {field.value}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h2 className="text-xl font-bold mb-4">Informations générales</h2>
+              <ul className="text-blue-light list-none">
+                {profileInformations.map((info) => (
+                  <li key={info.id} className="mb-2 flex gap-2 items-center">
+                    <span>
+                      <PiCheckCircleDuotone className="text-orange text-lg" />
+                    </span>
+                    <span className="text-sm">{info.text}</span>
                   </li>
                 ))}
               </ul>

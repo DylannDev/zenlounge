@@ -6,6 +6,8 @@ import PastServices from "@/components/prestations/PastServices";
 import UpcomingServices from "@/components/prestations/UpcomingServices";
 import RentBookings from "@/components/prestations/RentBookings"; // 🔥 Nouveau composant pour la location
 import { redirect } from "next/navigation";
+import { PiCheckCircleDuotone, PiInfo, PiInfoBold } from "react-icons/pi";
+import { profileInformations } from "@/data";
 
 const ServicesPage = async () => {
   const currentUser = await getCurrentUser();
@@ -48,7 +50,7 @@ const ServicesPage = async () => {
     <section className="flex flex-col gap-8 max-w-[800px] w-full mx-auto my-20">
       <h1 className="text-4xl font-bold">Vos Prestations</h1>
 
-      <div className="flex flex-col gap-12">
+      <div className="flex flex-col gap-6">
         {/* ✅ Services à venir */}
         <UpcomingServices services={upcomingBookings} />
 
@@ -83,6 +85,22 @@ const ServicesPage = async () => {
             <PastServices services={pastBookings} />
           </>
         )}
+
+        <hr />
+        <h2 className="text-xl font-bold flex items-center gap-1">
+          Informations générales
+          <PiInfoBold className="text-base" />
+        </h2>
+        <ul className="text-blue-light list-none">
+          {profileInformations.map((info) => (
+            <li key={info.id} className="mb-2 flex gap-2 items-center">
+              <span>
+                <PiCheckCircleDuotone className="text-orange text-lg md:text-xl" />
+              </span>
+              <span className="text-sm md:text-base">{info.text}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

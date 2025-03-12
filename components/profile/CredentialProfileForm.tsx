@@ -10,8 +10,20 @@ import Loader from "../Loader";
 import { updateUserPassword } from "@/actions/updateUserPassword";
 import { useRouter } from "next/navigation";
 import { auth } from "@/firebase/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { getAuthErrorMessage } from "@/lib/authErrors";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
+import SquareButton from "../SquareButton";
 
 type CredentialFormInputs = {
   currentPassword: string;
@@ -21,12 +33,17 @@ type CredentialFormInputs = {
 
 const CredentialProfileForm = () => {
   const router = useRouter();
+  const { toast } = useToast();
 
   const [isEditing, setIsEditing] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState("");
 
   const userEmail = auth.currentUser?.email!;
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [resetEmail, setResetEmail] = useState(userEmail || "");
+  const [resetLoading, setResetLoading] = useState(false);
 
   const {
     register,
@@ -56,7 +73,6 @@ const CredentialProfileForm = () => {
     setSuccessMessage("");
 
     try {
-      // ✅ Étape 1 : Vérifier le mot de passe actuel côté client
       const userCredential = await signInWithEmailAndPassword(
         auth,
         userEmail,
@@ -68,7 +84,6 @@ const CredentialProfileForm = () => {
         return;
       }
 
-      // ✅ Étape 2 : Envoyer la requête au serveur pour changer le mot de passe
       const response = await updateUserPassword(data.newPassword);
 
       if (response.success) {
@@ -80,7 +95,7 @@ const CredentialProfileForm = () => {
           confirmPassword: "*******",
         });
         setTimeout(() => {
-          router.refresh(); // ✅ Rafraîchir la page pour afficher les nouvelles données
+          router.refresh();
           setSuccessMessage("");
         }, 3000);
       } else {
@@ -92,6 +107,37 @@ const CredentialProfileForm = () => {
       } else {
         setError(getAuthErrorMessage(error.code));
       }
+    }
+  };
+
+  // ✅ Fonction de réinitialisation du mot de passe
+  const handleResetPassword = async () => {
+    if (!resetEmail) {
+      toast({
+        title: "Erreur",
+        description: "Veuillez entrer votre adresse email.",
+      });
+      return;
+    }
+
+    try {
+      setResetLoading(true);
+      await sendPasswordResetEmail(auth, resetEmail);
+      toast({
+        title: "Email envoyé",
+        description:
+          "Un email de réinitialisation a été envoyé. Vérifiez votre boîte de réception.",
+      });
+      setIsModalOpen(false);
+    } catch (error: any) {
+      toast({
+        title: "Erreur",
+        description:
+          "Impossible d'envoyer l'email de réinitialisation. Vérifiez votre adresse email.",
+      });
+      console.error(error);
+    } finally {
+      setResetLoading(false);
     }
   };
 
@@ -126,7 +172,7 @@ const CredentialProfileForm = () => {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 w-full">
           <div className="flex flex-col gap-4">
-            {credentialFormFields.map((field) => (
+            {credentialFormFields.map((field, index) => (
               <div key={field.name} className="w-full">
                 <label className="block text-sm font-medium text-blue-light mb-2">
                   {field.label} <span className="text-red-500">*</span>
@@ -141,6 +187,19 @@ const CredentialProfileForm = () => {
                   <p className="text-red-500 text-sm">
                     {errors[field.name as keyof CredentialFormInputs]?.message}
                   </p>
+                )}
+
+                {/* ✅ Ajouter le lien "Mot de passe oublié ?" sous le premier champ */}
+                {index === 0 && (
+                  <div className="mt-1">
+                    <button
+                      type="button"
+                      onClick={() => setIsModalOpen(true)}
+                      className="hover:underline text-sm text-brown-dark font-semibold"
+                    >
+                      Mot de passe oublié ?
+                    </button>
+                  </div>
                 )}
               </div>
             ))}
@@ -179,6 +238,36 @@ const CredentialProfileForm = () => {
           </div>
         </form>
       )}
+
+      {/* ✅ Dialog pour la réinitialisation du mot de passe */}
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent>
+          <DialogTitle>Réinitialisation du mot de passe</DialogTitle>
+          <DialogDescription>
+            Entrez votre adresse email pour recevoir un lien de
+            réinitialisation.
+          </DialogDescription>
+
+          <input
+            type="email"
+            placeholder="Votre email"
+            value={resetEmail}
+            onChange={(e) => setResetEmail(e.target.value)}
+            className="border border-blue-light/20 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-rose-dark"
+          />
+
+          <DialogFooter className="flex gap-2 sm:gap-1 justify-end mt-4">
+            <SquareButton onClick={() => setIsModalOpen(false)} variant="white">
+              Annuler
+            </SquareButton>
+            <SquareButton onClick={handleResetPassword} disabled={resetLoading}>
+              {resetLoading
+                ? "Envoi en cours..."
+                : "Réinitialiser mon mot de passe"}
+            </SquareButton>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
