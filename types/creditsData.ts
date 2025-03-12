@@ -6,6 +6,8 @@ interface Credit {
   price: number;
   duration: number;
   userId: string;
+  createdAt: Date;
+  expiresAt: Date;
 }
 
 interface CreditServicesProps {
