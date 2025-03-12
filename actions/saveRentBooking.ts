@@ -11,7 +11,7 @@ export const saveRentBooking = async (
 ) => {
   try {
     // ✅ Validation des données avec Zod
-    const validatedData = saveRentBookingSchema.parse(bookingData);
+    const validatedData = saveRentBookingSchema(userId).parse(bookingData);
 
     let bookingRef;
     let docRef;
