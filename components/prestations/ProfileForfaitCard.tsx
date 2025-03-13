@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { PiWallet, PiCalendarCheck } from "react-icons/pi";
-import { formatDate, getServiceImage } from "@/lib/utils";
+import { formatDate, getServiceImage, isDateExpired } from "@/lib/utils";
 import SquareButton from "../SquareButton";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
@@ -20,13 +20,7 @@ const ProfileForfaitCard: React.FC<ProfileForfaitCardProps> = ({ forfait }) => {
     forfait.remainingSessions
   );
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const expiresAt = new Date(forfait.expiresAt);
-  expiresAt.setHours(0, 0, 0, 0);
-
-  const isExpired = expiresAt < today;
+  const isExpired = isDateExpired(forfait.expiresAt);
 
   useEffect(() => {
     const forfaitRef = doc(
@@ -73,7 +67,8 @@ const ProfileForfaitCard: React.FC<ProfileForfaitCardProps> = ({ forfait }) => {
                 <p className="text-sm text-red-500">Forfait expiré</p>
               ) : (
                 <p className="text-sm">
-                  Votre forfait expire le : {formatDate(expiresAt, false)}
+                  Votre forfait expire le :{" "}
+                  {formatDate(forfait.expiresAt, false)}
                 </p>
               )}
               <div className="text-blue-light text-sm flex items-center gap-2">
