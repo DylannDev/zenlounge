@@ -39,6 +39,7 @@ const TimeSelector: React.FC<TimeSelectorProps> = ({
   const morningClosingTime = 720; // 12:00 en minutes
   const afternoonOpeningTime = 840; // 14:00 en minutes
   const eveningClosingTime = 1140; // 19:00 en minutes
+  const serviceInterval = 30; // Pause obligatoire entre prestations
 
   // Fonction pour obtenir les créneaux disponibles
   const getAvailableSlots = (): number[] => {
@@ -54,15 +55,23 @@ const TimeSelector: React.FC<TimeSelectorProps> = ({
     const unavailableSlots = new Set<number>();
 
     dayBookings.forEach((booking) => {
-      const startTime = timeToMinutes(booking.time); // Heure de début en minutes
-      const endTime = startTime + booking.duration; // Heure de fin en minutes
+      const startTime = timeToMinutes(booking.time);
+      const endTime = startTime + booking.duration;
+
+      // Ajouter la prestation à la liste des créneaux bloqués
       for (let i = startTime; i < endTime; i += 30) {
         unavailableSlots.add(i);
+      }
+
+      // Ajouter l'intervalle de 30 minutes après la prestation **sauf si après fermeture**
+      if (endTime < morningClosingTime || endTime < eveningClosingTime) {
+        unavailableSlots.add(endTime);
       }
     });
 
     return allSlots.filter((slot) => {
       const slotEnd = slot + serviceDuration;
+      const slotEndWithInterval = slotEnd + serviceInterval;
 
       // Vérifier si le créneau dépasse les heures de travail
       if (
@@ -73,16 +82,21 @@ const TimeSelector: React.FC<TimeSelectorProps> = ({
         return false;
       }
 
-      // Vérifier s'il chevauche une réservation existante
+      // Vérifier si un créneau est bloqué par une réservation ou par une pause
+      if (unavailableSlots.has(slot)) {
+        return false;
+      }
+
+      // Vérifier que la prestation sélectionnée + 30 minutes d'intervalle ne chevauche pas un rendez-vous existant
       const hasOverlap = dayBookings.some((booking) => {
         const bookingStart = timeToMinutes(booking.time);
         const bookingEnd = bookingStart + booking.duration;
 
-        // Vérifiez si la plage sélectionnée chevauche une réservation existante
         return (
-          (slot >= bookingStart && slot < bookingEnd) || // Le créneau commence dans une réservation
-          (slotEnd > bookingStart && slotEnd <= bookingEnd) || // Le créneau se termine dans une réservation
-          (slot < bookingStart && slotEnd > bookingEnd) // Le créneau englobe une réservation
+          (slot >= bookingStart && slot < bookingEnd + serviceInterval) || // Commence dans une réservation
+          (slotEndWithInterval > bookingStart &&
+            slotEndWithInterval <= bookingEnd + serviceInterval) || // Se termine dans une réservation
+          (slot < bookingStart && slotEndWithInterval > bookingEnd) // Englobe une réservation
         );
       });
 
