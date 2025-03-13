@@ -5,7 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { PiWallet, PiTimer, PiSparkleLight, PiCalendarX } from "react-icons/pi";
-import { formatDate } from "@/lib/utils";
+import { canCancelBooking, formatDate } from "@/lib/utils";
 import StatusBadge from "../admin/StatusBadge";
 import {
   Dialog,
@@ -54,6 +54,8 @@ const ProfileRentBookingCard = ({ booking }: { booking: RentBookingData }) => {
     setLoading(false);
     setIsModalOpen(false); // Fermer la modale après l'annulation
   };
+
+  const showCancelButton = canCancelBooking(booking.dateFrom);
   return (
     <li className="flex gap-4 justify-between border border-rose-dark p-4 rounded-2xl bg-white">
       <div className="flex flex-col gap-6 sm:flex-row justify-between items-end w-full">
@@ -112,7 +114,7 @@ const ProfileRentBookingCard = ({ booking }: { booking: RentBookingData }) => {
           </div>
         </div>
 
-        {booking.status === "confirmed" && (
+        {booking.status === "confirmed" && !showCancelButton && (
           <>
             <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
               <DialogTrigger asChild>

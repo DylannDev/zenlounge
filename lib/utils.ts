@@ -71,3 +71,88 @@ export const getServiceImage = (serviceName: string) => {
 
   return foundService?.imageUrl || "/massage-1.jpg";
 };
+
+export function isDateExpired(expirationDate: string | Date): boolean {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Réinitialisation à minuit
+
+  const expiresAt = new Date(expirationDate);
+  expiresAt.setHours(0, 0, 0, 0); // Réinitialisation à minuit
+
+  return expiresAt < today;
+}
+
+export function canCancelBooking(serviceDate: string | Date): boolean {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const tomorrow = new Date();
+  tomorrow.setDate(today.getDate() + 1);
+  tomorrow.setHours(0, 0, 0, 0);
+
+  const serviceDateObj = new Date(serviceDate);
+  serviceDateObj.setHours(0, 0, 0, 0);
+
+  return (
+    serviceDateObj.getTime() === tomorrow.getTime() ||
+    serviceDateObj.getTime() === today.getTime() ||
+    serviceDateObj.getTime() < today.getTime()
+  );
+}
+
+export function filterBookings(bookings: any[]) {
+  const now = new Date();
+  now.setHours(0, 0, 0, 0); // Normaliser à minuit
+
+  const rentBookings = bookings.filter(
+    (booking) => booking.type === "rentBooking"
+  );
+  const standardBookings = bookings.filter(
+    (booking) => booking.type !== "rentBooking"
+  );
+
+  // 🔹 Filtrage des prestations classiques (hors location)
+  const upcomingBookings = standardBookings
+    .filter((s) => {
+      const bookingDate = new Date(s.date);
+      bookingDate.setHours(0, 0, 0, 0);
+      return bookingDate >= now; // Inclut aujourd'hui et les futures réservations
+    })
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()); // Tri de la plus proche à la plus lointaine
+
+  const pastBookings = standardBookings
+    .filter((s) => {
+      const bookingDate = new Date(s.date);
+      bookingDate.setHours(0, 0, 0, 0);
+      return bookingDate < now; // Seulement les dates passées
+    })
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()); // Tri de la plus récente à la plus ancienne
+
+  // 🔹 Filtrage des réservations de location
+  const upcomingRentBookings = rentBookings
+    .filter((booking) => {
+      const bookingEndDate = new Date(booking.dateTo);
+      bookingEndDate.setHours(0, 0, 0, 0);
+      return bookingEndDate >= now; // Inclut aujourd'hui et les futures locations
+    })
+    .sort(
+      (a, b) => new Date(a.dateTo).getTime() - new Date(b.dateTo).getTime()
+    ); // Tri de la plus proche à la plus lointaine
+
+  const pastRentBookings = rentBookings
+    .filter((booking) => {
+      const bookingEndDate = new Date(booking.dateTo);
+      bookingEndDate.setHours(0, 0, 0, 0);
+      return bookingEndDate < now; // Seulement les locations passées
+    })
+    .sort(
+      (a, b) => new Date(b.dateTo).getTime() - new Date(a.dateTo).getTime()
+    ); // Tri de la plus récente à la plus ancienne
+
+  return {
+    upcomingBookings,
+    pastBookings,
+    upcomingRentBookings,
+    pastRentBookings,
+  };
+}

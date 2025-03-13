@@ -51,7 +51,7 @@ const UpcomingServices = ({ services }: { services: any[] }) => {
         </div>
       ) : (
         <div>
-          <h2 className="text-2xl font-bold mb-4">Prochaines Prestations</h2>
+          <h2 className="text-2xl font-bold mb-6">Prochaines Prestations</h2>
           <ul className="space-y-4">
             {activeBookings.map((service) => (
               <ProfileBookingCard

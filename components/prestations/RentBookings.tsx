@@ -6,8 +6,8 @@ const RentBookings = ({
   rentBookings: RentBookingData[];
 }) => {
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4">Vos Locations</h2>
+    <div className="mt-10">
+      <h2 className="text-2xl font-bold mb-6">Vos Locations</h2>
       <ul className="space-y-4">
         {rentBookings.map((booking) => (
           <ProfileRentBookingCard key={booking.id} booking={booking} />

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { PiCalendarX, PiTimer, PiWallet } from "react-icons/pi";
-import { formatDate, getServiceImage } from "@/lib/utils";
+import { canCancelBooking, formatDate, getServiceImage } from "@/lib/utils";
 import SquareButton from "../SquareButton";
 import { cancelBooking } from "@/actions/cancelBooking";
 import { useToast } from "@/hooks/use-toast";
@@ -74,6 +74,8 @@ const ProfileBookingCard = ({
     setIsModalOpen(false); // Fermer la modale après l'annulation
   };
 
+  const showCancelButton = canCancelBooking(service.date);
+
   return (
     <>
       <li className="flex gap-4 justify-between border border-rose-dark p-4 rounded-2xl bg-white">
@@ -122,7 +124,7 @@ const ProfileBookingCard = ({
             </div>
           </div>
 
-          {!isPastBookings && (
+          {!isPastBookings && !showCancelButton && (
             <>
               <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
                 <DialogTrigger asChild>

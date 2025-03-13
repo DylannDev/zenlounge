@@ -1,9 +1,16 @@
 import ProfileBookingCard from "./ProfileBookingCard";
+import ProfileRentBookingCard from "./ProfileRentBookingCard";
 
-const PastServices = ({ services }: { services: any[] }) => {
+const PastServices = ({
+  services,
+  rentBookings,
+}: {
+  services: any[];
+  rentBookings: RentBookingData[];
+}) => {
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Historique</h2>
+      <h2 className="text-2xl font-bold mb-6">Historique</h2>
 
       <ul className="space-y-4">
         {services.map((service) => (
@@ -12,6 +19,10 @@ const PastServices = ({ services }: { services: any[] }) => {
             service={service}
             isPastBookings
           />
+        ))}
+
+        {rentBookings.map((booking) => (
+          <ProfileRentBookingCard key={booking.id} booking={booking} />
         ))}
       </ul>
     </div>

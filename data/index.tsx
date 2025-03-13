@@ -472,10 +472,10 @@ export const profileInformations = [
   },
   {
     id: 2,
-    text: "Vous pouvez annuler jusqu'à 1 jour avant votre séance. La veille et le jour du rendez-vous, l'annulation n'est plus possible.",
+    text: "Vous pouvez annuler jusqu'à 2 jours avant votre séance sur votre espace personnel. La veille et le jour du rendez-vous, l'annulation n'est plus possible.",
   },
   {
     id: 3,
-    text: "Une annulation ne permet pas de remboursement, mais un crédit vous sera attribué pour reprogrammer une nouvelle séance.",
+    text: "Une annulation ne donne pas droit à un remboursement, mais un crédit vous sera attribué pour reprogrammer une nouvelle séance.",
   },
 ];
