@@ -5,9 +5,9 @@ import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import Logo from "@/components/Logo";
 import {
+  PiArrowsClockwise,
   PiFlowerTulip,
   PiHouseLine,
-  PiListMagnifyingGlass,
   PiSignOut,
   PiUserCheck,
 } from "react-icons/pi";
@@ -33,6 +33,11 @@ export default function AdminDashboardLayout({
       label: "Prestations",
       href: "/admin/bookings",
       icon: <PiFlowerTulip className="h-5 w-5 flex-shrink-0" />,
+    },
+    {
+      label: "Forfaits",
+      href: "/admin/forfaits",
+      icon: <PiArrowsClockwise className="h-5 w-5 flex-shrink-0" />,
     },
     {
       label: "Location",

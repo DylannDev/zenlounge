@@ -34,6 +34,12 @@ export const bookingTableColumns = [
     format: (value: number) => `${value} min`,
   },
   {
+    key: "forfaitId",
+    label: "Type",
+    format: (value: string | null | undefined) =>
+      !value || value === null ? "Prestation simple" : "Forfait",
+  },
+  {
     key: "status",
     label: "Statut",
     format: (value: string) => <StatusBadge status={value} />,
@@ -101,5 +107,54 @@ export const rentBookingTableColumns = [
     key: "status",
     label: "Statut",
     format: (value: string) => <StatusBadge status={value} />,
+  },
+];
+
+export const forfaitTableColumns = [
+  {
+    key: "clientName",
+    label: "Nom",
+  },
+  {
+    key: "email",
+    label: "Email",
+  },
+  {
+    key: "phone",
+    label: "Téléphone",
+  },
+  {
+    key: "serviceName",
+    label: "Forfait",
+  },
+  {
+    key: "price",
+    label: "Prix",
+    format: (value: number) => `${value} €`,
+  },
+  {
+    key: "remainingSessions",
+    label: "Séances",
+    format: (value: number, row: any) => `${value} / ${row.totalSessions}`,
+  },
+  {
+    key: "createdAt",
+    label: "Payé le",
+    format: (value: Date) => formatDate(value, false),
+  },
+  {
+    key: "expiresAt",
+    label: "Expire le",
+    format: (value: Date) => formatDate(value, false),
+  },
+  {
+    key: "status",
+    label: "Statut",
+    format: (_: any, row: any) => {
+      const isExpired =
+        new Date(row.expiresAt).setHours(0, 0, 0, 0) <
+        new Date().setHours(0, 0, 0, 0);
+      return <StatusBadge status={isExpired ? "Expiré" : "Actif"} />;
+    },
   },
 ];
