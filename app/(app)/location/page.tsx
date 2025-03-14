@@ -3,7 +3,6 @@ import SectionHeader from "@/components/SectionHeader";
 import { roomData } from "@/data";
 import { PiCheckCircleDuotone } from "react-icons/pi";
 import RentBookingCard from "@/components/RentBookingCard";
-import RangeDateSelector from "@/components/RangeDateSelector";
 
 const Sejours = () => {
   return (

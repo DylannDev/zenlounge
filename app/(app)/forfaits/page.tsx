@@ -5,7 +5,7 @@ import { forfaitSeances } from "@/data";
 
 const Forfaits = () => {
   return (
-    <section className="relative max-w-[1200px] mx-auto flex flex-col gap-20 pt-10 pb-40">
+    <section className="relative max-w-[1200px] mx-auto flex flex-col gap-20 pt-10 pb-20">
       {/* Section 5 séances */}
       <div>
         <SectionHeader

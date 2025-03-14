@@ -1,69 +1,58 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { PiStarDuotone, PiStarFill } from "react-icons/pi";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { PiStarDuotone, PiStarFill } from "react-icons/pi";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { reviewsInputsConfig } from "@/data/Reviews.config";
 import Button from "@/components/Button";
 import SectionHeader from "@/components/SectionHeader";
 import { submitReview } from "@/actions/submitReview";
-import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { reviewSchemaClient } from "@/validation/reviewSchemaClient";
 
-const INITIAL_FORM_DATA = {
-  name: "",
-  email: "",
-  message: "",
-  stars: 0,
-};
+type ReviewFormData = z.infer<typeof reviewSchemaClient>;
 
 const Reviews = () => {
   const router = useRouter();
-  const [error, setError] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  // ✅ Initialisation de React Hook Form avec validation Zod
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    control,
+    formState: { errors },
+  } = useForm<ReviewFormData>({
+    resolver: zodResolver(reviewSchemaClient),
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+      stars: 0,
+    },
+  });
 
+  // ✅ Gestion des étoiles (sélection de note)
   const handleStarChange = (stars: number) => {
-    setFormData((prev) => ({
-      ...prev,
-      stars,
-    }));
-    if (error) setError(""); // Réinitialise l'erreur si une étoile est sélectionnée
+    setValue("stars", stars);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!formData.name || !formData.email || !formData.message) {
-      setError("Veuillez remplir tous les champs avant de continuer.");
-      return;
-    }
-
-    if (formData.stars === 0) {
-      setError("Veuillez sélectionner au moins 1 étoile.");
-      return;
-    }
-
+  // ✅ Soumission du formulaire
+  const onSubmit = async (formData: ReviewFormData) => {
     try {
       await submitReview(formData);
       setSubmitted(true);
-      setFormData(INITIAL_FORM_DATA);
-    } catch (err: any) {
-      console.error(err.message);
-      setError("Erreur lors de la soumission de l'avis.");
+    } catch (error) {
+      console.error("Erreur lors de la soumission de l'avis :", error);
     }
   };
 
-  // Redirection après 5 secondes une fois le formulaire soumis
+  // ✅ Redirection après soumission
   useEffect(() => {
     if (submitted) {
       const timer = setTimeout(() => {
@@ -84,7 +73,7 @@ const Reviews = () => {
           />
 
           <form
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             className="w-full max-w-[700px] mx-auto py-8 px-6 rounded-3xl space-y-4 border border-rose-dark"
           >
             <div className="flex flex-col gap-4 mb-10">
@@ -92,9 +81,7 @@ const Reviews = () => {
                 input.type === "textarea" ? (
                   <textarea
                     key={index}
-                    name={input.name}
-                    value={formData[input.name as keyof typeof formData]}
-                    onChange={handleChange}
+                    {...register(input.name as keyof ReviewFormData)} // ✅ Correction du type ici
                     placeholder={input.placeholder}
                     rows={input.rows}
                     className="border border-blue-light/20 rounded-lg px-3 py-2 w-full placeholder-gray-400 placeholder:text-sm focus:outline-none focus:border-rose-dark"
@@ -103,20 +90,30 @@ const Reviews = () => {
                   <input
                     key={index}
                     type={input.type}
-                    name={input.name}
-                    value={formData[input.name as keyof typeof formData]}
-                    onChange={handleChange}
+                    {...register(input.name as keyof ReviewFormData)} // ✅ Correction du type ici
                     placeholder={input.placeholder}
                     className="border border-blue-light/20 rounded-lg px-3 py-2 w-full placeholder-gray-400 placeholder:text-sm focus:outline-none focus:border-rose-dark"
                   />
                 )
               )}
+              {/* Affichage des erreurs */}
+              {errors.name && (
+                <p className="text-red-500 text-sm">{errors.name.message}</p>
+              )}
+              {errors.email && (
+                <p className="text-red-500 text-sm">{errors.email.message}</p>
+              )}
+              {errors.message && (
+                <p className="text-red-500 text-sm">{errors.message.message}</p>
+              )}
+
+              {/* Sélection des étoiles */}
               <div className="flex flex-col justify-center items-center gap-2">
                 <span className="text-base">Notez votre expérience :</span>
                 <div className="flex gap-1">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <div key={star} onClick={() => handleStarChange(star)}>
-                      {formData.stars >= star ? (
+                      {watch("stars") >= star ? (
                         <PiStarFill className="cursor-pointer text-xl text-orange" />
                       ) : (
                         <PiStarDuotone className="cursor-pointer text-xl text-orange" />
@@ -124,11 +121,11 @@ const Reviews = () => {
                     </div>
                   ))}
                 </div>
+                {errors.stars && (
+                  <p className="text-red-500 text-sm">{errors.stars.message}</p>
+                )}
               </div>
             </div>
-            {error && (
-              <p className="text-red-500 text-sm mt-2 text-center">{error}</p>
-            )}
             <div className="flex justify-center">
               <Button button type="submit">
                 Soumettre mon avis

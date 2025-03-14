@@ -5,7 +5,7 @@ import { massageServices } from "@/data";
 
 const Massages = () => {
   return (
-    <section className="relative max-w-[1200px] mx-auto flex flex-col pt-10 pb-40">
+    <section className="relative max-w-[1200px] mx-auto flex flex-col pt-10 pb-20">
       <SectionHeader
         title="Découvrez nos massages"
         subtitle={[
