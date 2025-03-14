@@ -70,6 +70,8 @@ export const getUserBookings = async (userId: string, userEmail: string) => {
           ...doc.data(),
           userId,
           clientEmail: userEmail,
+          clientName: `${clientSnapshot.data().firstName} ${clientSnapshot.data().lastName}`,
+          clientPhone: clientSnapshot.data().phone,
           date: convertFirebaseTimestamp(doc.data().date),
         }));
 
@@ -111,6 +113,9 @@ export const getUserBookings = async (userId: string, userEmail: string) => {
           id: doc.id,
           userId,
           ...doc.data(),
+          clientEmail: userEmail,
+          clientName: `${clientSnapshot.data().firstName} ${clientSnapshot.data().lastName}`,
+          clientPhone: clientSnapshot.data().phone,
           type: "rentBooking",
           dateFrom: convertFirebaseTimestamp(doc.data().dateFrom),
           dateTo: convertFirebaseTimestamp(doc.data().dateTo),

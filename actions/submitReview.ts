@@ -1,24 +1,19 @@
 "use server";
 
 import { db } from "@/firebase/firebase";
+import { reviewSchema } from "@/validation/server/reviewSchema";
 import { addDoc, collection } from "firebase/firestore";
 
-type submitReviewProps = {
-  name: string;
-  email: string;
-  message: string;
-  stars: number;
-};
+export async function submitReview(formData: any) {
+  // ✅ Vérification des données avec Zod
+  const parsedData = reviewSchema.safeParse(formData);
 
-export async function submitReview({
-  name,
-  email,
-  message,
-  stars,
-}: submitReviewProps) {
-  if (!name || !email || !message || typeof stars !== "number" || stars < 1) {
-    throw new Error("Tous les champs sont requis et au moins 1 étoile.");
+  if (!parsedData.success) {
+    console.error("Validation échouée :", parsedData.error.format());
+    throw new Error("Données invalides.");
   }
+
+  const { name, email, message, stars } = parsedData.data;
 
   try {
     const reviewRef = await addDoc(collection(db, "reviews"), {

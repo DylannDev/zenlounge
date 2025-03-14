@@ -3,6 +3,7 @@
 import { db } from "@/firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { startOfDay, isValid } from "date-fns";
+import { convertFirebaseTimestamp } from "@/lib/utils";
 
 // ✅ Type des plages de dates réservées
 interface BookedDateRange {
@@ -23,11 +24,13 @@ export const fetchRentBookedDates = async (): Promise<BookedDateRange[]> => {
     rentBookingsSnap.forEach((doc) => {
       const data = doc.data();
 
-      const from = data.dateFrom.toDate ? data.dateFrom.toDate() : null;
-      const to = data.dateTo.toDate ? data.dateTo.toDate() : null;
+      if (data.status === "confirmed") {
+        const from = convertFirebaseTimestamp(data.dateFrom);
+        const to = convertFirebaseTimestamp(data.dateTo);
 
-      if (from && to && isValid(from) && isValid(to) && to >= today) {
-        bookedDates.push({ from, to });
+        if (from && to && isValid(from) && isValid(to) && to >= today) {
+          bookedDates.push({ from, to });
+        }
       }
     });
 
@@ -48,11 +51,13 @@ export const fetchRentBookedDates = async (): Promise<BookedDateRange[]> => {
       userRentBookingsSnap.forEach((doc) => {
         const data = doc.data();
 
-        const from = data.dateFrom.toDate ? data.dateFrom.toDate() : null;
-        const to = data.dateTo.toDate ? data.dateTo.toDate() : null;
+        if (data.status === "confirmed") {
+          const from = convertFirebaseTimestamp(data.dateFrom);
+          const to = convertFirebaseTimestamp(data.dateTo);
 
-        if (from && to && isValid(from) && isValid(to) && to >= today) {
-          bookedDates.push({ from, to });
+          if (from && to && isValid(from) && isValid(to) && to >= today) {
+            bookedDates.push({ from, to });
+          }
         }
       });
     }

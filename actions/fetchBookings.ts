@@ -2,28 +2,33 @@
 
 import { db } from "@/firebase/firebase";
 import { collection, getDocs, query } from "firebase/firestore";
+import { convertFirebaseTimestamp } from "@/lib/utils"; // ✅ Utilisation de la conversion
 
-// ✅ Fonction pour récupérer toutes les réservations (passées & futures)
-export const fetchBookings = async (): Promise<any[]> => {
+// ✅ Fonction pour récupérer les réservations avec ou sans filtre de statut
+export const fetchBookings = async (statusFilter?: string): Promise<any[]> => {
   try {
     let allBookings: any[] = [];
 
-    // ✅ Récupérer les réservations des clients NON CONNECTÉS (dans /bookings)
+    // ✅ Récupérer les réservations des clients sans compte (dans /bookings)
     const publicBookingsQuery = query(collection(db, "bookings"));
     const publicSnapshot = await getDocs(publicBookingsQuery);
-    const publicBookings = publicSnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-      date: doc.data().date?.seconds
-        ? new Date(doc.data().date.seconds * 1000)
-        : null,
-      clientName: doc.data().clientName || "Inconnu",
-      clientEmail: doc.data().clientEmail || "Non renseigné",
-    }));
+    const publicBookings = publicSnapshot.docs
+      .map((doc) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          ...data,
+          date: convertFirebaseTimestamp(data.date), // ✅ Conversion propre
+          clientName: data.clientName || "Inconnu",
+          clientEmail: data.clientEmail || "Non renseigné",
+          status: data.status,
+        };
+      })
+      .filter((booking) => !statusFilter || booking.status === statusFilter); // ✅ Filtre optionnel
 
     allBookings = [...publicBookings];
 
-    // ✅ Récupérer les réservations des CLIENTS CONNECTÉS dans /clients/{userId}/bookings
+    // ✅ Récupérer les réservations des CLIENTS ayant un compte dans /clients/{userId}/bookings
     const clientsCollection = await getDocs(collection(db, "clients"));
     for (const clientDoc of clientsCollection.docs) {
       const userId = clientDoc.id;
@@ -40,15 +45,19 @@ export const fetchBookings = async (): Promise<any[]> => {
         collection(db, "clients", userId, "bookings")
       );
       const clientSnapshot = await getDocs(clientBookingsQuery);
-      const clientBookings = clientSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-        date: doc.data().date?.seconds
-          ? new Date(doc.data().date.seconds * 1000)
-          : null,
-        clientName: fullName,
-        clientEmail: email,
-      }));
+      const clientBookings = clientSnapshot.docs
+        .map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            ...data,
+            date: convertFirebaseTimestamp(data.date), // ✅ Conversion propre
+            clientName: fullName,
+            clientEmail: email,
+            status: data.status,
+          };
+        })
+        .filter((booking) => !statusFilter || booking.status === statusFilter); // ✅ Filtre optionnel
 
       allBookings = [...allBookings, ...clientBookings];
     }

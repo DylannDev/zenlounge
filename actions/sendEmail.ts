@@ -1,7 +1,7 @@
 "use server";
 
-import BookingEmailClient from "@/emails/BookingEmailClient";
-import BookingNotification from "@/emails/BookingNotification";
+import BookingEmailClient from "@/emails/booking/BookingEmailClient";
+import BookingNotification from "@/emails/booking/BookingNotification";
 import { resend } from "@/lib/resend";
 
 export const sendEmail = async (

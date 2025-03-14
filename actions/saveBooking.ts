@@ -131,6 +131,7 @@ export const saveBooking = async (
       time: bookingData.time,
       duration: bookingData.duration,
       price: bookingData.price,
+      serviceId: bookingData.serviceId,
       forfaitId: null,
       status: "confirmed",
     });
