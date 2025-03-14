@@ -18,6 +18,7 @@ import { saveBooking } from "@/actions/saveBooking";
 import { getUserBookings } from "@/actions/getUserBookings";
 import { getUserInfos } from "@/actions/getUserInfos";
 import { toast } from "@/hooks/use-toast";
+import GeneralInformations from "./GeneralInformations";
 
 // ✅ Modification de `ForfaitBookingProps` pour exclure `createdAt`
 interface Forfait {
@@ -77,7 +78,7 @@ const ForfaitBooking: React.FC<Forfait> = ({ forfaits }) => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const fetchedBookings = await fetchBookings();
+        const fetchedBookings = await fetchBookings("confirmed");
         setBookings(fetchedBookings);
 
         if (user?.uid) {
@@ -159,7 +160,7 @@ const ForfaitBooking: React.FC<Forfait> = ({ forfaits }) => {
   }
 
   return (
-    <section className="max-w-[1200px] w-full mx-auto flex flex-col pt-10 pb-40">
+    <section className="max-w-[1200px] w-full mx-auto flex flex-col pt-10 pb-20">
       <SectionHeader
         title="Réservez votre forfait"
         subtitle={["Sélectionnez la date et l'heure de votre première séance"]}
@@ -177,7 +178,7 @@ const ForfaitBooking: React.FC<Forfait> = ({ forfaits }) => {
                 ? "Réserver une séance inlcue dans votre forfait"
                 : "Choisissez votre premier créneau"}
             </h2>
-            <div className="flex gap-6 my-6">
+            <div className="flex flex-col min-[500px]:flex-row gap-6 my-6">
               <DateSelector
                 selectedDate={selectedDate}
                 onSelectDate={setSelectedDate}
@@ -206,7 +207,7 @@ const ForfaitBooking: React.FC<Forfait> = ({ forfaits }) => {
 
         {/* Étape 2 : Confirmation */}
         {step === 2 && (
-          <div className="flex flex-col justify-between pt-6 md:pl-10">
+          <div className="flex flex-col gap-8 justify-between pt-6 md:pl-10">
             <div className="flex flex-col gap-4">
               <h2 className="text-xl font-bold">Date et heure sélectionnées</h2>
               <p className="text-sm text-blue-light">
@@ -240,17 +241,7 @@ const ForfaitBooking: React.FC<Forfait> = ({ forfaits }) => {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold mb-4">Informations générales</h2>
-              <ul className="text-blue-light list-none">
-                {profileInformations.map((info) => (
-                  <li key={info.id} className="mb-2 flex gap-2 items-center">
-                    <span>
-                      <PiCheckCircleDuotone className="text-orange text-lg" />
-                    </span>
-                    <span className="text-sm">{info.text}</span>
-                  </li>
-                ))}
-              </ul>
+              <GeneralInformations />
               <div className="flex flex-col gap-2 mt-12">
                 <Button button onClick={handlePayment} disabled={isLoading}>
                   {isLoading ? "Réservation en cours..." : "Réserver"}

@@ -69,7 +69,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           </div>
 
           {/* Content Section */}
-          <div className="w-full h-full pt-5 flex flex-col gap-12 grow justify-between text-sm font-medium">
+          <div className="w-full h-full pt-5 flex flex-col gap-8 md:gap-12 grow justify-between text-sm font-medium">
             {/* Title and Description */}
             <div className="flex flex-col gap-4">
               <h3 className="text-2xl font-bold text-brown-background">

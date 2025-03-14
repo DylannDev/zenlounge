@@ -8,6 +8,7 @@ import { PiCheckCircleDuotone, PiWarning } from "react-icons/pi";
 import { profileInformations } from "@/data";
 import { filterBookings } from "@/lib/utils";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import GeneralInformations from "../GeneralInformations";
 
 const ServicesContent = async ({
   currentUser,
@@ -93,24 +94,7 @@ const ServicesContent = async ({
 
       {/* ✅ Informations Générales */}
       <hr />
-      <div className="flex flex-col gap-6">
-        <h2 className="text-xl font-bold flex items-center gap-2">
-          Informations générales <PiWarning className="text-xl" />
-        </h2>
-        <ul className="text-blue-light list-none flex flex-col gap-2">
-          {profileInformations.map((info) => (
-            <li
-              key={info.id}
-              className="mb-2 flex gap-2 items-start sm:items-center"
-            >
-              <span>
-                <PiCheckCircleDuotone className="text-orange text-lg md:text-xl" />
-              </span>
-              <span className="text-[13px] md:text-[14.5px]">{info.text}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <GeneralInformations />
     </>
   );
 };

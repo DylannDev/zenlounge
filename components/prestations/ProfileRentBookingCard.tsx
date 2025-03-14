@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import SquareButton from "../SquareButton";
 import { cancelRentBooking } from "@/actions/cancelRentBookings";
+import { sendCancellationEmail } from "@/actions/sendCancellationEmail";
 
 const ProfileRentBookingCard = ({ booking }: { booking: RentBookingData }) => {
   const dateFrom = new Date(booking.dateFrom);
@@ -37,22 +38,29 @@ const ProfileRentBookingCard = ({ booking }: { booking: RentBookingData }) => {
     });
 
     if (!response.success) {
-      toast({
-        title: "Erreur",
-        description: response.message,
-      });
+      toast({ title: "Erreur", description: response.message });
     } else {
+      // ✅ Envoyer l'email d'annulation
+      await sendCancellationEmail({
+        clientName: booking.clientName!,
+        clientEmail: booking.clientEmail!,
+        clientPhone: booking.clientPhone!,
+        serviceName: booking.serviceName,
+        dateFrom: formatDate(booking.dateFrom),
+        dateTo: formatDate(booking.dateTo),
+        isRentBooking: true,
+      });
+
       toast({
         title: "Réservation annulée",
         description: "Votre réservation a bien été annulée.",
       });
-      setTimeout(() => {
-        router.refresh(); // ✅ Rafraîchir après un léger délai
-      }, 500);
+
+      setTimeout(() => router.refresh(), 500);
     }
 
     setLoading(false);
-    setIsModalOpen(false); // Fermer la modale après l'annulation
+    setIsModalOpen(false);
   };
 
   const showCancelButton = canCancelBooking(booking.dateFrom);

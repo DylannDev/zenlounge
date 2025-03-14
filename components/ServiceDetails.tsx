@@ -48,8 +48,10 @@ const ServiceDetails: React.FC<ServiceDetailsProps> = ({
       />
       <div className="absolute bottom-4 left-4 right-4">
         <div className="p-4 rounded-xl text-white bg-brown-background/40 backdrop-blur-xl w-full">
-          <h1 className="text-4xl font-bold">{service.name}</h1>
-          <p className="text-lg mt-2">{service.description}</p>
+          <h1 className="text-xl sm:text-2xl font-bold">{service.name}</h1>
+          <p className="hidden min-[500px]:flex text-sm sm:text-[14.5px] md:text-base mt-2">
+            {service.description}
+          </p>
           <div className="flex flex-col md:flex-row gap-2 mt-4">
             {/* Forfait Sessions (5 ou 10 séances) */}
             {(isFiveSessions || isTenSessions) && (
@@ -59,26 +61,28 @@ const ServiceDetails: React.FC<ServiceDetailsProps> = ({
             )}
 
             {/* Durée */}
-            <div className="flex items-center gap-1">
-              <span className="text-2xl text-rose-dark">
-                <PiTimer />
-              </span>
-              <p>{service.duration} min</p>
-            </div>
-            <span className="text-xl">|</span>
+            <div className="flex gap-2">
+              <div className="text-sm flex items-center gap-1">
+                <span className="text-xl text-rose-dark">
+                  <PiTimer />
+                </span>
+                <p>{service.duration} min</p>
+              </div>
+              <span className="text-xl">|</span>
 
-            {/* Prix ou Crédit utilisé */}
-            <div className="flex items-center gap-1">
-              <span className="text-2xl text-rose-dark">
-                <PiWallet />
-              </span>
-              <p>
-                {activeForfait
-                  ? "Inclus dans le forfait"
-                  : activeCredit
-                    ? "Crédit utilisé"
-                    : `${service.price} €`}
-              </p>
+              {/* Prix ou Crédit utilisé */}
+              <div className="flex items-center gap-1">
+                <span className="text-xl text-rose-dark">
+                  <PiWallet />
+                </span>
+                <p>
+                  {activeForfait
+                    ? "Inclus dans le forfait"
+                    : activeCredit
+                      ? "Crédit utilisé"
+                      : `${service.price} €`}
+                </p>
+              </div>
             </div>
           </div>
         </div>

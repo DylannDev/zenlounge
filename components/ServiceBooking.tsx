@@ -38,7 +38,7 @@ const ServiceBooking: React.FC<ServiceBookingProps> = ({ credits = [] }) => {
   useEffect(() => {
     const loadBookings = async () => {
       try {
-        const fetchedBookings = await fetchBookings();
+        const fetchedBookings = await fetchBookings("confirmed");
         setBookings(fetchedBookings);
       } catch (error) {
         console.error(
@@ -65,7 +65,7 @@ const ServiceBooking: React.FC<ServiceBookingProps> = ({ credits = [] }) => {
   }
 
   return (
-    <section className="max-w-[1200px] w-full mx-auto flex flex-col pt-10 pb-40">
+    <section className="max-w-[1200px] w-full mx-auto flex flex-col pt-10 pb-20">
       <SectionHeader
         title="Réservez votre moment de bien-être"
         subtitle={["Choisissez la date et l'heure de votre prestation"]}
@@ -83,7 +83,7 @@ const ServiceBooking: React.FC<ServiceBookingProps> = ({ credits = [] }) => {
                 ? "Programmer une nouvelle séance"
                 : "Choisissez votre créneau"}
             </h2>
-            <div className="flex gap-6 my-6">
+            <div className="flex flex-col min-[500px]:flex-row gap-6 my-6">
               <DateSelector
                 selectedDate={selectedDate}
                 onSelectDate={setSelectedDate}
@@ -123,7 +123,6 @@ const ServiceBooking: React.FC<ServiceBookingProps> = ({ credits = [] }) => {
               selectedDate={selectedDate!}
               selectedTime={selectedTime}
               setStep={setStep}
-              errorMessage={errorMessage}
               setErrorMessage={setErrorMessage}
               activeCredit={activeCredit}
             />

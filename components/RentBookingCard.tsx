@@ -16,7 +16,6 @@ import { roomDetails } from "@/data";
 import { DateSelection } from "./DateSelection";
 import { ExtraServicesSelection } from "./ExtraServicesSelection";
 import { saveRentBooking } from "@/actions/saveRentBooking";
-import { format } from "date-fns";
 
 const RentBookingCard: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<DateRange | undefined>();

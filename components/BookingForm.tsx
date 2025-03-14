@@ -1,46 +1,27 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Button from "@/components/Button";
-import { formFields } from "@/data/BookingForm.config";
-import { PiCalendarCheck, PiCheckCircleDuotone } from "react-icons/pi";
-import { formatDate } from "@/lib/utils";
+import { PiCalendarCheck } from "react-icons/pi";
 import { format } from "date-fns";
-import { initStripePayment } from "@/lib/InitStripePayment";
 import { useAuth } from "@/hooks/useAuth";
-import { getUserInfos } from "@/actions/getUserInfos";
-import { saveBooking } from "@/actions/saveBooking";
-import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { profileInformations } from "@/data";
-
-interface BookingFormProps {
-  service: {
-    slug: string;
-    name: string;
-    duration: number;
-    price: number;
-  };
-  selectedDate: Date;
-  selectedTime: string;
-  setStep: (step: number) => void;
-  errorMessage: string;
-  setErrorMessage: (message: string) => void;
-  activeCredit?: Credit;
-}
+import { getUserInfos } from "@/actions/getUserInfos";
+import { toast } from "@/hooks/use-toast";
+import { saveBooking } from "@/actions/saveBooking";
+import UserInfoDisplay from "./UserInfoDisplay";
+import BookingFormFields from "./BookingFormFields";
+import GeneralInformations from "./GeneralInformations";
 
 const BookingForm: React.FC<BookingFormProps> = ({
   service,
   selectedDate,
   selectedTime,
   setStep,
-  errorMessage,
   setErrorMessage,
   activeCredit,
 }) => {
   const user = useAuth();
   const router = useRouter();
-
   const [isLoading, setIsLoading] = useState(false);
   const [clientInfo, setClientInfo] = useState({
     clientName: "",
@@ -48,21 +29,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
     clientPhone: "",
   });
 
-  const [formData, setFormData] = useState<
-    Record<"name" | "email" | "phone", string>
-  >({
-    name: "",
-    email: "",
-    phone: "",
-  });
-
-  const userInfoFields = [
-    { label: "Nom", value: clientInfo?.clientName },
-    { label: "Email", value: clientInfo?.clientEmail },
-    { label: "Téléphone", value: clientInfo?.clientPhone },
-  ];
-
-  // Charger les informations utilisateur si connecté
   useEffect(() => {
     if (user?.uid) {
       const loadUserInfo = async () => {
@@ -84,20 +50,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
     }
   }, [user?.uid]);
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrorMessage("");
-  };
-
-  const handleBooking = async () => {
-    // ✅ Si l'utilisateur n'est pas connecté, il doit remplir le formulaire
-    if (!user?.uid && (!formData.name || !formData.email || !formData.phone)) {
-      setErrorMessage("Veuillez remplir tous les champs avant de continuer.");
-      return;
-    }
-
-    // ✅ Convertir la date en chaîne au format "YYYY-MM-DD"
-    const formattedDate = format(selectedDate, "yyyy-MM-dd");
+  const handleBooking = async (formData: any) => {
+    // const formattedDate = format(selectedDate, "yyyy-MM-dd");
 
     const bookingData = {
       serviceId: service.slug,
@@ -105,7 +59,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
       duration: service.duration,
       price: service.price,
       date: selectedDate,
-      // date: formattedDate,
       time: selectedTime,
       clientName: clientInfo?.clientName || formData.name,
       clientEmail: clientInfo?.clientEmail || formData.email,
@@ -116,7 +69,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
       setIsLoading(true);
 
       if (activeCredit) {
-        // ✅ Utilisation du forfait (pas de paiement Stripe)
         await saveBooking(bookingData, user?.uid, null, activeCredit);
         toast({
           title: "Séance réservée",
@@ -124,10 +76,11 @@ const BookingForm: React.FC<BookingFormProps> = ({
         });
         router.push("/prestations");
       } else {
-        // ✅ Paiement normal via Stripe
-        // await initStripePayment(bookingData, user?.uid);
-        await saveBooking(bookingData, user?.uid);
-        router.push("/prestations");
+        await saveBooking(bookingData);
+        toast({
+          title: "Séance réservée",
+          description: "✅ Votre séance a été réservée.",
+        });
       }
       setErrorMessage("");
     } catch (error) {
@@ -139,9 +92,9 @@ const BookingForm: React.FC<BookingFormProps> = ({
   };
 
   return (
-    <div className="flex flex-col justify-between h-full">
+    <div className="flex flex-col gap-8 justify-between h-full">
       {/* 📌 Afficher la date sélectionnée */}
-      <div className="mb-8">
+      <div className="">
         <h2 className="text-xl font-bold mb-4">Date et heure sélectionnées</h2>
         <button
           onClick={() => {
@@ -153,105 +106,27 @@ const BookingForm: React.FC<BookingFormProps> = ({
           <PiCalendarCheck className="text-lg text-orange" />
           <span>
             {selectedDate
-              ? formatDate(selectedDate)
+              ? format(selectedDate, "PP")
               : "Aucune date sélectionnée"}{" "}
             - {selectedTime || "Aucune heure sélectionnée"}
           </span>
         </button>
       </div>
-      <div>
-        <h2 className="text-xl font-bold mb-4">Informations générales</h2>
-        <ul className="text-blue-light list-none">
-          {profileInformations.map(
-            (info, index) =>
-              index > 0 && (
-                <li key={info.id} className="mb-2 flex gap-2 items-center">
-                  <span>
-                    <PiCheckCircleDuotone className="text-orange text-lg" />
-                  </span>
-                  <span className="text-sm">{info.text}</span>
-                </li>
-              )
-          )}
-        </ul>
-      </div>
+
+      {/* 📌 Informations générales */}
+      <GeneralInformations isBookingSimple />
 
       {/* 📌 Si l'utilisateur est connecté, on saute le formulaire */}
       <div className="flex flex-col gap-4">
-        <h2 id="reservation-form" className="text-xl font-bold">
-          Vos informations
-        </h2>
+        <h2 className="text-xl font-bold">Vos informations</h2>
         {user?.uid ? (
-          <div className="">
-            <ul className="flex flex-col gap-2">
-              {userInfoFields.map((field, index) => (
-                <li key={index} className=" text-blue-light">
-                  <span className="font-semibold">{field.label} :</span>{" "}
-                  {field.value}
-                </li>
-              ))}
-            </ul>
-            <div className="flex flex-col gap-2 mt-12">
-              <Button button onClick={handleBooking} disabled={isLoading}>
-                {isLoading ? "Chargement..." : "Réserver"}
-              </Button>
-            </div>
-          </div>
+          <UserInfoDisplay
+            clientInfo={clientInfo}
+            handleBooking={handleBooking}
+            isLoading={isLoading}
+          />
         ) : (
-          // 📌 Affichage du formulaire si l'utilisateur n'est pas connecté
-          <form
-            className="flex flex-col gap-4"
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleBooking();
-            }}
-            aria-labelledby="reservation-form"
-          >
-            {formFields.map((field) => (
-              <div key={field.id}>
-                <label
-                  htmlFor={field.id}
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  {field.label} <span className="text-red-500">*</span>
-                </label>
-                <input
-                  id={field.id}
-                  name={field.name}
-                  type={field.type}
-                  placeholder={field.placeholder}
-                  value={formData[field.name]}
-                  onChange={handleFormChange}
-                  required={field.required}
-                  aria-required={field.ariaRequired}
-                  className="border border-blue-light/20 rounded-lg px-4 py-2 mt-1 w-full placeholder:text-sm focus:outline-none focus:border-rose-dark"
-                />
-                {field.additionalInfo && (
-                  <p
-                    id={`${field.id}-help`}
-                    className="text-sm text-gray-500 mt-1"
-                  >
-                    {field.additionalInfo}
-                  </p>
-                )}
-              </div>
-            ))}
-
-            <div className="flex flex-col gap-2 mt-12">
-              {/* Message d'erreur */}
-              <div>
-                {errorMessage && (
-                  <p className="text-red-500 text-sm text-center" role="alert">
-                    {errorMessage}
-                  </p>
-                )}
-              </div>
-
-              <Button button type="submit" disabled={isLoading}>
-                {isLoading ? "Chargement..." : "Réserver"}
-              </Button>
-            </div>
-          </form>
+          <BookingFormFields handleBooking={handleBooking} />
         )}
       </div>
     </div>

@@ -16,6 +16,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
+import { sendCancellationEmail } from "@/actions/sendCancellationEmail";
 
 interface Service {
   id: string;
@@ -27,6 +28,8 @@ interface Service {
   forfaitId: string | null;
   userId: string;
   clientEmail: string;
+  clientPhone: string;
+  clientName: string;
 }
 
 const ProfileBookingCard = ({
@@ -53,25 +56,34 @@ const ProfileBookingCard = ({
     });
 
     if (!response.success) {
-      toast({
-        title: "Erreur",
-        description: response.message,
-      });
+      toast({ title: "Erreur", description: response.message });
+      console.error(response.message);
     } else {
+      // ✅ Envoyer l'email d'annulation
+      await sendCancellationEmail({
+        clientName: service.clientName,
+        clientEmail: service.clientEmail,
+        clientPhone: service.clientPhone,
+        serviceName: service.serviceName,
+        date: formatDate(service.date),
+        time: service.time,
+        forfaitId: service.forfaitId,
+      });
+
       if (onRemove) {
         onRemove(service.id);
-        toast({
-          title: "Réservation annulée",
-          description: "Votre prestation a bien été annulée.",
-        });
-        setTimeout(() => {
-          router.refresh(); // ✅ Rafraîchir après un léger délai
-        }, 500);
       }
+
+      toast({
+        title: "Réservation annulée",
+        description: "Votre prestation a bien été annulée.",
+      });
+
+      setTimeout(() => router.refresh(), 500);
     }
 
     setLoading(false);
-    setIsModalOpen(false); // Fermer la modale après l'annulation
+    setIsModalOpen(false);
   };
 
   const showCancelButton = canCancelBooking(service.date);
