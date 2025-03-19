@@ -16,6 +16,26 @@ type ClientData = {
   password: string;
 };
 
+export const checkCookies = async () => {
+  try {
+    const cookieStore = await cookies();
+    const allCookies = cookieStore.getAll(); // 🔍 Récupère tous les cookies
+
+    console.log("🔍 Cookies récupérés :", allCookies);
+
+    return {
+      success: true,
+      cookies: allCookies,
+    };
+  } catch (error) {
+    console.error("❌ Erreur lors de la récupération des cookies :", error);
+    return {
+      success: false,
+      message: "Erreur lors de la récupération des cookies",
+    };
+  }
+};
+
 // 🔹 Stocker le token dans un cookie
 export const setAuthToken = async (token: string) => {
   const cookieStore = await cookies();
@@ -74,7 +94,7 @@ export const getCurrentUser = async () => {
       "❌ Erreur lors de la vérification du token Firebase :",
       error
     );
-    return { error: error };
+    return null;
   }
 };
 

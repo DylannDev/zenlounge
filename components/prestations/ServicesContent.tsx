@@ -4,8 +4,6 @@ import ForfaitServices from "@/components/prestations/ForfaitServices";
 import PastServices from "@/components/prestations/PastServices";
 import UpcomingServices from "@/components/prestations/UpcomingServices";
 import RentBookings from "@/components/prestations/RentBookings";
-import { PiCheckCircleDuotone, PiWarning } from "react-icons/pi";
-import { profileInformations } from "@/data";
 import { filterBookings } from "@/lib/utils";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import GeneralInformations from "../GeneralInformations";
@@ -13,20 +11,11 @@ import GeneralInformations from "../GeneralInformations";
 const ServicesContent = async ({
   currentUser,
 }: {
-  currentUser:
-    | {
-        uid: string;
-        email: string | undefined;
-        provider: string;
-        error?: undefined;
-      }
-    | {
-        error: unknown;
-        uid?: undefined;
-        email?: undefined;
-        provider?: undefined;
-      }
-    | null;
+  currentUser: {
+    uid: string;
+    email: string | undefined;
+    provider: string;
+  } | null;
 }) => {
   // ✅ Récupération des services, forfaits et locations
   const userBookings =
