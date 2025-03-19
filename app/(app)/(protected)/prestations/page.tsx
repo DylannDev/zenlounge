@@ -8,8 +8,8 @@ const ServicesPage = async () => {
   const currentUser = await getCurrentUser();
   const result = await checkCookies();
 
-  console.log("currentUser", currentUser);
-  console.log("checkCookies", result);
+  // console.log("currentUser", currentUser);
+  // console.log("checkCookies", result);
 
   // if (!currentUser) {
   //   // redirect("/login");
