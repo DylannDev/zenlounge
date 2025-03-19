@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { fetchBookings } from "@/actions/fetchBookings";
 import BookingsTable from "@/components/admin/BookingsTable";
 

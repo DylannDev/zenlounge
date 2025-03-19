@@ -17,14 +17,14 @@ const Navbar = async () => {
         <div className="flex items-center gap-2">
           <MobileMenu />
           <div className="flex lg:hidden">
-            <LoggedInMenu />
+            <LoggedInMenu user={user} />
           </div>
         </div>
         <div className="hidden lg:flex items-center">
           <Navlinks />
           <div className="ml-8">
             {user !== null ? (
-              <LoggedInMenu />
+              <LoggedInMenu user={user} />
             ) : (
               <Button
                 color="rose"

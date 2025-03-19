@@ -9,9 +9,16 @@ import { PiUserBold, PiUserCircle } from "react-icons/pi";
 import { loggedInLinks } from "@/data";
 import { useAuth } from "@/hooks/useAuth";
 
-const LoggedInMenu = () => {
+const LoggedInMenu = ({
+  user,
+}: {
+  user: {
+    uid: string;
+    email: string | undefined;
+    provider: string;
+  } | null;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const user = useAuth();
   const router = useRouter();
   const pathname = usePathname();
   const isHomePage = pathname === "/";

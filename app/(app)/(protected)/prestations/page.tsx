@@ -6,8 +6,6 @@ import { Suspense } from "react";
 
 const ServicesPage = async () => {
   const currentUser = await getCurrentUser();
-  console.log("currentUser", currentUser);
-
   if (!currentUser) {
     redirect("/login");
   }

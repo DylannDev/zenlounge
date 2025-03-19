@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getAdminStatus } from "@/actions/getAdminStatus";
 import AdminLoginForm from "@/components/admin/AdminLoginForm";
 import Logo from "@/components/Logo";

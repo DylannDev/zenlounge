@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { fetchClients } from "@/actions/fetchClients";
 import ClientsTable from "@/components/admin/ClientsTable";
 

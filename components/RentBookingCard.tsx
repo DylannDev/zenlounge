@@ -103,8 +103,6 @@ const RentBookingCard: React.FC = () => {
       clientPhone: clientInfo.phone,
     };
 
-    console.log("🔍 bookingData envoyé :", bookingData);
-
     try {
       await initStripePayment(bookingData, userId);
     } catch (error: any) {

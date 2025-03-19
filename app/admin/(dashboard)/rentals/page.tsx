@@ -1,10 +1,10 @@
+export const dynamic = "force-dynamic";
+
 import { fetchRentBookings } from "@/actions/fetchRentBookings";
-import BookingsTable from "@/components/admin/BookingsTable";
 import RentBookingsTable from "@/components/admin/RentBookingsTable";
 
 const RentalsBookingPage = async () => {
   const allRentBookings = await fetchRentBookings();
-  console.log("allRentBookings", allRentBookings);
 
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());

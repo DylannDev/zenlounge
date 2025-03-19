@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import React from "react";
 import AdminDashboardLayout from "@/components/admin/AdminDashboardLayout";
 import { getAdminStatus } from "@/actions/getAdminStatus";

@@ -9,8 +9,6 @@ export const initStripePayment = async (
   forfaitId?: string
 ): Promise<void> => {
   try {
-    console.log("🔍 BookingData reçu dans initStripePayment :", bookingData);
-
     // ✅ Création de la session de paiement Stripe
     const checkoutSession = await createCheckoutSession(
       bookingData,

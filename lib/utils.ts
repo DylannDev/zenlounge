@@ -15,8 +15,6 @@ export const timeToMinutes = (time: string): number => {
   return hours * 60 + minutes;
 };
 
-// console.log(timeToMinutes("09:30")); // 570
-
 export const formatSlot = (slot: number): string => {
   const hours = Math.floor(slot / 60);
   const minutes = slot % 60;
@@ -24,8 +22,6 @@ export const formatSlot = (slot: number): string => {
     .toString()
     .padStart(2, "0")}`;
 };
-
-// console.log(formatSlot(570)); // "09:30"
 
 export const formatDate = (
   input: Date | string,

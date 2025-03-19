@@ -54,7 +54,6 @@ const DialogClientInfos: React.FC<DialogClientInfosProps> = ({
 
   // ✅ Soumission du formulaire
   const onSubmit = (data: ClientInfo) => {
-    console.log("🔍 Données soumises :", data);
     setClientInfo(data); // ✅ Mettre à jour le `state`
     setPendingBooking(true); // ✅ Déclencher `handleBooking()` après update
     setIsModalOpen(false);

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { fetchForfaits } from "@/actions/fetchForfaits";
 import ForfaitsTable from "@/components/admin/ForfaitsTable";
 

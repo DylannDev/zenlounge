@@ -61,10 +61,8 @@ const LoginForm = ({
       if (response.success) {
         setError("");
         router.push(isAdminForm ? "/admin/bookings" : "/prestations");
-        console.log(response.message);
       } else {
         setError(response.message || "Email ou mot de passe invalide.");
-        console.log(response.message);
       }
     } catch (err) {
       setError("Une erreur est survenue lors de la connexion");
