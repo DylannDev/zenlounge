@@ -27,7 +27,9 @@ export const setAuthToken = async (token: string) => {
       value: token,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "lax", // ✅ Permet l'envoi du cookie même après une redirection OAuth
+      path: "/", // ✅ Assure que le cookie est disponible sur toutes les routes
+      maxAge: 60 * 60 * 24 * 7, // 7 jours
     });
 
     return { success: true, uid: decodedToken.uid };
@@ -43,10 +45,11 @@ export const removeAuthToken = async () => {
   return { success: true };
 };
 
-// 🔹 Récupérer l'utilisateur connecté
 export const getCurrentUser = async () => {
   const cookieStore = await cookies();
   const authToken = cookieStore.get("authToken");
+
+  console.log("🔍 Auth Token :", authToken?.value); // Vérifie si le token est bien récupéré
 
   if (!authToken) return null;
 
@@ -58,6 +61,8 @@ export const getCurrentUser = async () => {
     // ✅ Récupérer les infos utilisateur pour connaître le provider utilisé
     const userRecord = await firebaseAdmin.auth().getUser(decodedToken.uid);
     const providerId = userRecord.providerData[0]?.providerId || "unknown";
+
+    console.log("✅ Token décodé :", decodedToken); // Vérifie si le token est bien décodé
 
     return {
       uid: decodedToken.uid,
