@@ -3,13 +3,13 @@ type BookingDataType = {
   serviceName: string;
   duration?: number;
   price: number;
-  date?: Date;
+  date?: string | Date;
   time?: string;
   clientName: string;
   clientEmail: string;
   clientPhone: string;
-  dateFrom?: Date;
-  dateTo?: Date;
+  dateFrom?: string | Date;
+  dateTo?: string | Date;
   extraServices?: ExtraService[];
   isForfait?: boolean;
   forfaitType?: "forfait-5" | "forfait-10";

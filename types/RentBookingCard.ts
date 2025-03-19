@@ -2,6 +2,6 @@
 interface ExtraService {
   name: string;
   price: number;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   quantity: number;
 }
