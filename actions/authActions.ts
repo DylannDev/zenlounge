@@ -70,6 +70,10 @@ export const getCurrentUser = async () => {
       provider: providerId,
     };
   } catch (error) {
+    console.error(
+      "❌ Erreur lors de la vérification du token Firebase :",
+      error
+    );
     return null;
   }
 };
