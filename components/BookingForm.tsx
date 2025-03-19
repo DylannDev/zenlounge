@@ -90,7 +90,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
           throw new Error("La réservation a échoué.");
         }
       } else {
-        await initStripePayment(bookingData);
+        await initStripePayment(bookingData, userId);
       }
 
       setErrorMessage("");

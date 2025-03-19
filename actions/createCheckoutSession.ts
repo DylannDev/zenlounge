@@ -79,8 +79,10 @@ export async function createCheckoutSession(
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
-      success_url: `https://zenlounge-guyane.vercel.app/success`,
-      cancel_url: `https://zenlounge-guyane.vercel.app/cancel`,
+      success_url: `https://localhost:3000/success`,
+      cancel_url: `https://localhost:3000/cancel`,
+      // success_url: `https://zenlounge-guyane.vercel.app/success`,
+      // cancel_url: `https://zenlounge-guyane.vercel.app/cancel`,
       customer_email: clientEmail,
       line_items: [
         {
