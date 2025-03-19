@@ -5,20 +5,11 @@ import BookingNotification from "@/emails/booking/BookingNotification";
 import { resend } from "@/lib/resend";
 
 export const sendEmail = async (
-  bookingData: BookingDataType
+  bookingData: BookingDataType,
+  activeCredit?: Credit,
+  activeForfait?: Forfait
 ): Promise<void> => {
   try {
-    // Validation des données
-    if (
-      !bookingData.clientName ||
-      !bookingData.clientEmail ||
-      !bookingData.serviceName ||
-      !bookingData.date ||
-      !bookingData.time
-    ) {
-      throw new Error("Les données de réservation sont incomplètes.");
-    }
-
     // Construire le contenu de l'e-mail
     const EmailClient = BookingEmailClient({
       clientName: bookingData.clientName,
@@ -27,6 +18,12 @@ export const sendEmail = async (
       time: bookingData.time,
       duration: bookingData.duration,
       price: bookingData.price,
+      dateFrom: bookingData.dateFrom,
+      dateTo: bookingData.dateTo,
+      extraServices: bookingData.extraServices,
+      isForfait: bookingData.isForfait,
+      activeCredit,
+      activeForfait,
     });
 
     const EmailAdmin = BookingNotification({
@@ -37,12 +34,19 @@ export const sendEmail = async (
       duration: bookingData.duration,
       price: bookingData.price,
       clientPhone: bookingData.clientPhone,
+      dateFrom: bookingData.dateFrom,
+      dateTo: bookingData.dateTo,
+      extraServices: bookingData.extraServices,
+      isForfait: bookingData.isForfait,
+      activeCredit,
+      activeForfait,
     });
 
     // Envoyer l'e-mail
     await resend.emails.send({
       from: "Vizion Web <contact@vizionweb.fr>",
-      to: [bookingData.clientEmail],
+      // to: [bookingData.clientEmail],
+      to: "d.xavero@hotmail.com",
       subject: "Confirmation de votre réservation",
       react: EmailClient,
     });
