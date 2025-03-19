@@ -5,6 +5,7 @@ import { sendEmail } from "@/actions/sendEmail";
 import { stripe } from "@/lib/stripe";
 import { headers } from "next/headers";
 import { bookingDataSchema } from "@/validation/bookingData";
+import { saveRentBooking } from "@/actions/saveRentBooking";
 
 export const config = {
   api: {
@@ -38,28 +39,29 @@ export async function POST(req: Request) {
 
     try {
       // ✅ Récupérer et valider les données de réservation
-      const bookingData = bookingDataSchema.parse(
-        JSON.parse(session.metadata!.bookingData)
-      );
+      const parsedData = JSON.parse(session.metadata!.bookingData);
+      const bookingData = bookingDataSchema.parse(parsedData);
 
       // ✅ Récupérer les métadonnées pour gérer les forfaits
       const forfaitId = session.metadata?.forfaitId ?? undefined;
       const userId = session.metadata?.userId ?? undefined;
 
       // ✅ Enregistrer la réservation avec la bonne structure
-      await saveBooking(bookingData, userId, forfaitId);
+      if (bookingData.serviceName === "Serenity Suite") {
+        await saveRentBooking(bookingData, userId);
+      } else {
+        await saveBooking(bookingData, userId, forfaitId);
+      }
 
       // ✅ Envoyer l'email de confirmation au client
       await sendEmail(bookingData);
 
-      console.log("✅ Réservation enregistrée et email envoyé.");
-
       return NextResponse.json({ success: true }, { status: 200 });
     } catch (err) {
-      console.error("Erreur lors du traitement du webhook :", err);
+      console.error("❌ Erreur de validation des données :", err);
       return NextResponse.json(
-        { error: "Erreur interne lors du traitement." },
-        { status: 500 }
+        { error: "Données invalides dans le webhook." },
+        { status: 400 }
       );
     }
   }
