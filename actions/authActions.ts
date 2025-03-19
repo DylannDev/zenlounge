@@ -74,7 +74,7 @@ export const getCurrentUser = async () => {
       "❌ Erreur lors de la vérification du token Firebase :",
       error
     );
-    return null;
+    return { error: error };
   }
 };
 

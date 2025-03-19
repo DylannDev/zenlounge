@@ -6,11 +6,10 @@ import { Suspense } from "react";
 
 const ServicesPage = async () => {
   const currentUser = await getCurrentUser();
-  // if (!currentUser) {
-  //   return currentUser;
-  //   ;
-  //   // redirect("/login");
-  // }
+  if (currentUser?.error) {
+    console.log(currentUser.error);
+    // redirect("/login");
+  }
 
   return (
     <section className="flex flex-col gap-12 max-w-[800px] w-full mx-auto my-20">

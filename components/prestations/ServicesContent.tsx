@@ -13,11 +13,20 @@ import GeneralInformations from "../GeneralInformations";
 const ServicesContent = async ({
   currentUser,
 }: {
-  currentUser: {
-    uid: string;
-    email: string | undefined;
-    provider: string;
-  } | null;
+  currentUser:
+    | {
+        uid: string;
+        email: string | undefined;
+        provider: string;
+        error?: undefined;
+      }
+    | {
+        error: unknown;
+        uid?: undefined;
+        email?: undefined;
+        provider?: undefined;
+      }
+    | null;
 }) => {
   // ✅ Récupération des services, forfaits et locations
   const userBookings =
