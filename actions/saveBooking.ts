@@ -19,10 +19,6 @@ export const saveBooking = async (
   useCredit?: Credit
 ) => {
   try {
-    // 📌 Gestion des réservations de séjour
-    if (bookingData.serviceName === "Serenity Suite") {
-      return await saveRentBooking(bookingData, userId);
-    }
     if (!userId) {
       // 📌 Si l'utilisateur n'est pas connecté, enregistrement dans "bookings" global
       const docRef = await addDoc(collection(db, "bookings"), {
