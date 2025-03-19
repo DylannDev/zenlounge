@@ -3,14 +3,14 @@ import { loadStripe } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
-type InitStripePaymentParams = Omit<BookingDataType, "date"> & { date: string };
-
 export const initStripePayment = async (
-  bookingData: InitStripePaymentParams,
+  bookingData: BookingDataType,
   userId?: string,
   forfaitId?: string
 ): Promise<void> => {
   try {
+    console.log("🔍 BookingData reçu dans initStripePayment :", bookingData);
+
     // ✅ Création de la session de paiement Stripe
     const checkoutSession = await createCheckoutSession(
       bookingData,

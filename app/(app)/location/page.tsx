@@ -4,7 +4,7 @@ import { roomData } from "@/data";
 import { PiCheckCircleDuotone } from "react-icons/pi";
 import RentBookingCard from "@/components/RentBookingCard";
 
-const Sejours = () => {
+const LocationPagex = () => {
   return (
     <section className="max-w-[1400px] mx-auto flex flex-col pt-10 pb-20">
       {/* Section Header */}
@@ -60,4 +60,4 @@ const Sejours = () => {
   );
 };
 
-export default Sejours;
+export default LocationPagex;

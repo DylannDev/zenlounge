@@ -59,14 +59,15 @@ const Footer = () => {
                 <span className="font-semibold uppercase">Zen Lounge</span>{" "}
               </div>
               <div className="text-base">
-                Développé par{" "}
+                Made by{" "}
                 <a
                   href="https://dylann-dev.com/"
                   target="blank"
                   className="underline underline-offset-4 hover:text-rose-dark"
                 >
                   Vizion Web
-                </a>
+                </a>{" "}
+                💫
               </div>
             </div>
           </div>

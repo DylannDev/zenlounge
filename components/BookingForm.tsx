@@ -11,6 +11,8 @@ import { saveBooking } from "@/actions/saveBooking";
 import UserInfoDisplay from "./UserInfoDisplay";
 import BookingFormFields from "./BookingFormFields";
 import GeneralInformations from "./GeneralInformations";
+import { initStripePayment } from "@/lib/InitStripePayment";
+import { sendEmail } from "@/actions/sendEmail";
 
 const BookingForm: React.FC<BookingFormProps> = ({
   service,
@@ -21,6 +23,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
   activeCredit,
 }) => {
   const user = useAuth();
+  const userId = user ? user.uid : undefined;
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [clientInfo, setClientInfo] = useState({
@@ -51,14 +54,14 @@ const BookingForm: React.FC<BookingFormProps> = ({
   }, [user?.uid]);
 
   const handleBooking = async (formData: any) => {
-    // const formattedDate = format(selectedDate, "yyyy-MM-dd");
+    const formattedDate = format(selectedDate, "yyyy-MM-dd");
 
     const bookingData = {
       serviceId: service.slug,
       serviceName: service.name,
       duration: service.duration,
       price: service.price,
-      date: selectedDate,
+      date: activeCredit ? selectedDate : formattedDate,
       time: selectedTime,
       clientName: clientInfo?.clientName || formData.name,
       clientEmail: clientInfo?.clientEmail || formData.email,
@@ -69,19 +72,27 @@ const BookingForm: React.FC<BookingFormProps> = ({
       setIsLoading(true);
 
       if (activeCredit) {
-        await saveBooking(bookingData, user?.uid, null, activeCredit);
-        toast({
-          title: "Séance réservée",
-          description: "✅ Votre séance a été réservée.",
-        });
-        router.push("/prestations");
+        const bookingResponse = await saveBooking(
+          bookingData,
+          userId,
+          null,
+          activeCredit
+        );
+
+        if (bookingResponse?.success) {
+          await sendEmail(bookingData, activeCredit);
+          toast({
+            title: "Séance réservée",
+            description: "✅ Votre séance a été réservée.",
+          });
+          router.push("/prestations");
+        } else {
+          throw new Error("La réservation a échoué.");
+        }
       } else {
-        await saveBooking(bookingData);
-        toast({
-          title: "Séance réservée",
-          description: "✅ Votre séance a été réservée.",
-        });
+        await initStripePayment(bookingData);
       }
+
       setErrorMessage("");
     } catch (error) {
       console.error("Erreur lors de la réservation :", error);

@@ -15,7 +15,8 @@ import {
 import { roomDetails } from "@/data";
 import { DateSelection } from "./DateSelection";
 import { ExtraServicesSelection } from "./ExtraServicesSelection";
-import { saveRentBooking } from "@/actions/saveRentBooking";
+import { initStripePayment } from "@/lib/InitStripePayment";
+import { format } from "date-fns";
 
 const RentBookingCard: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<DateRange | undefined>();
@@ -25,6 +26,7 @@ const RentBookingCard: React.FC = () => {
   const [isBookingValid, setIsBookingValid] = useState(true);
   const { toast } = useToast();
   const user = useAuth();
+  const userId = user ? user.uid : undefined;
 
   // ✅ Infos client (seulement si l'utilisateur n'est pas connecté)
   const [clientInfo, setClientInfo] = useState({
@@ -76,7 +78,7 @@ const RentBookingCard: React.FC = () => {
 
     // ✅ Si l'utilisateur n'est pas connecté, ouvrir la modale pour renseigner ses informations
     if (
-      !user?.uid &&
+      !userId &&
       (!clientInfo.name || !clientInfo.email || !clientInfo.phone)
     ) {
       setIsModalOpen(true);
@@ -86,38 +88,25 @@ const RentBookingCard: React.FC = () => {
     setIsLoading(true);
 
     // ✅ Convertir la date en format correct
-    // const formattedDateFrom = format(selectedDate.from, "yyyy-MM-dd");
-    // const formattedDateTo = format(selectedDate.to, "yyyy-MM-dd");
+    const formattedDateFrom = format(selectedDate.from, "yyyy-MM-dd");
+    const formattedDateTo = format(selectedDate.to, "yyyy-MM-dd");
 
     // ✅ Construire l'objet bookingData
     const bookingData = {
       serviceName: "Serenity Suite",
-      // dateFrom: formattedDateFrom,
-      // dateTo: formattedDateTo,
-      dateFrom: selectedDate.from,
-      dateTo: selectedDate.to,
+      dateFrom: formattedDateFrom,
+      dateTo: formattedDateTo,
       price: totalPrice,
       extraServices: serializedExtraServices,
       clientName: clientInfo.name,
-      clientEmail: clientInfo.email,
+      clientEmail: clientInfo.email || (user?.email as string),
       clientPhone: clientInfo.phone,
     };
 
-    try {
-      // 🚀 Appeler la server action pour sauvegarder la réservation
-      const rentBooking = await saveRentBooking(bookingData, user?.uid);
+    console.log("🔍 bookingData envoyé :", bookingData);
 
-      if (rentBooking.success) {
-        toast({
-          title: "Séjour réservé",
-          description: "Votre séjour a été réservé avec succès.",
-        });
-      } else {
-        toast({
-          title: "Erreur",
-          description: rentBooking.message || "Une erreur est survenue.",
-        });
-      }
+    try {
+      await initStripePayment(bookingData, userId);
     } catch (error: any) {
       toast({
         title: "Erreur",

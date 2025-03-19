@@ -19,6 +19,7 @@ import { getUserBookings } from "@/actions/getUserBookings";
 import { getUserInfos } from "@/actions/getUserInfos";
 import { toast } from "@/hooks/use-toast";
 import GeneralInformations from "./GeneralInformations";
+import { sendEmail } from "@/actions/sendEmail";
 
 // ✅ Modification de `ForfaitBookingProps` pour exclure `createdAt`
 interface Forfait {
@@ -28,12 +29,15 @@ interface Forfait {
     remainingSessions: number;
     totalSessions: number;
     price: number;
+    userId: string;
     createdAt: Date;
+    expiresAt: Date;
   }[];
 }
 
 const ForfaitBooking: React.FC<Forfait> = ({ forfaits }) => {
   const user = useAuth();
+  const userId = user ? user.uid : undefined;
   const params = useParams();
   const slug = params.slug as string;
   const router = useRouter();
@@ -117,8 +121,7 @@ const ForfaitBooking: React.FC<Forfait> = ({ forfaits }) => {
       serviceName: forfait.name,
       duration: forfait.duration,
       price: activeForfait ? 0 : forfait.price,
-      date: selectedDate!,
-      // date: formattedDate,
+      date: activeForfait ? selectedDate : formattedDate,
       time: selectedTime,
       clientName: clientInfo.clientName,
       clientEmail: clientInfo.clientEmail,
@@ -131,17 +134,24 @@ const ForfaitBooking: React.FC<Forfait> = ({ forfaits }) => {
       setIsLoading(true);
 
       if (activeForfait) {
-        // ✅ Utilisation du forfait (pas de paiement Stripe)
-        await saveBooking(bookingData, user.uid, activeForfait.id);
-        toast({
-          title: "Séance réservée",
-          description: "✅ Votre séance a été réservée.",
-        });
-        router.push("/prestations");
+        const bookingResponse = await saveBooking(
+          bookingData,
+          userId,
+          activeForfait.id
+        );
+
+        if (bookingResponse?.success) {
+          await sendEmail(bookingData, undefined, activeForfait);
+          toast({
+            title: "Séance réservée",
+            description: "✅ Votre séance a été réservée.",
+          });
+          router.push("/prestations");
+        } else {
+          throw new Error("La réservation a échoué.");
+        }
       } else {
-        // ✅ Paiement normal via Stripe
-        // await initStripePayment(bookingData, user.uid, slug);
-        const response = await saveBooking(bookingData, user.uid, slug);
+        await initStripePayment(bookingData, userId, slug);
       }
 
       setErrorMessage("");

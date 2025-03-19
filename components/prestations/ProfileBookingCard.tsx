@@ -76,7 +76,8 @@ const ProfileBookingCard = ({
 
       toast({
         title: "Réservation annulée",
-        description: "Votre prestation a bien été annulée.",
+        description:
+          "Votre prestation a bien été annulée. Un crédit vous a été attribué pour réserver une nouvelle séance.",
       });
 
       setTimeout(() => router.refresh(), 500);
