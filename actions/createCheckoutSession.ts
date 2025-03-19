@@ -3,9 +3,6 @@
 import { stripe } from "@/lib/stripe";
 import { formatDate } from "@/lib/utils";
 
-// Définition du type pour les paramètres
-type InitStripePaymentParams = Omit<BookingDataType, "date"> & { date: string };
-
 // Définition du type de retour
 type CreateCheckoutSessionResponse = {
   sessionId?: string;
@@ -14,7 +11,7 @@ type CreateCheckoutSessionResponse = {
 };
 
 export async function createCheckoutSession(
-  bookingData: InitStripePaymentParams,
+  bookingData: BookingDataType,
   userId?: string,
   forfaitId?: string
 ): Promise<CreateCheckoutSessionResponse> {
@@ -26,27 +23,66 @@ export async function createCheckoutSession(
       date,
       time,
       clientEmail,
+      clientName,
+      clientPhone,
       isForfait,
       forfaitType,
+      dateFrom,
+      dateTo,
+      extraServices,
     } = bookingData;
 
-    // Déterminer le nombre de séances selon le type de forfait
+    // ✅ Déterminer le nombre de séances selon le type de forfait
     const forfaitLabel =
       forfaitType === "forfait-5" ? "Forfait 5 Séances" : "Forfait 10 Séances";
 
-    // Validation des données
-    if (!serviceName || !price || !duration || !date || !time || !clientEmail) {
-      throw new Error("Tous les champs sont requis.");
+    // ✅ Vérification des données pour RentBooking
+    const isRentBooking = !!(dateFrom && dateTo);
+
+    // // ✅ Validation des données
+    // if (!isRentBooking && !isForfait && duration === undefined) {
+    //   throw new Error("La durée est requise pour les prestations classiques.");
+    // }
+
+    // if (!isForfait && !isRentBooking && (!date || !time)) {
+    //   throw new Error("Les champs date et heure sont obligatoires.");
+    // }
+
+    // if (!userId && (!clientName || !clientEmail || !clientPhone)) {
+    //   throw new Error(
+    //     "Le nom, l'email et le téléphone sont requis pour les utilisateurs non connectés."
+    //   );
+    // }
+
+    // if (isRentBooking && (!dateFrom || !dateTo)) {
+    //   throw new Error(
+    //     "Les dates de début et de fin de réservation sont requises."
+    //   );
+    // }
+
+    // ✅ Génération de la description de la réservation
+    let description = isForfait
+      ? `${forfaitLabel} • ${duration} min`
+      : isRentBooking
+        ? `Location du ${formatDate(dateFrom!, false)} au ${formatDate(dateTo!, false)}`
+        : `${duration} min • ${formatDate(date!)} à ${time}`;
+
+    // ✅ Ajout des extras à la description si présents
+    if (extraServices && extraServices.length > 0) {
+      const extrasDescription = extraServices
+        .map((extra) => `${extra.quantity}x ${extra.name}`)
+        .join(", ");
+      description += ` • Extras: ${extrasDescription}`;
     }
 
     // ✅ Création de la session Stripe
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
-      success_url: `https://localhost:3000/success`,
-      cancel_url: `https://localhost:3000/cancel`,
-      // success_url: `https://zenlounge-guyane.vercel.app/success`,
-      // cancel_url: `https://zenlounge-guyane.vercel.app/cancel`,
+      // success_url: `https://localhost:3000/success`,
+      // cancel_url: `https://localhost:3000/cancel`,
+      success_url: `https://zenlounge-guyane.vercel.app/success`,
+      cancel_url: `https://zenlounge-guyane.vercel.app/cancel`,
       customer_email: clientEmail,
       line_items: [
         {
@@ -54,9 +90,7 @@ export async function createCheckoutSession(
             currency: "eur",
             product_data: {
               name: serviceName,
-              description: `${
-                isForfait ? forfaitLabel + " • " : ""
-              } ${duration} min • ${formatDate(date)} à ${time}`,
+              description,
               images: ["https://zenlounge-guyane.vercel.app/logo.png"],
             },
             unit_amount: price * 100, // Stripe attend le montant en centimes
@@ -67,7 +101,7 @@ export async function createCheckoutSession(
       metadata: {
         bookingData: JSON.stringify(bookingData),
         userId: userId || "",
-        forfaitId: forfaitId || "",
+        forfaitId: forfaitId || null,
       },
     });
 
