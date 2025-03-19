@@ -72,7 +72,6 @@ const ProcessSection = () => {
             maxWidth="max-w-[280px] sm:max-w-[500px] md:max-w-[600px]"
           />
         </div>
-        {/* <div className="h-[300px] w-[300px] rounded-full bg-rose-dark blur-3xl absolute -z-10 bottom-0 right-0 opacity-40"></div> */}
       </div>
     </section>
   );
