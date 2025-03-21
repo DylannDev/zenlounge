@@ -6,18 +6,19 @@ const InfoSection = () => {
     {
       icon: <PiPhoneLight />,
       title: "Contactez-nous",
-      description: "Téléphone : 06 94 34 56 78\nEmail : contact@zenlounge.fr",
+      description:
+        "Téléphone : 06 94 00 39 35\nEmail : contact@zenlounge-guyane.com",
     },
     {
       icon: <PiMapPinLight />,
       title: "Adresse",
-      description: "123 Avenue de la Sérénité\nLa Chaumière, Guyane Française",
+      description:
+        "87, Les Hauts de la Chaumière\n97351 MATOURY, Guyane Française",
     },
     {
       icon: <PiClockLight />,
       title: "Horaires",
-      description:
-        "Lundi - Vendredi : 9h - 19h\nSamedi : 10h - 18h\nDimanche : Fermé",
+      description: "Lundi - Samedi : 9h à 12h - 14h à 19h\nDimanche : Fermé",
     },
   ];
 
