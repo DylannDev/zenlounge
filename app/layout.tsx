@@ -13,8 +13,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="bg-white overflow-x-hidden">{children}</body>
+    <html lang="en" className="overflow-x-hidden">
+      <body className="bg-white">{children}</body>
     </html>
   );
 }
