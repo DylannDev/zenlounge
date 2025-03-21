@@ -1,7 +1,30 @@
+import { Metadata } from "next";
 import SectionHeader from "@/components/SectionHeader";
 import ServicesList from "@/components/ServicesList";
 import BackgroundIllustration from "@/components/ui/BackgroundIllustration";
 import { massageServices } from "@/data";
+
+export const metadata: Metadata = {
+  title: "Massages Relaxants & Thérapeutiques | Zen Lounge",
+  description:
+    "Détendez votre corps et votre esprit avec nos massages personnalisés. Profitez d'un moment de bien-être absolu dans un cadre apaisant.",
+  openGraph: {
+    title: "Massages Relaxants & Thérapeutiques | Zen Lounge",
+    description:
+      "Détendez votre corps et votre esprit avec nos massages personnalisés. Profitez d'un moment de bien-être absolu.",
+    url: "https://zenlounge-guyane.vercel.app/massages",
+    siteName: "Zen Lounge",
+    images: [
+      {
+        url: "/images/massage-preview.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Massages relaxants chez Zen Lounge",
+      },
+    ],
+    type: "website",
+  },
+};
 
 const Massages = () => {
   return (
@@ -14,6 +37,7 @@ const Massages = () => {
         bigTitle
       />
       <ServicesList services={massageServices} />
+
       <BackgroundIllustration
         src="/leaf-illustration-1.svg"
         position="top-[50px] -right-12"

@@ -1,7 +1,30 @@
+import { Metadata } from "next";
 import SectionHeader from "@/components/SectionHeader";
 import ServicesList from "@/components/ServicesList";
 import BackgroundIllustration from "@/components/ui/BackgroundIllustration";
 import { soinsServices } from "@/data";
+
+export const metadata: Metadata = {
+  title: "Soins du corps & visage | Zen Lounge",
+  description:
+    "Gommages exfoliants, enveloppements nourrissants et soins hydratants pour une peau éclatante. Découvrez nos soins bien-être.",
+  openGraph: {
+    title: "Soins du corps & visage | Zen Lounge",
+    description:
+      "Gommages exfoliants, enveloppements nourrissants et soins hydratants pour une peau éclatante.",
+    url: "https://zenlounge-guyane.vercel.app/soins",
+    siteName: "Zen Lounge",
+    images: [
+      {
+        url: "/massage-1.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Soins du corps et visage - Zen Lounge",
+      },
+    ],
+    type: "website",
+  },
+};
 
 const Soins = () => {
   return (

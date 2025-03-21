@@ -1,7 +1,30 @@
+import { Metadata } from "next";
 import SectionHeader from "@/components/SectionHeader";
 import ServicesList from "@/components/ServicesList";
 import BackgroundIllustration from "@/components/ui/BackgroundIllustration";
 import { forfaitSeances } from "@/data";
+
+export const metadata: Metadata = {
+  title: "Forfaits 5 ou 10 Séances - Massages et soins bien-être | Zen Lounge",
+  description:
+    "Prenez soin de vous toute l’année avec nos forfaits avantageux. Bénéficiez de remises exclusives en optant pour un forfait de 5 ou 10 séances.",
+  openGraph: {
+    title: "Forfaits Bien-Être & Massages | Zen Lounge",
+    description:
+      "Prenez soin de vous toute l’année avec nos forfaits avantageux. Profitez de réductions exclusives sur nos soins et massages.",
+    url: "https://zenlounge-guyane.vercel.app/forfaits",
+    siteName: "Zen Lounge",
+    images: [
+      {
+        url: "/images/forfaits-preview.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Forfaits massages et soins Zen Lounge",
+      },
+    ],
+    type: "website",
+  },
+};
 
 const Forfaits = () => {
   return (
