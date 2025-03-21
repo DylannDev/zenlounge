@@ -14,11 +14,11 @@ export default async function AdminLogin() {
   }
 
   return (
-    <section className="max-w-[550px] h-screen w-full mx-auto py-20 flex flex-col justify-center items-center gap-6 relative">
+    <section className="max-w-[550px] h-screen w-full mx-auto py-20 flex flex-col justify-center items-center gap-6 relative px-4">
       <div className="absolute top-20">
         <Logo />
       </div>
-      <div>
+      <div className="px-2">
         <h1 className="text-3xl font-bold text-center mb-4">
           Compte administrateur
         </h1>

@@ -58,7 +58,7 @@ const ProcessSection = () => {
           ))}
         </div>
 
-        <div className="relative w-full h-full aspect-video max-w-[800px] flex justify-center">
+        <div className="relative w-full h-full aspect-video max-w-[800px] flex justify-center my-10">
           <Image
             fill
             src="/spa-composition.png"

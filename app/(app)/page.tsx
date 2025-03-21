@@ -12,7 +12,9 @@ export default function Home() {
       <div className="max-w-[1200px] mx-auto">
         <ProcessSection />
         <Services />
-        <ClientsReviews />
+      </div>
+      <ClientsReviews />
+      <div className="max-w-[1200px] mx-auto">
         <Faq />
       </div>
 
