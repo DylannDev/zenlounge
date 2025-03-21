@@ -80,6 +80,10 @@ body {
   overflow: hidden;
 }
 
+.no-scroll-x {
+  overflow-x: hidden;
+}
+
 .day-past {
   color: rgb(113 113 122);
   opacity: 0.5;
