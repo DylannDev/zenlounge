@@ -7,7 +7,8 @@ interface CategoryProps {
   description: string;
   imageUrl: string;
   keyInfo: { icon: string | React.ReactNode; text: string }[];
-  reverse?: boolean; // Prop pour inverser l'ordre
+  link: string;
+  reverse?: boolean;
 }
 
 const Category: React.FC<CategoryProps> = ({
@@ -15,6 +16,7 @@ const Category: React.FC<CategoryProps> = ({
   description,
   imageUrl,
   keyInfo,
+  link,
   reverse = false,
 }) => {
   return (
@@ -58,8 +60,12 @@ const Category: React.FC<CategoryProps> = ({
           ))}
         </div>
         <div className="flex items-center gap-2 pt-10">
-          <Button color="rose">Découvrir</Button>
-          <Button color="empty">Réserver</Button>
+          <Button color="rose" href={link}>
+            Découvrir
+          </Button>
+          <Button color="empty" href={link}>
+            Réserver
+          </Button>
         </div>
       </div>
     </div>
