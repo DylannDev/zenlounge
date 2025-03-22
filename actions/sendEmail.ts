@@ -45,8 +45,7 @@ export const sendEmail = async (
     // Envoyer l'e-mail
     await resend.emails.send({
       from: "Vizion Web <contact@vizionweb.fr>",
-      // to: [bookingData.clientEmail],
-      to: "d.xavero@hotmail.com",
+      to: [bookingData.clientEmail],
       subject: "Confirmation de votre réservation",
       react: EmailClient,
     });
