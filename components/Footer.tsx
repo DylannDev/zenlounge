@@ -61,7 +61,7 @@ const Footer = () => {
               <div className="text-base">
                 Made by{" "}
                 <a
-                  href="https://dylann-dev.com/"
+                  href="https://vizionweb.fr/"
                   target="blank"
                   className="underline underline-offset-4 hover:text-rose-dark"
                 >
