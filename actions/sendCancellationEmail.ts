@@ -32,17 +32,16 @@ export const sendCancellationEmail = async (cancellationData: {
 
     // Envoyer l'e-mail au client
     await resend.emails.send({
-      from: "Zen Lounge <contact@vizionweb.fr>",
-      // to: [cancellationData.clientEmail],
-      to: "d.xavero@hotmail.com",
+      from: "Zen Lounge <noreply@zenlounge-guyane.fr>",
+      to: [cancellationData.clientEmail],
       subject: "Votre réservation a été annulée",
       react: EmailClient,
     });
 
     // Envoyer l'e-mail à l'admin
     await resend.emails.send({
-      from: "Zen Lounge <contact@vizionweb.fr>",
-      to: ["Zen Lounge <contact@vizionweb.fr>"],
+      from: "Zen Lounge <noreply@zenlounge-guyane.fr>",
+      to: ["Jeanne Auguste <jowes973@gmail.com>"],
       subject: "Annulation de réservation",
       react: EmailAdmin,
     });

@@ -44,15 +44,15 @@ export const sendEmail = async (
 
     // Envoyer l'e-mail
     await resend.emails.send({
-      from: "Vizion Web <contact@vizionweb.fr>",
+      from: "Zen Lounge <noreply@zenlounge-guyane.fr>",
       to: [bookingData.clientEmail],
       subject: "Confirmation de votre réservation",
       react: EmailClient,
     });
 
     await resend.emails.send({
-      from: "Vizion Web <contact@vizionweb.fr>",
-      to: ["Zen Lounge <contact@vizionweb.fr>"],
+      from: "Zen Lounge <noreply@zenlounge-guyane.fr>",
+      to: ["Jeanne Auguste <jowes973@gmail.com>"],
       subject: "Nouvelle réservation",
       react: EmailAdmin,
     });
