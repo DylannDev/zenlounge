@@ -59,7 +59,7 @@ export const categories = [
       "Découvrez nos massages sur-mesure, conçus pour vous offrir un moment de relaxation absolue. Profitez de soins adaptés à vos besoins, des massages de la tête aux pieds, pour un bien-être total et une détente profonde.",
     imageUrl: "/massage-2.jpg",
     keyInfo: [
-      { icon: <PiWallet />, text: "De 35€ à 120€" },
+      { icon: <PiWallet />, text: "De 40€ à 160€" },
       { icon: <PiTimer />, text: "30 min à 90 min" },
       {
         icon: <PiFlowerLotus />,
@@ -74,13 +74,13 @@ export const categories = [
     reverse: false,
   },
   {
-    title: "Soins du Corps et Visage",
+    title: "Soins du Corps",
     description:
       "Offrez à votre peau un éclat renouvelé grâce à nos soins experts. Profitez de gommages exfoliants, d'enveloppements nourrissants et de soins hydratants intensifs, spécialement conçus pour révéler la beauté naturelle de votre peau.",
     imageUrl: "/soins-visage.jpg",
     keyInfo: [
       { icon: <PiWallet />, text: "De 35€ à 170€" },
-      { icon: <PiTimer />, text: "15 min à 90 min" },
+      { icon: <PiTimer />, text: "15 min à 120 min" },
       {
         icon: <PiDrop />,
         text: "Produits utilisés : Huiles naturelles, gommages bio",
@@ -99,7 +99,7 @@ export const categories = [
       "Offrez-vous des forfaits bien-être de 5 ou 10 séances à tarifs dégressifs ! Profitez de massages relaxants à prix avantageux et prenez soin de vous toute l'année.",
     imageUrl: "/massage-dos.jpg",
     keyInfo: [
-      { icon: <PiWallet />, text: "De 180€ à 700€" },
+      { icon: <PiWallet />, text: "De 200€ à 800€" },
       {
         icon: <PiCheckSquare />,
         text: "Options : Forfaits 5 ou 10 séances",
@@ -172,12 +172,12 @@ export const faqData = [
 
 export const massageServices = [
   {
-    imageUrl: "/massage-cou.jpg",
+    imageUrl: "/massage-intuitif.jpg",
     name: "Massage Intuitif",
     description:
       "Chaque corps est unique, ce massage s’adapte à vos besoins. Mélange de techniques variées, il cible les zones de tension pour un relâchement total et une détente profonde.",
     duration: 60,
-    price: 75,
+    price: 95,
     slug: "massage-intuitif",
   },
   {
@@ -190,22 +190,49 @@ export const massageServices = [
     slug: "head-shoulders",
   },
   {
-    imageUrl: "/foot-massage.jpg",
+    imageUrl: "/massage-dos-cervicales.jpg",
+    name: "Massage Dos Cervicales",
+    description:
+      "Soulagez les tensions accumulées dans le haut du dos et la nuque avec ce massage ciblé. Grâce à des pressions profondes et des gestes précis, il libère les muscles noués et procure un soulagement immédiat.",
+    duration: 30,
+    price: 50,
+    slug: "massage-dos-cervicales",
+  },
+  {
+    imageUrl: "/massage-jambes-lourdes.jpg",
+    name: "Massage Jambes Lourdes",
+    description:
+      "Apaisez la sensation de jambes lourdes avec ce massage drainant. Grâce à des mouvements spécifiques, il stimule la circulation sanguine, réduit la rétention d’eau et redonne tonicité et légèreté à vos jambes.",
+    duration: 30,
+    price: 50,
+    slug: "massage-jambes-lourdes",
+  },
+  {
+    imageUrl: "/foot-massage-2.jpg",
     name: "Foot Massage",
     description:
-      "Accordez à vos pieds le soin qu’ils méritent avec ce massage relaxant. Il stimule la circulation, soulage les tensions et procure une sensation immédiate de légèreté et de bien-être général.",
+      "Accordez à vos jambes et vos pieds le soin qu’ils méritent avec ce massage relaxant. Il stimule la circulation, soulage les tensions et procure une sensation immédiate de légèreté et de bien-être général.",
     duration: 30,
-    price: 35,
+    price: 50,
     slug: "foot-massage",
   },
   {
     imageUrl: "/massage-1.jpg",
-    name: "Massage Relax",
+    name: "Massage Relaxant",
     description:
       "Délassez-vous avec ce massage doux et enveloppant, conçu pour évacuer le stress et relâcher les tensions. Parfait pour une pause bien-être, il procure une profonde sensation de sérénité et de relâchement.",
     duration: 60,
-    price: 65,
+    price: 80,
     slug: "massage-relax",
+  },
+  {
+    imageUrl: "/massage-duo.jpg",
+    name: "Massage Duo Relaxant",
+    description:
+      "Idéal pour les couples, délassez-vous avec ce massage doux et enveloppant, conçu pour évacuer le stress et relâcher les tensions.",
+    duration: 60,
+    price: 160,
+    slug: "massage-duo-relaxant",
   },
   {
     imageUrl: "/massage-pierre-1.jpg",
@@ -213,7 +240,7 @@ export const massageServices = [
     description:
       "Plongez dans une relaxation intense avec le massage aux pierres chaudes. Ce massage apaise les tensions musculaires, stimule la circulation et rééquilibre l’énergie du corps pour une sensation de bien-être total.",
     duration: 45,
-    price: 70,
+    price: 95,
     slug: "pierres-chaudes-45mn",
   },
   {
@@ -227,12 +254,12 @@ export const massageServices = [
   },
   {
     imageUrl: "/massage-sel.jpg",
-    name: "Massage Escale Energy",
+    name: "Massage Energy Zen",
     description:
       "Rechargez votre corps et votre esprit avec ce massage énergisant. Grâce à des mouvements dynamiques et profonds, il stimule la circulation, libère les tensions et booste votre vitalité pour une sensation de légèreté et d’équilibre.",
-    duration: 60,
-    price: 80,
-    slug: "massage-escale-energy",
+    duration: 90,
+    price: 125,
+    slug: "massage-energy-zen",
   },
   {
     imageUrl: "/massage-dos.jpg",
@@ -248,7 +275,7 @@ export const massageServices = [
 export const soinsServices = {
   women: [
     {
-      imageUrl: "/massage-cou.jpg",
+      imageUrl: "/evasion-feminine.jpg",
       name: "Évasion Féminine",
       description:
         "Offrez à votre peau un véritable rituel de bien-être. Ce soin complet associe exfoliation, hydratation et modelage pour une peau douce, lumineuse et revitalisée. Un instant de détente absolue rien que pour vous.",
@@ -257,7 +284,7 @@ export const soinsServices = {
       slug: "evasion-feminine",
     },
     {
-      imageUrl: "/massage-cou.jpg",
+      imageUrl: "/rituel-visage-feminin.jpg",
       name: "Rituel Visage Féminin",
       description:
         "Redonnez à votre peau toute sa vitalité avec ce soin du visage sur-mesure. Gommage, masque nourrissant et modelage relaxant subliment votre teint et procurent une sensation de fraîcheur et de douceur incomparables.",
@@ -265,28 +292,46 @@ export const soinsServices = {
       price: 170,
       slug: "rituel-visage-feminin",
     },
+    {
+      imageUrl: "/rituel-beaute-relaxation.jpg",
+      name: "Rituel Beauté & Relaxation",
+      description:
+        "Ce soin complet associe manucure et pédicure soignées, un gommage du corps revitalisant, et un massage relaxant pour libérer les tensions et sublimer votre peau. En 2 heures, profitez d’une expérience de bien-être absolu, alliant esthétique et détente profonde.",
+      duration: 120,
+      price: 150,
+      slug: "rituel-beaute-relaxation",
+    },
+    {
+      imageUrl: "/evasion-jambes-legeres.jpg",
+      name: "Évasion Jambes Légères",
+      description:
+        "Ce soin associe une manucure et pédicure soignées à un massage jambes drainant, idéal pour stimuler la circulation et soulager les tensions. En seulement 1h30, retrouvez une sensation de confort et de bien-être durable.",
+      duration: 90,
+      price: 90,
+      slug: "evasion-jambes-legeres",
+    },
   ],
   men: [
     {
-      imageUrl: "/massage-cou.jpg",
+      imageUrl: "/detente-masculine.jpg",
       name: "Détente Masculine",
       description:
-        "Pensé pour la peau des hommes, ce soin purifie, hydrate et apaise en profondeur. Un rituel idéal pour un teint éclatant et une sensation immédiate de fraîcheur et de confort.",
+        "Gommage et modelage du corps au sel marin pour une sensation immédiate de fraîcheur et de confort. Ce soin unique pour homme purifie, hydrate et apaise en profondeur.",
       duration: 90,
       price: 150,
       slug: "detente-masculine",
     },
     {
-      imageUrl: "/massage-cou.jpg",
+      imageUrl: "/rituel-pieds-masculin.jpg",
       name: "Rituel Pieds Masculin",
       description:
-        "Prenez soin de vos pieds avec ce soin réparateur. Exfoliation, massage et hydratation intense apaisent les tensions et redonnent douceur et légèreté à vos pieds fatigués.",
+        "Pédicure, Exfoliation, massage et hydratation pour apaiser les tensions et redonner douceur et légèreté à vos pieds.",
       duration: 90,
       price: 170,
       slug: "rituel-pieds-masculin",
     },
     {
-      imageUrl: "/massage-cou.jpg",
+      imageUrl: "/epilation-sourcils.jpg",
       name: "Épilation Sourcils",
       description:
         "Redéfinissez votre regard avec une épilation des sourcils soignée et précise. Une mise en forme adaptée à votre visage pour un regard structuré et sublimé.",
@@ -295,7 +340,7 @@ export const soinsServices = {
       slug: "epilation-sourcils",
     },
     {
-      imageUrl: "/massage-cou.jpg",
+      imageUrl: "/khobido-homme.jpg",
       name: "Khobido Homme",
       description:
         "Ce massage facial ancestral stimule la circulation, raffermit la peau et redonne éclat et tonicité au visage. Un soin anti-âge naturel pour une peau visiblement plus lisse et reposée.",
@@ -309,25 +354,25 @@ export const soinsServices = {
 export const forfaitSeances = {
   fiveSessions: [
     {
-      imageUrl: "/massage-cou.jpg",
-      name: "Massage Pierres Chaudes",
-      description:
-        "Plongez dans une détente absolue grâce à la chaleur réconfortante des pierres volcaniques. Ce massage apaise les tensions musculaires, stimule la circulation et rééquilibre l’énergie du corps pour une sensation de bien-être total.",
-      duration: 45,
-      price: 450,
-      slug: "massage-pierres-chaudes-forfait-5",
-    },
-    {
-      imageUrl: "/massage-cou.jpg",
+      imageUrl: "/massage-head.jpg",
       name: "Circulation Énergétique",
       description:
         "Rechargez votre corps et votre esprit avec ce massage énergisant. Grâce à des mouvements dynamiques et profonds, il stimule la circulation, libère les tensions et booste votre vitalité pour une sensation de légèreté et d’équilibre.",
       duration: 30,
-      price: 190,
+      price: 200,
       slug: "circulation-energetique-forfait-5",
     },
     {
-      imageUrl: "/massage-cou.jpg",
+      imageUrl: "/massage-jambes-lourdes-2.jpg",
+      name: "Massage Jambes Lourdes",
+      description:
+        "Apaisez la sensation de jambes lourdes avec ce massage drainant. Grâce à des mouvements spécifiques, il stimule la circulation sanguine, réduit la rétention d’eau et redonne tonicité et légèreté à vos jambes.",
+      duration: 30,
+      price: 220,
+      slug: "massage-jambes-lourdes-forfait-5",
+    },
+    {
+      imageUrl: "/massage-intuitif.jpg",
       name: "Massage Intuitif Therapy",
       description:
         "Chaque corps est unique, ce massage s’adapte à vos besoins. Mélange de techniques variées, il cible les zones de tension pour un relâchement total et une détente profonde.",
@@ -336,16 +381,16 @@ export const forfaitSeances = {
       slug: "massage-intuitif-therapy-forfait-5",
     },
     {
-      imageUrl: "/massage-cou.jpg",
+      imageUrl: "/foot-massage-2.jpg",
       name: "Foot Massage",
       description:
         "Accordez à vos pieds le soin qu’ils méritent avec ce massage relaxant. Il stimule la circulation, soulage les tensions et procure une sensation immédiate de légèreté et de bien-être général.",
       duration: 30,
-      price: 180,
+      price: 200,
       slug: "foot-massage-forfait-5",
     },
     {
-      imageUrl: "/massage-cou.jpg",
+      imageUrl: "/massage-1.jpg",
       name: "Massage Relaxant",
       description:
         "Délassez-vous avec ce massage doux et enveloppant, conçu pour évacuer le stress et relâcher les tensions. Parfait pour une pause bien-être, il procure une profonde sensation de sérénité et de relâchement.",
@@ -354,7 +399,7 @@ export const forfaitSeances = {
       slug: "massage-relaxant-forfait-5",
     },
     {
-      imageUrl: "/massage-cou.jpg",
+      imageUrl: "/massage-dos-cervicales.jpg",
       name: "Massage Dos Cervicales",
       description:
         "Soulagez les tensions accumulées dans le haut du dos et la nuque avec ce massage ciblé. Grâce à des pressions profondes et des gestes précis, il libère les muscles noués et procure un soulagement immédiat.",
@@ -362,10 +407,19 @@ export const forfaitSeances = {
       price: 220,
       slug: "massage-dos-cervicales-forfait-5",
     },
+    {
+      imageUrl: "/massage-pierre-1.jpg",
+      name: "Massage Pierres Chaudes",
+      description:
+        "Plongez dans une détente absolue grâce à la chaleur réconfortante des pierres volcaniques. Ce massage apaise les tensions musculaires, stimule la circulation et rééquilibre l’énergie du corps pour une sensation de bien-être total.",
+      duration: 45,
+      price: 450,
+      slug: "massage-pierres-chaudes-forfait-5",
+    },
   ],
   tenSessions: [
     {
-      imageUrl: "/massage-cou.jpg",
+      imageUrl: "/massage-2.jpg",
       name: "Massage Relaxant",
       description:
         "Offrez-vous un moment de sérénité avec ce massage enveloppant aux mouvements fluides et doux. Idéal pour réduire le stress et retrouver un état de relaxation profonde.",
@@ -374,7 +428,7 @@ export const forfaitSeances = {
       slug: "massage-relaxant-forfait-10",
     },
     {
-      imageUrl: "/massage-cou.jpg",
+      imageUrl: "/massage-dos.jpg",
       name: "Cure Dos Cervicales",
       description:
         "Une approche en plusieurs séances pour éliminer durablement les tensions du dos et des cervicales. Idéal pour ceux qui souffrent de douleurs chroniques et souhaitent retrouver une posture plus équilibrée.",
@@ -392,13 +446,31 @@ export const forfaitSeances = {
       slug: "neck-shoulders-soft-foot-forfait-10",
     },
     {
-      imageUrl: "/massage-cou.jpg",
+      imageUrl: "/massage-jambes-lourdes.jpg",
       name: "Massage Jambes Lourdes",
       description:
         "Apaisez la sensation de jambes lourdes avec ce massage drainant. Grâce à des mouvements spécifiques, il stimule la circulation sanguine, réduit la rétention d’eau et redonne tonicité et légèreté à vos jambes.",
       duration: 30,
-      price: 390,
+      price: 400,
       slug: "massage-jambes-lourdes-forfait-10",
+    },
+    {
+      imageUrl: "/massage-pierre-2.png",
+      name: "Massage Pierres Chaudes",
+      description:
+        "Plongez dans une détente absolue grâce à la chaleur réconfortante des pierres volcaniques. Ce massage apaise les tensions musculaires, stimule la circulation et rééquilibre l’énergie du corps pour une sensation de bien-être total.",
+      duration: 45,
+      price: 750,
+      slug: "massage-pierres-chaudes-forfait-10",
+    },
+    {
+      imageUrl: "/massage-intuitif.jpg",
+      name: "Massage Intuitif Therapy",
+      description:
+        "Chaque corps est unique, ce massage s’adapte à vos besoins. Mélange de techniques variées, il cible les zones de tension pour un relâchement total et une détente profonde.",
+      duration: 60,
+      price: 800,
+      slug: "massage-intuitif-therapy-forfait-10",
     },
   ],
 };
