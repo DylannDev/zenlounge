@@ -63,7 +63,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
             <Image
               fill
               src={imageUrl}
-              alt={`${name} photo`}
+              alt={`${name} photo massage gommage soins zen lounge`}
               className="object-cover rounded-2xl"
             />
           </div>
