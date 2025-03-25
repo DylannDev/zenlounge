@@ -31,7 +31,7 @@ const Soins = () => {
     <section className="relative max-w-[1200px] mx-auto flex flex-col gap-20 pt-10 pb-20">
       <div>
         <SectionHeader
-          title="Découvrez nos soins pour femme"
+          title="Découvrez nos soins bien-être pour femme"
           subtitle={[
             "Prenez soin de votre peau et révélez votre beauté avec nos rituels sur mesure.",
           ]}
@@ -41,7 +41,7 @@ const Soins = () => {
       </div>
       <div>
         <SectionHeader
-          title="Découvrez nos soins pour homme"
+          title="Découvrez nos soins bien-être pour homme"
           subtitle={[
             "Offrez à votre peau et votre corps des soins adaptés pour un bien-être absolu.",
           ]}

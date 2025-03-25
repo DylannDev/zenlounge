@@ -1,6 +1,14 @@
+import { Metadata } from "next";
 import { getCurrentUser } from "@/actions/authActions";
 import { redirect } from "next/navigation";
 import AuthForm from "@/components/AuthForm";
+
+export const metadata: Metadata = {
+  title: "Connexion | Zen Lounge Guyane",
+  description:
+    "Connectez-vous à votre espace Zen Lounge et réservez vos massages, soins et séjours détente en toute simplicité.",
+  robots: "noindex, nofollow",
+};
 
 const LoginPage = async () => {
   const currentUser = await getCurrentUser();

@@ -5,7 +5,7 @@ import BackgroundIllustration from "@/components/ui/BackgroundIllustration";
 import { forfaitSeances } from "@/data";
 
 export const metadata: Metadata = {
-  title: "Forfaits 5 ou 10 Séances - Massages et soins bien-être | Zen Lounge",
+  title: "Forfaits 5 ou 10 Séances - Massages et soins bien-être",
   description:
     "Prenez soin de vous toute l’année avec nos forfaits avantageux. Bénéficiez de remises exclusives en optant pour un forfait de 5 ou 10 séances.",
   openGraph: {

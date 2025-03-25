@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Zen Lounge | Massages, Soins & Séjours Détente",
+  title: "Zen Lounge | Massages, Soins & Séjours Détente en Guyane",
   description:
-    "Situé à La Chaumière en Guyane, notre institut propose des massages relaxants, soins visage et corps, séjours bien-être et forfaits pour une sérénité absolue.",
+    "Situé à Matoury en Guyane, notre institut propose des massages relaxants, soins visage et corps, séjours bien-être et forfaits pour une sérénité absolue.",
   openGraph: {
     title: "Zen Lounge | Massages, Soins & Séjours Détente",
     description:
