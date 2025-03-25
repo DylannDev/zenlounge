@@ -57,7 +57,7 @@ export const categories = [
     title: "Massages",
     description:
       "Découvrez nos massages sur-mesure, conçus pour vous offrir un moment de relaxation absolue. Profitez de soins adaptés à vos besoins, des massages de la tête aux pieds, pour un bien-être total et une détente profonde.",
-    imageUrl: "/massage-2.jpg",
+    imageUrl: "/massage-head.jpg",
     keyInfo: [
       { icon: <PiWallet />, text: "De 40€ à 160€" },
       { icon: <PiTimer />, text: "30 min à 90 min" },
@@ -77,7 +77,7 @@ export const categories = [
     title: "Soins du Corps",
     description:
       "Offrez à votre peau un éclat renouvelé grâce à nos soins experts. Profitez de gommages exfoliants, d'enveloppements nourrissants et de soins hydratants intensifs, spécialement conçus pour révéler la beauté naturelle de votre peau.",
-    imageUrl: "/soins-visage.jpg",
+    imageUrl: "/evasion-feminine.jpg",
     keyInfo: [
       { icon: <PiWallet />, text: "De 35€ à 170€" },
       { icon: <PiTimer />, text: "15 min à 120 min" },
@@ -185,7 +185,7 @@ export const massageServices = [
     name: "Head & Shoulders",
     description:
       "Libérez votre tête et vos épaules des tensions accumulées. Ce massage profond et ciblé apaise les migraines, soulage les raideurs cervicales et procure un bien-être immédiat.",
-    duration: 30,
+    duration: 20,
     price: 40,
     slug: "head-shoulders",
   },
