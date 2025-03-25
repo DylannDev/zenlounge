@@ -21,6 +21,7 @@ export const setAuthToken = async (token: string) => {
   const cookieStore = await cookies();
   try {
     const decodedToken = await firebaseAdmin.auth().verifyIdToken(token);
+    const expirationTime = new Date(decodedToken.exp * 1000);
 
     cookieStore.set({
       name: "authToken",
@@ -29,7 +30,7 @@ export const setAuthToken = async (token: string) => {
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax", // ✅ Permet l'envoi du cookie même après une redirection OAuth
       path: "/", // ✅ Assure que le cookie est disponible sur toutes les routes
-      maxAge: 60 * 60 * 24 * 7, // 7 jours
+      expires: expirationTime,
     });
 
     return { success: true, uid: decodedToken.uid };
