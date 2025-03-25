@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Metadata } from "next";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,13 +14,6 @@ import { submitReview } from "@/actions/submitReview";
 import { reviewSchemaClient } from "@/validation/reviewSchemaClient";
 
 type ReviewFormData = z.infer<typeof reviewSchemaClient>;
-
-export const metadata: Metadata = {
-  title: "Avis Clients | Zen Lounge Guyane",
-  description:
-    "Laissez nous votre avis sur nos massages, soins et séjours détente en Guyane.",
-  robots: "noindex, nofollow",
-};
 
 const Reviews = () => {
   const router = useRouter();
