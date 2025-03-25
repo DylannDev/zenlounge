@@ -1,5 +1,5 @@
 import { getCurrentUser } from "@/actions/authActions";
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import ServicesContent from "@/components/prestations/ServicesContent";
 import Loader from "@/components/Loader";
 import { Suspense } from "react";
@@ -7,7 +7,7 @@ import { Suspense } from "react";
 const ServicesPage = async () => {
   const currentUser = await getCurrentUser();
   if (!currentUser) {
-    redirect("/login");
+    return permanentRedirect("/login");
   }
 
   return (
