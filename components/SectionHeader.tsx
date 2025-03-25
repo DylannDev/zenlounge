@@ -21,7 +21,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         bigTitle ? "gap-8" : "gap-2"
       } ${textCenter && "text-center"}`}
     >
-      <h2
+      <h1
         className={`font-bold ${
           bigTitle
             ? "text-3xl md:text-5xl"
@@ -29,15 +29,15 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         }`}
       >
         {title}
-      </h2>
-      <p className="text-xl md:text-4xl font-medium text-brown-background">
+      </h1>
+      <h2 className="text-xl md:text-4xl font-medium text-brown-background">
         {subtitle.map((line, index) => (
           <span key={index}>
             {line}
             {index < subtitle.length - 1 && <br />}
           </span>
         ))}
-      </p>
+      </h2>
     </div>
   );
 };
