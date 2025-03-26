@@ -14,8 +14,8 @@ export default async function AdminLogin() {
   }
 
   return (
-    <section className="max-w-[550px] h-screen w-full mx-auto py-20 flex flex-col justify-center items-center gap-6 relative px-4">
-      <div className="absolute top-20">
+    <section className="max-w-[550px] h-screen w-full mx-auto pt-40 pb-20 flex flex-col justify-center items-center gap-6 relative px-4">
+      <div className="absolute top-16">
         <Logo />
       </div>
       <div className="px-2">

@@ -83,7 +83,7 @@ export default function AdminDashboardLayout({
         </SidebarBody>
       </Sidebar>
 
-      <main className="flex flex-col flex-1 overflow-y-auto py-4 px-10">
+      <main className="flex flex-col flex-1 overflow-y-auto py-4 px-4 sm:px-10">
         <div className="mb-6">
           <h1 className="text-2xl font-bold">Bienvenue, {adminName} 👋</h1>
           <p className="text-sm text-blue-light">
