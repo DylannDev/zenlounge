@@ -31,7 +31,7 @@ export const navbarLinks = [
   { href: "massages", label: "Massages" },
   { href: "soins", label: "Soins" },
   { href: "forfaits", label: "Forfaits" },
-  { href: "location", label: "Location" },
+  // { href: "location", label: "Location" },
 ];
 
 export const socialLinks = [
