@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: "Massages Relaxants & Thérapeutiques | Zen Lounge",
     description:
       "Détendez votre corps et votre esprit avec nos massages personnalisés. Profitez d'un moment de bien-être absolu.",
-    url: "https://zenlounge-guyane.vercel.app/massages",
+    url: "https://zenlounge-guyane.fr/massages",
     siteName: "Zen Lounge",
     images: [
       {

@@ -81,8 +81,8 @@ export async function createCheckoutSession(
       mode: "payment",
       // success_url: `https://localhost:3000/success`,
       // cancel_url: `https://localhost:3000/cancel`,
-      success_url: `https://zenlounge-guyane.vercel.app/success`,
-      cancel_url: `https://zenlounge-guyane.vercel.app/cancel`,
+      success_url: `https://zenlounge-guyane.fr/success`,
+      cancel_url: `https://zenlounge-guyane.fr/cancel`,
       customer_email: clientEmail,
       line_items: [
         {
@@ -91,7 +91,7 @@ export async function createCheckoutSession(
             product_data: {
               name: serviceName,
               description,
-              images: ["https://zenlounge-guyane.vercel.app/logo.png"],
+              images: ["https://zenlounge-guyane.fr/logo.png"],
             },
             unit_amount: price * 100, // Stripe attend le montant en centimes
           },

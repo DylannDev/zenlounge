@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: "Séjours Détente & Locations Bien-Être | Zen Lounge",
     description:
       "Offrez-vous une escapade de bien-être avec nos séjours détente. Profitez d'un cadre apaisant et de prestations relaxantes.",
-    url: "https://zenlounge-guyane.vercel.app/location",
+    url: "https://zenlounge-guyane.fr/location",
     siteName: "Zen Lounge",
     images: [
       {

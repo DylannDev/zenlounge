@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: "Forfaits Bien-Être & Massages | Zen Lounge",
     description:
       "Prenez soin de vous toute l’année avec nos forfaits avantageux. Profitez de réductions exclusives sur nos soins et massages.",
-    url: "https://zenlounge-guyane.vercel.app/forfaits",
+    url: "https://zenlounge-guyane.fr/forfaits",
     siteName: "Zen Lounge",
     images: [
       {

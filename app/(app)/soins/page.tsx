@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: "Soins du corps & visage | Zen Lounge",
     description:
       "Gommages exfoliants, enveloppements nourrissants et soins hydratants pour une peau éclatante.",
-    url: "https://zenlounge-guyane.vercel.app/soins",
+    url: "https://zenlounge-guyane.fr/soins",
     siteName: "Zen Lounge",
     images: [
       {
