@@ -33,13 +33,20 @@ const ProcessSection = () => {
     <section className="py-10 relative">
       <div className="flex flex-col items-center gap-2 text-center">
         <div className="mb-16 flex flex-col items-center gap-1">
-          <h2 className="font-bold text-base text-brown-dark tracking-wider uppercase">
+          <p className="font-bold text-base text-brown-dark tracking-wider uppercase">
             Bienvenue chez Zen Lounge
-          </h2>
-          <h3 className="text-3xl sm:text-4xl font-medium">
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-medium">
             Laissez-vous guider, étape par étape.
-          </h3>
-          <img src="/shape-2.svg" alt="" className="w-[200px] mt-5" />
+          </h2>
+          <Image
+            src="/shape-2.svg"
+            alt=""
+            aria-hidden="true"
+            width={200}
+            height={20}
+            className="w-[200px] mt-5"
+          />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-16">
           {steps.map((step, index) => (
@@ -62,7 +69,8 @@ const ProcessSection = () => {
           <Image
             fill
             src="/spa-composition.png"
-            alt="spa composition photo"
+            alt="Composition de produits spa et bien-être chez Zen Lounge"
+            sizes="(max-width: 768px) 100vw, 800px"
             className="object-cover"
           />
           <BackgroundIllustration

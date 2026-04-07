@@ -1,13 +1,37 @@
+import type { Metadata } from "next";
 import ClientsReviews from "@/components/ClientsReviews";
 import Faq from "@/components/Faq";
 import Hero from "@/components/Hero";
 import ProcessSection from "@/components/ProcessSection";
 import Services from "@/components/Services";
 import BackgroundIllustration from "@/components/ui/BackgroundIllustration";
+import JsonLd from "@/components/seo/JsonLd";
+import {
+  buildBusinessAggregateRating,
+  buildFaqJsonLd,
+} from "@/lib/seo/jsonLd";
+import { faqData } from "@/data";
+import { fetchReviews } from "@/actions/fetchReviews";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title:
+    "Institut de Bien-être à Cayenne (Matoury) — Massages & Soins en Guyane",
+  description:
+    "Institut Zen Lounge à Matoury (Cayenne, Guyane) : massages relaxants et thérapeutiques, soins du visage et du corps, forfaits avantageux et séjours détente. Réservez votre moment de bien-être en ligne.",
+  alternates: { canonical: "/" },
+};
+
+export default async function Home() {
+  const reviews = await fetchReviews();
+  const aggregateRating = buildBusinessAggregateRating(reviews);
+  const faqJsonLd = buildFaqJsonLd(faqData);
+
   return (
     <div className="relative">
+      <JsonLd id="ld-faq-home" data={faqJsonLd} />
+      {aggregateRating && (
+        <JsonLd id="ld-aggregate-rating" data={aggregateRating} />
+      )}
       <Hero />
       <div className="max-w-[1200px] mx-auto">
         <ProcessSection />

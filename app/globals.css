@@ -98,3 +98,57 @@ body {
   -ms-overflow-style: none; /* Pour IE et Edge */
   scrollbar-width: none; /* Pour Firefox */
 }
+
+@layer components {
+  .mdx-content {
+    @apply text-base text-blue-light;
+  }
+  .mdx-content h1 {
+    @apply text-3xl sm:text-4xl md:text-5xl font-bold text-brown-dark text-center mb-8;
+  }
+  .mdx-content h2 {
+    @apply text-2xl font-semibold text-brown-dark mt-10 mb-3;
+  }
+  .mdx-content h3 {
+    @apply text-xl font-semibold text-brown-dark mt-6 mb-2;
+  }
+  .mdx-content p {
+    @apply my-4 text-base sm:text-lg leading-relaxed;
+  }
+  .mdx-content a {
+    @apply text-brown-dark font-medium underline underline-offset-4 hover:text-orange transition-colors;
+  }
+  .mdx-content ul {
+    @apply list-disc pl-6 my-4 space-y-2;
+  }
+  .mdx-content ol {
+    @apply list-decimal pl-6 my-4 space-y-2;
+  }
+  .mdx-content li {
+    @apply leading-relaxed text-base sm:text-lg;
+  }
+  .mdx-content strong {
+    @apply font-semibold text-brown-dark;
+  }
+  .mdx-content em {
+    @apply italic;
+  }
+  .mdx-content hr {
+    @apply my-8 border-rose-dark/40;
+  }
+  .mdx-content blockquote {
+    @apply border-l-4 border-rose-dark pl-4 my-4 text-blue-light italic;
+  }
+  .mdx-content table {
+    @apply w-full text-sm border-collapse my-6;
+  }
+  .mdx-content thead {
+    @apply bg-brown-dark text-white;
+  }
+  .mdx-content th {
+    @apply px-4 py-2.5 text-left font-semibold;
+  }
+  .mdx-content td {
+    @apply px-4 py-2.5 border-b border-rose-dark/40;
+  }
+}

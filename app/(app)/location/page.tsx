@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: "Zen Lounge",
     images: [
       {
-        url: "/images/location-preview.jpg",
+        url: "/lounge-1.jpg",
         width: 1200,
         height: 630,
         alt: "Séjours détente et locations chez Zen Lounge",
@@ -32,7 +32,9 @@ const LocationPage = () => {
     <section className="max-w-[1400px] mx-auto flex flex-col pt-10 pb-20">
       {/* Section Header */}
       <SectionHeader
-        title="✨ Location courte durée en Guyane – Serenity Suite avec jacuzzi privé"
+        as="h1"
+        bigTitle
+        title="Location SPA & jacuzzi privé en Guyane — Serenity Suite"
         subtitle={[
           "Profitez d'un séjour tout confort en Guyane, idéal pour une escapade seul ou accompagné.",
         ]}

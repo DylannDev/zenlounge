@@ -1,33 +1,43 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import JsonLd from "@/components/seo/JsonLd";
+import { localBusinessJsonLd } from "@/lib/seo/jsonLd";
 
 export const metadata: Metadata = {
-  title: "Zen Lounge | Massages, Soins & Séjours Détente en Guyane",
+  metadataBase: new URL("https://zenlounge-guyane.fr"),
+  title: {
+    default:
+      "Institut de Bien-être à Cayenne (Matoury) — Massages & Soins | Zen Lounge",
+    template: "%s | Zen Lounge",
+  },
   description:
-    "Situé à Matoury en Guyane, notre institut propose des massages relaxants, soins visage et corps, séjours bien-être et forfaits pour une sérénité absolue.",
+    "Institut de bien-être à Matoury (Cayenne, Guyane). Massages relaxants et thérapeutiques, soins du visage et du corps, forfaits avantageux et séjours détente. Réservation en ligne.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Zen Lounge | Massages, Soins & Séjours Détente",
+    title: "Zen Lounge — Institut de Bien-être à Cayenne / Matoury",
     description:
-      "Découvrez nos prestations bien-être : massages relaxants, soins du corps et séjours détente dans un cadre apaisant en Guyane.",
+      "Massages, soins du visage et du corps, forfaits et séjours détente dans un cadre apaisant en Guyane.",
     url: "https://zenlounge-guyane.fr",
     type: "website",
     siteName: "Zen Lounge",
     locale: "fr_FR",
     images: [
       {
-        url: "https://zenlounge-guyane.fr/massage-1.jpg",
+        url: "/massage-1.jpg",
         width: 2880,
         height: 1920,
-        alt: "Zen Lounge - Massages, Soins & Séjours Détente",
+        alt: "Zen Lounge — Institut de bien-être à Cayenne / Matoury",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Zen Lounge | Massages, Soins & Séjours Détente",
+    title: "Zen Lounge — Institut de Bien-être à Cayenne / Matoury",
     description:
-      "Offrez-vous un moment de bien-être avec nos massages, soins du corps et séjours détente en Guyane.",
-    images: ["https://zenlounge-guyane.fr/massage-1.jpg"],
+      "Massages, soins du corps et du visage, forfaits et séjours détente en Guyane.",
+    images: ["/massage-1.jpg"],
   },
 };
 
@@ -37,8 +47,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="overflow-x-hidden">
-      <body className="bg-white">{children}</body>
+    <html lang="fr" className="overflow-x-hidden">
+      <body className="bg-white">
+        <JsonLd id="ld-local-business" data={localBusinessJsonLd} />
+        {children}
+      </body>
     </html>
   );
 }
