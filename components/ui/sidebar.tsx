@@ -10,7 +10,7 @@ interface SidebarLinkProps {
     label: string;
     href?: string;
     icon: React.JSX.Element | React.ReactNode;
-    onClick?: () => void;
+    onClick?: (e: React.MouseEvent) => void;
   };
   className?: string;
 }
@@ -193,6 +193,7 @@ export const SidebarLink = ({ link, className }: SidebarLinkProps) => {
   ) : (
     <Link
       href={link.href || "#"}
+      onClick={link.onClick}
       className={cn("flex items-center justify-start gap-2 p-3", className)}
     >
       {content}
